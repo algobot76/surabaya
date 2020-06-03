@@ -4,9 +4,10 @@ set -e
 
 REPO_ROOT_DIR="$(git rev-parse --show-toplevel)"
 
-files=$((git diff --cached --name-only --diff-filter=ACMR | grep -Ei "\.java$") || true)
+files=$((git diff --cached --name-only --diff-filter=ACMR | grep -Ei "[\.java$|\.js$|\.jsx$|\.css$]") || true)
 if [ ! -z "${files}" ]; then
     comma_files=$(echo "$files" | paste -s -d "," -)
-    "${REPO_ROOT_DIR}/mvnw" spring-javaformat:apply &>/dev/null
+    "${REPO_ROOT_DIR}/mvnw" spring-javaformat:apply
+    "${REPO_ROOT_DIR}/client/node_modules/.bin/prettier" --write .
     git add $(echo "$files" | paste -s -d " " -)
 fi
