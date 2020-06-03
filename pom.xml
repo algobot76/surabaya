@@ -70,7 +70,7 @@
 				<artifactId>frontend-maven-plugin</artifactId>
 				<version>1.10.0</version>
 				<configuration>
-					<workingDirectory>src/main/javascript/frontend</workingDirectory>
+					<workingDirectory>client</workingDirectory>
 					<installDirectory>target</installDirectory>
 				</configuration>
 				<executions>
@@ -113,7 +113,7 @@
 						<configuration>
 							<target>
 								<copy todir="${project.build.directory}/classes/public">
-									<fileset dir="${project.basedir}/src/main/javascript/frontend/build"/>
+									<fileset dir="${project.basedir}/client/build"/>
 								</copy>
 							</target>
 						</configuration>
