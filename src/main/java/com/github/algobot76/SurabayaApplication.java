@@ -1,13 +1,13 @@
-package com.example.demo;
+package com.github.algobot76;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DemoApplication {
+public class SurabayaApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DemoApplication.class, args);
+		SpringApplication.run(SurabayaApplication.class, args);
 	}
 
 }

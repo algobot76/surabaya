@@ -1,10 +1,10 @@
-package com.example.demo;
+package com.github.algobot76;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class DemoApplicationTests {
+class SurabayaApplicationTests {
 
 	@Test
 	void contextLoads() {

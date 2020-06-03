@@ -1,0 +1,20 @@
+#!/bin/sh
+
+set -e
+
+REPO_ROOT_DIR="$(git rev-parse --show-toplevel)"
+
+java_files=$((git diff --cached --name-only --diff-filter=ACMR | grep -Ei "\.java$") || true)
+if [ ! -z "${java_files}" ]; then
+    "${REPO_ROOT_DIR}/mvnw" spring-javaformat:apply
+    git add $(echo "$java_files" | paste -s -d " " -)
+fi
+
+js_css_files=$(git diff --cached --name-only --diff-filter=ACMR "*.js" "*.ts" "*.jsx" "*.tsx" "*.css" | sed 's| |\\ |g')
+if [ ! -z "${js_css_files}" ]; then
+    for file in $js_css_files
+    do
+        "${REPO_ROOT_DIR}/client/node_modules/.bin/prettier" --write $file
+    done
+    git add $(echo "$js_css_files" | paste -s -d " " -)
+fi
