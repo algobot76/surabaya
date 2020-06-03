@@ -8,11 +8,12 @@
 		<version>2.3.0.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.algobot76</groupId>
+	<groupId>com.github.algobot76</groupId>
 	<artifactId>surabaya</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>surabaya</name>
 	<description>Java Code Visualization Tool</description>
+	<url>https://github.com/algobot76/surabaya</url>
 
 	<properties>
 		<java.version>11</java.version>

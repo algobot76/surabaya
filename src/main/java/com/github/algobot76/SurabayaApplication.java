@@ -1,4 +1,4 @@
-package com.algobot76.surabaya;
+package com.github.algobot76;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
