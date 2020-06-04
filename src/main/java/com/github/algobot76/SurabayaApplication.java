@@ -26,10 +26,9 @@ public class SurabayaApplication {
 		// Just to ensure that JavaParser works, temporary until we get file upload
 		// working
 		SourceRoot sourceRoot = new SourceRoot(
-				CodeGenerationUtils.mavenModuleRoot(SurabayaApplication.class).resolve("src/main/resources"));
+				CodeGenerationUtils.mavenModuleRoot(SurabayaApplication.class).resolve("src/test/testJavaProject/src"));
 
-		// Our sample is in the root of this directory, so no package name.
-		CompilationUnit cu = sourceRoot.parse("", "Tokenizer.java");
+		CompilationUnit cu = sourceRoot.parse("ast", "DEC.java");
 		System.out.printf("Test: %s", cu.getChildNodes().get(0).toString());
 	}
 
