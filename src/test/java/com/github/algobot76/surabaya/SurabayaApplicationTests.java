@@ -1,4 +1,4 @@
-package com.github.algobot76;
+package com.github.algobot76.surabaya;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
