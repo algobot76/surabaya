@@ -18,15 +18,16 @@ If you are using IntellJ IDEA, please install this plugin that provides formatte
 Use `JavaParser` and convert the outputted AST into the custom `JavaProject` class described below.
 
 ### JavaProject Class
-packages: a mapping of package name to list of class names   
-classes: a mapping of class names to `JavaClass`  
+Fields:
+- `packages`: a mapping of package name to list of class names   
+- `classes`: a mapping of class names to `JavaClass`  
 
 Has a `toJson()` method that returns a json formatted representation for the frontend to work with. 
 
 This structure enables the easy workflow of creating the base location of each island by iterating
 throught the package name to class map before going through each island and filling in the details
 
-json representation will look like this:   
+Example json representation:   
 ```
 {
   "packages": {"package1": ["ex1", "ex2"],
@@ -65,35 +66,35 @@ json representation will look like this:
 
 ### JavaClass Class
 Fields:
-- name: String
-- type: Enum (Interface, Abstract, Concrete, etc.)
-- accessModifier: Enum (private, public, protected)
-- lineCount: int (number of lines)
-- imports: list of String
-- fields: Map of type to list of JavaField Class (Easier to work with when rendering groups of fields according to type)
-- methods: list of JavaMethod Class
-- constructors: list of JavaMethod Class
+- `name`: String
+- `type`: Enum (Interface, Abstract, Concrete, etc.)
+- `accessModifier`: Enum (private, public, protected)
+- `lineCount`: int (number of lines)
+- `imports`: list of String
+- `fields`: Map of type to list of JavaField Class (Easier to work with when rendering groups of fields according to type)
+- `methods`: list of JavaMethod Class
+- `constructors`: list of JavaMethod Class
 
 Methods:
-- toJson()
+- `toJson()`
   
 
 ### JavaField Class
 Fields:
-- name: String
-- type: String
-- accessModifier: Enum (private, public, protected)
+- `name`: String
+- `type`: String
+- `accessModifier`: Enum (private, public, protected)
 
 Methods:
-- toJson()
+- `toJson()`
 
 ### JavaMethod Class
 Fields:
-- name: String
-- accessModifier: Enum (private, public, protected)
-- parameters: map of: name to type (Not sure what we need here...)
-- returnType: String
-- ~~fields~~ (Add local fields as stretch goal)
+- `name`: String
+- `accessModifier`: Enum (private, public, protected)
+- `parameters`: map of: name to type (Not sure what we need here...)
+- `returnType`: String
+- `~~fields~~` (Add local fields as stretch goal)
 
 Methods:
-- toJson()
+- `toJson()`
