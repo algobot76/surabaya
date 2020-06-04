@@ -1,0 +1,7 @@
+new a
+new b
+set a, 1
+set b, a
+set a, 2
+print a
+print b
