@@ -18,10 +18,11 @@ If you are using IntellJ IDEA, please install this plugin that provides formatte
 Use JavaParser and convert the outputted AST into the custom JavaProject class described below.
 
 ### JavaProject Class
-Contains a mapping of package name to class names 
-Contains a mapping of class names to JavaClass classes
-(This structure enables the easy workflow of creating the base location of each island by iterating
-throught the package name to class map before going through each island and filling in the details)
+Contains a mapping of package name to class names   
+Contains a mapping of class names to JavaClass classes  
+
+This structure enables the easy workflow of creating the base location of each island by iterating
+throught the package name to class map before going through each island and filling in the details
 
 ### JavaClass Class
 Fields:
