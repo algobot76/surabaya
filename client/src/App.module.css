@@ -14,5 +14,5 @@
   height: 100vh;
   width: calc(100vw - 300px);
   background-color: lightyellow;
-  overflow: scroll;
+  overflow: auto;
 }
