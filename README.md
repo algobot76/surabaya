@@ -52,7 +52,7 @@ Example json representation:
             "name": "ex1",
             "accessModifier": "public",
             "parameters": {"param1": "String", "param2": "int"},
-            "returnType": "void"
+            "returnType": null
           }]
     },
     {...},
