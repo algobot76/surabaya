@@ -182,9 +182,7 @@ const Island: React.FC = () => {
 
   const minimumInnerIslandWidth = (width * 8) / 5;
   const numberOfIslandImages = islandArray.length;
-  const randomIslandIndex = Math.floor(
-    Math.random() * (numberOfIslandImages - 1)
-  );
+  const randomIslandIndex = Math.floor(Math.random() * numberOfIslandImages);
   const islandImage = islandArray[randomIslandIndex];
 
   return (
