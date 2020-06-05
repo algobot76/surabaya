@@ -2,6 +2,14 @@ import React from "react";
 import IconToolTip, { iconWidth } from "../IconTooltip";
 import styled from "styled-components";
 
+import Island1 from "../../assets/islands/island1.png";
+import Island2 from "../../assets/islands/island2.png";
+import Island3 from "../../assets/islands/island3.png";
+import Island4 from "../../assets/islands/island4.png";
+import Island5 from "../../assets/islands/island5.png";
+
+const islandArray = [Island1, Island2, Island3, Island4, Island5];
+
 const mockClass = {
   name: "c1",
   type: "Interface",
@@ -38,6 +46,12 @@ const mockClass = {
       parameters: { param1: "String", param2: "int" },
       returnType: "void",
     },
+    {
+      name: "method1",
+      accessModifier: "private",
+      parameters: { param1: "String", param2: "int" },
+      returnType: "void",
+    },
   ],
   constructors: [
     {
@@ -49,14 +63,10 @@ const mockClass = {
   ],
 };
 
-const ArrayContainer = styled.div<{ width: string }>`
-  width: ${(props) => props.width};
-`;
-
-const ToolTipArray: React.FC = () => {
-  const methods = mockClass["methods"];
-  const constructors = mockClass["constructors"];
-  const fields = mockClass["fields"];
+function getToolTipDataArray(classObject: any) {
+  const methods = classObject["methods"];
+  const constructors = classObject["constructors"];
+  const fields = classObject["fields"];
   const strings = fields?.["string"];
   const stringMultiples = fields?.["stringMultiples"];
   const booleans = fields?.["boolean"];
@@ -123,7 +133,7 @@ const ToolTipArray: React.FC = () => {
       />
     )) || [];
 
-  const toolTipArray = [
+  return [
     ...methodToolTips,
     ...constructorToolTips,
     ...stringToolTips,
@@ -135,14 +145,54 @@ const ToolTipArray: React.FC = () => {
     ...otherToolTipsToolTips,
     ...otherMultiplesToolTips,
   ];
+}
 
+const IslandContainer = styled.div<{ minWidth }>`
+  width: ${(props) => `${props.minWidth}px`};
+  height: ${(props) => `${props.minWidth}px`};
+  position: relative;
+  display: flex;
+  justify-content: center;
+`;
+
+const IslandImage = styled.img<{ maxWidth }>`
+  max-width: ${(props) => `${props.maxWidth}px`};
+  max-height: ${(props) => `${props.maxWidth}px`};
+  position: absolute;
+  top: 0;
+  left: 0;
+`;
+
+const ToolTipSquare = styled.div<{ width }>`
+  width: ${(props) => `${props.width}px`};
+  height: ${(props) => `${props.width}px`};
+  z-index: 9;
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+`;
+
+const Island: React.FC = () => {
+  const toolTipArray = getToolTipDataArray(mockClass);
   const numberOfIcons = toolTipArray.length;
   const square = Math.sqrt(numberOfIcons);
   const numberHorizontal = Math.ceil(square);
   const width = numberHorizontal * iconWidth;
-  const widthPx = `${width.toString()}px`;
 
-  return <ArrayContainer width={widthPx}>{toolTipArray}</ArrayContainer>;
+  const minimumInnerIslandWidth = (width * 8) / 5;
+  const numberOfIslandImages = islandArray.length;
+  const randomIslandIndex = Math.floor(
+    Math.random() * (numberOfIslandImages - 1)
+  );
+  const islandImage = islandArray[randomIslandIndex];
+
+  return (
+    <IslandContainer minWidth={minimumInnerIslandWidth}>
+      <ToolTipSquare width={width}>{toolTipArray}</ToolTipSquare>
+      <IslandImage src={islandImage} maxWidth={minimumInnerIslandWidth} />
+    </IslandContainer>
+  );
 };
 
-export default ToolTipArray;
+export default Island;
