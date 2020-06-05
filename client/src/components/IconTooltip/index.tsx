@@ -84,8 +84,14 @@ function getToolTipText(props: IconToolTipProps) {
           <MarginDiv>Return type: {data.returnType}</MarginDiv>
         </div>
       );
-    default:
-      // default is fields
+    case "boolean":
+    case "booleanMultiple":
+    case "int":
+    case "intMultiple":
+    case "string":
+    case "stringMultiple":
+    case "other":
+    case "otherMultiple":
       return (
         <div>
           <MarginDiv>Name: {data.name}</MarginDiv>
@@ -93,6 +99,8 @@ function getToolTipText(props: IconToolTipProps) {
           <MarginDiv>Access modifier: {data.accessModifier}</MarginDiv>
         </div>
       );
+    default:
+      return null;
   }
 }
 
