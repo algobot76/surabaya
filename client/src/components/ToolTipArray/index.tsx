@@ -1,5 +1,5 @@
 import React from "react";
-import IconToolTip from "../IconTooltip";
+import IconToolTip, { iconWidth } from "../IconTooltip";
 import styled from "styled-components";
 
 const mockClass = {
@@ -49,7 +49,9 @@ const mockClass = {
   ],
 };
 
-const ArrayContainer = styled.div``;
+const ArrayContainer = styled.div<{ width: string }>`
+  width: ${(props) => props.width};
+`;
 
 const ToolTipArray: React.FC = () => {
   const methods = mockClass["methods"];
@@ -134,9 +136,13 @@ const ToolTipArray: React.FC = () => {
     ...otherMultiplesToolTips,
   ];
 
-  const numberOfIcons = toolTipArray?.length; // TODO use this to arrange the icons into a square knowing each icon is 30px
+  const numberOfIcons = toolTipArray.length;
+  const square = Math.sqrt(numberOfIcons);
+  const numberHorizontal = Math.ceil(square);
+  const width = numberHorizontal * iconWidth;
+  const widthPx = `${width.toString()}px`;
 
-  return <>{toolTipArray}</>;
+  return <ArrayContainer width={widthPx}>{toolTipArray}</ArrayContainer>;
 };
 
 export default ToolTipArray;

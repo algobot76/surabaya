@@ -96,9 +96,12 @@ function getToolTipText(props: IconToolTipProps) {
   }
 }
 
+// IMPORTANT!! iconWidth is a constant because it is also used in ToolTipArray for calculating the ArrayContainer width
+export const iconWidth = 30;
+
 const SizedIconContainer = styled.div`
-  width: 30px;
-  height: 30px;
+  width: ${iconWidth}px;
+  height: ${iconWidth}px;
   display: flex;
   justify-content: center;
   align-items: center;
