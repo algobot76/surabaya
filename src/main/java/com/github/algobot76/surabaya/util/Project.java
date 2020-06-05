@@ -2,16 +2,20 @@ package com.github.algobot76.surabaya.util;
 
 import lombok.Data;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 @Data
 public class Project {
 
-	private final List<Package> packages = new ArrayList<>();
+	private final Map<String, Package> packages = new HashMap<>();
 
-	public void addPackage(Package p) {
-		packages.add(p);
+	public void addPackage(String name, Package p) {
+		packages.putIfAbsent(name, p);
+	}
+
+	public Package getPackage(String name) {
+		return packages.get(name);
 	}
 
 }

@@ -8,11 +8,15 @@ import java.util.List;
 @Data
 public class Package {
 
-	private final String name;
+	private String name = "";
 
 	private final List<Class> classes = new ArrayList<>();
 
-	public void addClass(Class k) {
+	public Package(String n) {
+		name = n;
+	}
+
+	public void addClass(Klass k) {
 		this.classes.add(k);
 	}
 
