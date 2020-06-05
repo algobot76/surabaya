@@ -21,7 +21,7 @@ public class SurabayaAnalyzer {
 	public Project analyze(String filepath) {
 		SourceRoot sourceRoot = new SourceRoot(
 				CodeGenerationUtils.mavenModuleRoot(SurabayaApplication.class).resolve("src/test/testJavaProject/src"));
-		CompilationUnit cu = sourceRoot.parse("ast", "DEC.java");
+		CompilationUnit cu = sourceRoot.parse("ui", "Main.java");
 		staticAnalysisVisitor.visit(cu, project);
 		System.out.println(project.toString());
 		return project;

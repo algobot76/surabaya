@@ -8,7 +8,9 @@ import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.ImportDeclaration;
 import com.github.javaparser.ast.PackageDeclaration;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
+import com.github.javaparser.ast.body.ConstructorDeclaration;
 import com.github.javaparser.ast.body.FieldDeclaration;
+import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.body.VariableDeclarator;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
@@ -36,7 +38,6 @@ public class StaticAnalysisVisitor extends VoidVisitorAdapter<Project> {
 		currentFile.addClass(newClass);
 		currentClass = newClass;
 
-		System.out.println(n.getName());
 		super.visit(n, project);
 	}
 
@@ -67,6 +68,28 @@ public class StaticAnalysisVisitor extends VoidVisitorAdapter<Project> {
 					n.getModifiers().get(0).toString());
 			currentClass.addField(newField);
 		}
+
+	}
+
+	@Override
+	public void visit(MethodDeclaration n, Project project) {
+		Method newMethod = new Method(n.getName().getIdentifier().trim(), n.getModifiers().get(0).toString(),
+				n.getType().asString());
+		for (com.github.javaparser.ast.body.Parameter p : n.getParameters()) {
+			Parameter param = new Parameter(p.getName().asString().trim(), p.getType().asString().trim());
+			newMethod.addParameter(param);
+		}
+		currentClass.addMethod(newMethod);
+	}
+
+	@Override
+	public void visit(ConstructorDeclaration n, Project project) {
+		Method newMethod = new Method(n.getName().getIdentifier().trim(), n.getModifiers().get(0).toString(), null);
+		for (com.github.javaparser.ast.body.Parameter p : n.getParameters()) {
+			Parameter param = new Parameter(p.getName().asString().trim(), p.getType().asString().trim());
+			newMethod.addParameter(param);
+		}
+		currentClass.addMethod(newMethod);
 
 	}
 
