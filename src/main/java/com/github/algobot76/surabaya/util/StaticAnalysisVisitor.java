@@ -11,7 +11,16 @@ public class StaticAnalysisVisitor extends VoidVisitorAdapter<Project> {
 
 	@Override
 	public void visit(ClassOrInterfaceDeclaration n, Project project) {
+		Package currentPackage = project.getCurrentPackage();
+		String type = "Class";
+		if (n.isInterface()) {
+			type = "Interface";
+		}
+		Klass newClass = new Klass(n.getName().toString(), type, n.getModifiers().get(0).toString().trim(), 100);
+		currentPackage.addClass(newClass);
+
 		System.out.println(n.getName());
+		super.visit(n, project);
 	}
 
 	@Override
@@ -21,8 +30,9 @@ public class StaticAnalysisVisitor extends VoidVisitorAdapter<Project> {
 		if (packageDeclaration.isPresent()) {
 			packageName = ((PackageDeclaration) packageDeclaration.get()).getName().toString();
 		}
-		Package newPackage = new Package(packageName);
+		Package newPackage = new Package();
 		project.addPackage(packageName, newPackage);
+		super.visit(n, project);
 	}
 
 }
