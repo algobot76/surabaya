@@ -7,17 +7,14 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@JsonIgnoreProperties(value = { "currentClass" })
+@JsonIgnoreProperties(value = { "currentFile" })
 @Data
 public class Package {
 
-	private Klass currentClass = null;
+	private final List<JavaFile> files = new ArrayList<>();
 
-	private final List<Class> classes = new ArrayList<>();
-
-	public void addClass(Klass k) {
-		this.classes.add(k);
-		currentClass = k;
+	public void addFile(JavaFile f) {
+		this.files.add(f);
 	}
 
 }

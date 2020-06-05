@@ -19,17 +19,11 @@ public class Class {
 	@JsonProperty("line_count")
 	private final int lineCount;
 
-	private final List<String> imports = new ArrayList<>();
-
 	private final List<Field> fields = new ArrayList<>();
 
 	private final List<Method> methods = new ArrayList<>();
 
 	private final List<Constructor> constructors = new ArrayList<>();
-
-	public void addImport(String i) {
-		imports.add(i);
-	}
 
 	public void addField(Field f) {
 		fields.add(f);
