@@ -19,48 +19,45 @@ Use `JavaParser` and convert the outputted AST into the custom `JavaProject` cla
 
 ### JavaProject Class
 Fields:
-- `packages`: a mapping of package name to list of class names   
-- `classes`: a mapping of class names to `JavaClass`  
-
-Has a `toJson()` method that returns a json formatted representation for the frontend to work with. 
-
-This structure enables the easy workflow of creating the base location of each island by iterating
-throught the package name to class map before going through each island and filling in the details
+- `packages`: a list of `JavaPackage` which contains the package name and a list of `JavaClass`    
 
 Example json representation:   
 ```
 {
-  "packages": {"package1": ["ex1", "ex2"],
-               "package2": ["ex3"]},
-  "classes": {"ex1": {
-                "type": "Interface",
-                "accessModifier": "private",
-                "lineCount": 100,
-                "imports": ["ex2", "ex3"],
-                "fields": {
-                  "String": [{
-                    "name": "field1",
-                    "type": "String",
-                    "accessModifier": "public"
-                  }],
-                  "boolean": [...]
-                },
-                "methods": [{
-                  "name": "method1",
-                  "accessModifier": "private",
-                  "parameters": {"param1": "String", "param2": "int"},
-                  "returnType": "void"
-                }],
-                "constructors: [{
-                  "name": "ex1",
-                  "accessModifier": "public",
-                  "parameters": {"param1": "String", "param2": "int"},
-                  "returnType": "void"
-                }]
-              },
-              "ex2": {...},
-              "ex3": {...}}
-
+  "packages": [
+    {
+      "package_name": "p1",
+      "classes": [
+        {
+          "name": "c1",
+          "type": "Interface",
+          "accessModifier": "private",
+          "lineCount": 100,
+          "imports": ["ex2", "ex3"],
+          "fields": {
+            "String": [{
+              "name": "field1",
+              "type": "String",
+              "accessModifier": "public"
+            }],
+            "boolean": [...]
+          },
+          "methods": [{
+            "name": "method1",
+            "accessModifier": "private",
+            "parameters": {"param1": "String", "param2": "int"},
+            "returnType": "void"
+          }],
+          "constructors: [{
+            "name": "ex1",
+            "accessModifier": "public",
+            "parameters": {"param1": "String", "param2": "int"},
+            "returnType": "void"
+          }]
+    },
+    {...},
+    {...}
+  ]
 }
 ```
 
@@ -75,18 +72,11 @@ Fields:
 - `methods`: list of JavaMethod Class
 - `constructors`: list of JavaMethod Class
 
-Methods:
-- `toJson()`
-  
-
 ### JavaField Class
 Fields:
 - `name`: String
 - `type`: String
 - `accessModifier`: Enum (private, public, protected)
-
-Methods:
-- `toJson()`
 
 ### JavaMethod Class
 Fields:
@@ -95,6 +85,3 @@ Fields:
 - `parameters`: map of: name to type (Not sure what we need here...)
 - `returnType`: String
 - `~~fields~~` (Add local fields as stretch goal)
-
-Methods:
-- `toJson()`
