@@ -1,5 +1,5 @@
 import React from "react";
-import IconToolTip, { iconWidth } from "../IconTooltip";
+import IconToolTip, { IconType, iconWidth } from "../IconTooltip";
 import styled from "styled-components";
 
 import Island1 from "../../assets/islands/island1.png";
@@ -52,6 +52,18 @@ const mockClass = {
       parameters: { param1: "String", param2: "int" },
       returnType: "void",
     },
+    {
+      name: "method1",
+      accessModifier: "private",
+      parameters: { param1: "String", param2: "int" },
+      returnType: "void",
+    },
+    {
+      name: "method1",
+      accessModifier: "private",
+      parameters: { param1: "String", param2: "int" },
+      returnType: "void",
+    },
   ],
   constructors: [
     {
@@ -78,57 +90,61 @@ function getToolTipDataArray(classObject: any) {
 
   const methodToolTips =
     methods?.map((m, index) => (
-      <IconToolTip key={`method_${index}`} type={"method"} data={m} />
+      <IconToolTip key={`method_${index}`} type={IconType.Method} data={m} />
     )) || [];
   const constructorToolTips =
     constructors?.map((c, index) => (
-      <IconToolTip key={`constructor_${index}`} type={"constructor"} data={c} />
+      <IconToolTip
+        key={`constructor_${index}`}
+        type={IconType.Constructor}
+        data={c}
+      />
     )) || [];
   const stringToolTips =
     strings?.map((s, index) => (
-      <IconToolTip key={`string_${index}`} type={"string"} data={s} />
+      <IconToolTip key={`string_${index}`} type={IconType.String} data={s} />
     )) || [];
   const stringMultiplesToolTips =
     stringMultiples?.map((sm, index) => (
       <IconToolTip
         key={`stringMultiple_${index}`}
-        type={"stringMultiple"}
+        type={IconType.StringMultiple}
         data={sm}
       />
     )) || [];
   const booleanToolTipsToolTips =
     booleans?.map((b, index) => (
-      <IconToolTip key={`boolean_${index}`} type={"boolean"} data={b} />
+      <IconToolTip key={`boolean_${index}`} type={IconType.Boolean} data={b} />
     )) || [];
   const booleanMultiplesToolTips =
     booleanMultiples?.map((bm, index) => (
       <IconToolTip
         key={`booleanMultiple_${index}`}
-        type={"booleanMultiple"}
+        type={IconType.BooleanMultiple}
         data={bm}
       />
     )) || [];
   const intToolTipsToolTips =
     ints?.map((i, index) => (
-      <IconToolTip key={`int_${index}`} type={"int"} data={i} />
+      <IconToolTip key={`int_${index}`} type={IconType.Int} data={i} />
     )) || [];
   const intMultiplesToolTips =
     intMultiples?.map((im, index) => (
       <IconToolTip
         key={`intMultiple_${index}`}
-        type={"intMultiple"}
+        type={IconType.IntMultiple}
         data={im}
       />
     )) || [];
   const otherToolTipsToolTips =
     other?.map((o, index) => (
-      <IconToolTip key={`other_${index}`} type={"other"} data={o} />
+      <IconToolTip key={`other_${index}`} type={IconType.Other} data={o} />
     )) || [];
   const otherMultiplesToolTips =
     otherMultiples?.map((om, index) => (
       <IconToolTip
         key={`otherMultiple_${index}`}
-        type={"otherMultiple"}
+        type={IconType.OtherMultiple}
         data={om}
       />
     )) || [];
@@ -168,9 +184,9 @@ const ToolTipSquare = styled.div<{ width }>`
   height: ${(props) => `${props.width}px`};
   z-index: 9;
   position: relative;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-  transform: translateY(-50%);
+  top: 40%;
+  -webkit-transform: translateY(-40%);
+  transform: translateY(-40%);
 `;
 
 const Island: React.FC = () => {
@@ -180,7 +196,7 @@ const Island: React.FC = () => {
   const numberHorizontal = Math.ceil(square);
   const width = numberHorizontal * iconWidth;
 
-  const minimumInnerIslandWidth = (width * 8) / 5;
+  const minimumInnerIslandWidth = width + iconWidth * 3;
   const numberOfIslandImages = islandArray.length;
   const randomIslandIndex = Math.floor(Math.random() * numberOfIslandImages);
   const islandImage = islandArray[randomIslandIndex];

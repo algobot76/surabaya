@@ -14,47 +14,50 @@ import styles from "./styles.module.css";
 import styled from "styled-components";
 
 interface IconToolTipProps {
-  type:
-    | "string"
-    | "stringMultiple"
-    | "boolean"
-    | "booleanMultiple"
-    | "int"
-    | "intMultiple"
-    | "other"
-    | "otherMultiple"
-    | "import"
-    | "method"
-    | "constructor";
+  type: IconType;
   data: any;
 }
 
-function getIcon(type: string): any {
+export enum IconType {
+  String,
+  StringMultiple,
+  Boolean,
+  BooleanMultiple,
+  Int,
+  IntMultiple,
+  Other,
+  OtherMultiple,
+  Import,
+  Method,
+  Constructor,
+}
+
+function getIcon(type: IconType): string {
   switch (type) {
-    case "import":
+    case IconType.Import:
       return RightBoat;
-    case "constructor":
+    case IconType.Constructor:
       return Volcano;
-    case "method":
+    case IconType.Method:
       return Factory;
-    case "boolean":
+    case IconType.Boolean:
       return Deciduous;
-    case "booleanMultiple":
+    case IconType.BooleanMultiple:
       return DeciduousMultiple;
-    case "int":
+    case IconType.Int:
       return Pond;
-    case "intMultiple":
+    case IconType.IntMultiple:
       return PondMultiple;
-    case "string":
+    case IconType.String:
       return Evergreen;
-    case "stringMultiple":
+    case IconType.StringMultiple:
       return EvergreenMultiple;
-    case "other":
+    case IconType.Other:
       return Rock;
-    case "otherMultiple":
+    case IconType.OtherMultiple:
       return RockMultiple;
     default:
-      return null;
+      return "";
   }
 }
 
@@ -67,10 +70,10 @@ const MarginDiv = styled.div`
 function getToolTipText(props: IconToolTipProps) {
   const { data } = props;
   switch (props.type) {
-    case "import":
+    case IconType.Import:
       return <MarginDiv>Imports: 'ADD IMPORT DATA HERE'</MarginDiv>;
-    case "constructor":
-    case "method":
+    case IconType.Constructor:
+    case IconType.Method:
       const parameterString =
         data.parameters &&
         Object.keys(data.parameters)
@@ -84,14 +87,14 @@ function getToolTipText(props: IconToolTipProps) {
           <MarginDiv>Return type: {data.returnType}</MarginDiv>
         </div>
       );
-    case "boolean":
-    case "booleanMultiple":
-    case "int":
-    case "intMultiple":
-    case "string":
-    case "stringMultiple":
-    case "other":
-    case "otherMultiple":
+    case IconType.Boolean:
+    case IconType.BooleanMultiple:
+    case IconType.Int:
+    case IconType.IntMultiple:
+    case IconType.String:
+    case IconType.StringMultiple:
+    case IconType.Other:
+    case IconType.OtherMultiple:
       return (
         <div>
           <MarginDiv>Name: {data.name}</MarginDiv>
