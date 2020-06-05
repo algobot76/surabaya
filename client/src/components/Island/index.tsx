@@ -187,6 +187,8 @@ const ToolTipSquare = styled.div<{ width }>`
   top: 40%;
   -webkit-transform: translateY(-40%);
   transform: translateY(-40%);
+  display: flex;
+  flex-wrap: wrap;
 `;
 
 const Island: React.FC = () => {
