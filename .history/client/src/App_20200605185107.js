@@ -5,10 +5,9 @@ import Island from "./components/Island";
 function App() {
   return (
     <div className={styles.App}>
+      <Island></Island>
       <div className={styles.leftSide} />
-      <div className={styles.rightSide}>
-        <Island></Island>
-      </div>
+      <div className={styles.rightSide} />
     </div>
   );
 }
