@@ -12,76 +12,145 @@ Follow these steps to set up the project:
 
 To start the program: `./mvnw spring-boot:run`
 
-If you are using IntellJ IDEA, please install this plugin that provides formatter support: https://github.com/spring-io/spring-javaformat#intellij-idea
+If you are using IntelliJ IDEA, please install this plugin that provides formatter support: [spring-io/spring-javaformat](https://github.com/spring-io/spring-javaformat#intellij-idea).
 
-## Java Project Custom Data Structure
-Use `JavaParser` and convert the outputted AST into the custom `JavaProject` class described below.
+## Representation of Java Project
 
-### JavaProject Class
-Fields:
-- `packages`: a list of `JavaPackage` which contains the package name and a list of `JavaClass`    
+Use [JavaParser](https://javaparser.org/) and convert the outputted AST into the custom classes described below.
 
-Example json representation:   
-```
+### `Project` Class
+
+- `packages`: list of [Package](#package-class) objects
+
+### `Package` Class
+
+- `name`: package name
+- `classes`: list of [Class](#class-class) objects
+
+### `Class` Class
+
+- `name`: class name
+- `type`: `Interface`, `Abstract`, `Concrete`, etc.
+- `accessModifier`: [AccessModifier](#accessmodifier-enum) enum
+- `lineCount`: number of lines
+- `imports`: list of imported package names
+- `fields`: list of [Field](#field-class) objects
+- `methods`: list of [Method](#method-class) objects
+- `constructors`: list of [Constructor](#constructor-class) objects
+
+### `Field` Class
+
+- `name`: field name
+- `type`: field type
+- `accessModifier`: [AccessModifier](#accessmodifier-enum) enum
+
+### `Method` Class
+
+- `name`: method name
+- `accessModifier`: [AccessModifier](#accessmodifier-enum) enum
+- `parameters`: list of [Parameter](#parameter-class) objects
+- `returnType`: return type (e.g. `int`)
+
+### `Constructor` Class
+
+- `name`: constructor name
+- `accessModifier`: [AccessModifier](#accessmodifier-enum) enum
+- `parameters`: list of [Parameter](#parameter-class) objects
+
+### `Parameter` Class
+
+- `name`: parameter name
+- `type`: parameter type
+
+### `AccessModifier` Enum
+
+An `AccessModifier` is `private`, `public`, or `protected`.
+
+### Example
+
+Representation of `JavaProject` in JSON:
+
+```json
 {
   "packages": [
     {
-      "package_name": "p1",
+      "name": "p1",
       "classes": [
         {
-          "name": "c1",
+          "name": "C1",
           "type": "Interface",
           "accessModifier": "private",
           "lineCount": 100,
           "imports": ["ex2", "ex3"],
-          "fields": {
-            "String": [{
-              "name": "field1",
+          "fields": [
+            {
+              "name": "foo",
               "type": "String",
-              "accessModifier": "public"
-            }],
-            "boolean": [...]
-          },
-          "methods": [{
-            "name": "method1",
-            "accessModifier": "private",
-            "parameters": {"param1": "String", "param2": "int"},
-            "returnType": "void"
-          }],
-          "constructors: [{
-            "name": "ex1",
-            "accessModifier": "public",
-            "parameters": {"param1": "String", "param2": "int"},
-            "returnType": null
-          }]
-    },
-    {...},
-    {...}
+              "access_modifier": "public",
+            },
+            {
+              "name": "bar",
+              "type": "int",
+              "access_modifier": "private"
+            }
+          ],
+          "methods": [
+            {
+              "name": "getBar",
+              "access_modifier": "public",
+              "parameters": [],
+              "return_type": "int"
+            },
+            {
+              "name": "setFoo",
+              "access_modifier": "public",
+              "parameters": [
+                {
+                  "name": "foo",
+                  "type": "String"
+                }
+              ],
+              "return_type": "void"
+            }
+          ],
+          "constructors": [
+            {
+              "name": "C1",
+              "access_modifier": "public",
+              "parameters": [
+                {
+                  "name": "foo",
+                  "type": "String",
+                },
+                {
+                  "name": "bar",
+                  "type": "int"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
   ]
 }
 ```
 
-### JavaClass Class
-Fields:
-- `name`: String
-- `type`: Enum (Interface, Abstract, Concrete, etc.)
-- `accessModifier`: Enum (private, public, protected)
-- `lineCount`: int (number of lines)
-- `imports`: list of String
-- `fields`: Map of type to list of JavaField Class (Easier to work with when rendering groups of fields according to type)
-- `methods`: list of JavaMethod Class
-- `constructors`: list of JavaMethod Class
+## Visualization of Java Project
 
-### JavaField Class
-Fields:
-- `name`: String
-- `type`: String
-- `accessModifier`: Enum (private, public, protected)
-
-### JavaMethod Class
-Fields:
-- `name`: String
-- `accessModifier`: Enum (private, public, protected)
-- `parameters`: map of: name to type (Not sure what we need here...)
-- `returnType`: String
-- `~~fields~~` (Add local fields as stretch goal)
+- [Project](#project-class) = Map of islands
+- [Class](#class-class) = Island (size is determined by number of lines of code)
+  - `public` = Regular
+  - `private` = Wooden fence
+  - `protected` = Aluminum fence
+- [Field](#field-class)
+  - Primitive
+    - `boolean` = Tree
+    - Numeric (`int`, `double`, etc.) = Pond
+  - Non-primitive
+    - String = Evergreen
+    - Collection
+      - A collection of things will be visualized as multiple icons. For example, an array of `int` will be visualized as multiple ponds.
+    - Other (e.g. `Object`) = Stone
+- [Method](#method-class) = Factory
+- [Constructor](#constructor-class) = Volcano
