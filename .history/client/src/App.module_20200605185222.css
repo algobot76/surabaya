@@ -1,0 +1,15 @@
+.App {
+  width: 100vw;
+  display: flex;
+}
+
+.leftSide {
+  width: 300px;
+  background-color: grey;
+}
+
+.rightSide {
+  width: calc(100vw - 300px);
+  background-color: lightyellow;
+  overflow: auto;
+}

@@ -12,7 +12,7 @@ public class Method {
 	private final String name;
 
 	@JsonProperty("access_modifier")
-	private final String accessModifier;
+	private final AccessModifier accessModifier;
 
 	@JsonProperty("return_type")
 	private final String returnType;

@@ -12,7 +12,7 @@ public class Constructor {
 	private final String name;
 
 	@JsonProperty("access_modifier")
-	private final String accessModifier;
+	private final AccessModifier accessModifier;
 
 	private final List<Parameter> parameters = new ArrayList<>();
 
