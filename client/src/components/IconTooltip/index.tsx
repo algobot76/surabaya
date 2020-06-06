@@ -70,8 +70,8 @@ export const MarginDiv = styled.div`
 function getToolTipText(props: IconToolTipProps) {
   const { data } = props;
   switch (props.type) {
-    case IconType.Import:
-      return <MarginDiv>Imports: 'ADD IMPORT DATA HERE'</MarginDiv>;
+    case IconType.Import: // data for imports takes in the *entire class object*
+      return <MarginDiv>Imports: {data.imports.join(", ")}</MarginDiv>;
     case IconType.Constructor:
     case IconType.Method:
       const parameterString =
@@ -84,7 +84,9 @@ function getToolTipText(props: IconToolTipProps) {
           <MarginDiv>Name: {data.name}</MarginDiv>
           <MarginDiv>Access modifier: {data.accessModifier}</MarginDiv>
           <MarginDiv>Parameters: {parameterString || "none"}</MarginDiv>
-          <MarginDiv>Return type: {data.returnType}</MarginDiv>
+          {props.type === IconType.Method && (
+            <MarginDiv>Return type: {data.returnType}</MarginDiv>
+          )}
         </div>
       );
     case IconType.Boolean:
