@@ -17,27 +17,23 @@ export type JavaField = {
   accessModifier: JavaAccessModifier;
 };
 
-export type JavaFieldsMap = {
-  [key: string]: JavaField[];
+export type JavaParameter = {
+  name: string;
+  type: string;
 };
 
-export type JavaParametersMap = {
-  [key: string]: string;
+export type JavaMethod = {
+  name: string;
+  accessModifier: JavaAccessModifier;
+  parameters: JavaParameter[];
+  returnType: string;
 };
 
-export type JavaMethod =
-  | {
-      name: string;
-      accessModifier: JavaAccessModifier;
-      parameters: JavaParametersMap;
-      returnType: string;
-    }
-  | {
-      name: string;
-      accessModifier: JavaAccessModifier;
-      parameters: JavaParametersMap;
-      returnType: null; //for constructor
-    };
+export type JavaContructor = {
+  name: string;
+  accessModifier: JavaAccessModifier;
+  parameters: JavaParameter[];
+};
 
 export type JavaClass = {
   name: string;
@@ -45,13 +41,13 @@ export type JavaClass = {
   accessModifier: JavaAccessModifier;
   lineCount: number;
   imports: string[];
-  fields: JavaFieldsMap;
+  fields: JavaField[];
   methods: JavaMethod[];
-  constructors: JavaMethod[];
+  constructors: JavaContructor[];
 };
 
 export type JavaPackage = {
-  package_name: string;
+  name: string;
   classes: JavaClass[];
 };
 
