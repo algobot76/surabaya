@@ -16,6 +16,11 @@ public class Constructor {
 
 	private final List<Parameter> parameters = new ArrayList<>();
 
+	public Constructor(String name, String accessModifier) {
+		this.name = name;
+		this.accessModifier = AccessModifier.fromString(accessModifier);
+	}
+
 	public void addParameter(Parameter p) {
 		parameters.add(p);
 	}

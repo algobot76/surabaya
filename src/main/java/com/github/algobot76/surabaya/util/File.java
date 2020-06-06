@@ -9,15 +9,15 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(value = { "currentClass" })
 @Data
-public class JavaFile {
+public class File {
 
-	private Klass currentClass = null;
+	private Class currentClass = null;
 
 	private final List<String> imports = new ArrayList<>();
 
-	private final List<Klass> classes = new ArrayList<>();
+	private final List<Class> classes = new ArrayList<>();
 
-	public void addClass(Klass k) {
+	public void addClass(Class k) {
 		this.classes.add(k);
 		currentClass = k;
 	}

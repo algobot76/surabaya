@@ -19,6 +19,12 @@ public class Method {
 
 	private final List<Parameter> parameters = new ArrayList<>();
 
+	public Method(String name, String accessModifier, String returnType) {
+		this.name = name;
+		this.accessModifier = AccessModifier.fromString(accessModifier);
+		this.returnType = returnType;
+	}
+
 	public void addParameter(Parameter p) {
 		parameters.add(p);
 	}

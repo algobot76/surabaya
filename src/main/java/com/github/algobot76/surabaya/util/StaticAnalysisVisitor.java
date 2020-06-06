@@ -16,9 +16,9 @@ import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
 public class StaticAnalysisVisitor extends VoidVisitorAdapter<Project> {
 
-	private JavaFile currentFile;
+	private File currentFile;
 
-	private Klass currentClass;
+	private Class currentClass;
 
 	@Override
 	public void visit(ClassOrInterfaceDeclaration n, Project project) {
@@ -34,7 +34,7 @@ public class StaticAnalysisVisitor extends VoidVisitorAdapter<Project> {
 			Range endRange = tokenRange.getEnd().getRange().get();
 			lineCount = endRange.begin.line - beginRange.begin.line;
 		}
-		Klass newClass = new Klass(n.getName().toString(), type, n.getModifiers().get(0).toString().trim(), lineCount);
+		Class newClass = new Class(n.getName().toString(), type, n.getModifiers().get(0).toString().trim(), lineCount);
 		currentFile.addClass(newClass);
 		currentClass = newClass;
 
@@ -50,7 +50,7 @@ public class StaticAnalysisVisitor extends VoidVisitorAdapter<Project> {
 		}
 		Package newPackage = new Package();
 		project.addPackage(packageName, newPackage);
-		JavaFile newFile = new JavaFile();
+		File newFile = new File();
 		newPackage.addFile(newFile);
 		currentFile = newFile;
 		super.visit(n, project);
@@ -84,12 +84,13 @@ public class StaticAnalysisVisitor extends VoidVisitorAdapter<Project> {
 
 	@Override
 	public void visit(ConstructorDeclaration n, Project project) {
-		Method newMethod = new Method(n.getName().getIdentifier().trim(), n.getModifiers().get(0).toString(), null);
+		Constructor constructor = new Constructor(n.getName().getIdentifier().trim(),
+				n.getModifiers().get(0).toString());
 		for (com.github.javaparser.ast.body.Parameter p : n.getParameters()) {
 			Parameter param = new Parameter(p.getName().asString().trim(), p.getType().asString().trim());
-			newMethod.addParameter(param);
+			constructor.addParameter(param);
 		}
-		currentClass.addMethod(newMethod);
+		currentClass.addConstructor(constructor);
 
 	}
 

@@ -11,9 +11,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Data
 public class Package {
 
-	private final List<JavaFile> files = new ArrayList<>();
+	private final List<File> files = new ArrayList<>();
 
-	public void addFile(JavaFile f) {
+	public void addFile(File f) {
 		this.files.add(f);
 	}
 
