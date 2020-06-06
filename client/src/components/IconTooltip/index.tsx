@@ -61,7 +61,7 @@ function getIcon(type: IconType): string {
   }
 }
 
-const MarginDiv = styled.div`
+export const MarginDiv = styled.div`
   margin-top: 2px;
   margin-bottom: 4px;
   font-size: 12px;
