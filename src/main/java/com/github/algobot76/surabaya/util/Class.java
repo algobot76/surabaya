@@ -7,14 +7,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class Klass {
+public class Class {
 
 	private final String name;
 
 	private final String type;
 
 	@JsonProperty("access_modifier")
-	private final String access_modifier;
+	private final AccessModifier access_modifier;
 
 	@JsonProperty("line_count")
 	private final int lineCount;

@@ -10,9 +10,9 @@ public class Package {
 
 	private final String name;
 
-	private final List<Klass> classes = new ArrayList<>();
+	private final List<Class> classes = new ArrayList<>();
 
-	public void addClass(Klass k) {
+	public void addClass(Class k) {
 		this.classes.add(k);
 	}
 

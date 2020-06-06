@@ -11,6 +11,6 @@ public class Field {
 	private final String type;
 
 	@JsonProperty("access_modifier")
-	private final String accessModifier;
+	private final AccessModifier accessModifier;
 
 }
