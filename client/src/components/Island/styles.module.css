@@ -1,12 +1,12 @@
 /* Tooltip container */
-.tooltip {
+.islandTooltip {
   position: relative;
   display: inline-block;
   cursor: pointer;
 }
 
 /* Tooltip text */
-.tooltip .tooltiptext {
+.islandTooltip .islandTooltipText {
   visibility: hidden;
   width: 200px;
   background-color: white;
@@ -16,10 +16,10 @@
   border-radius: 6px;
   border: 1px solid black;
   position: absolute;
-  z-index: 1;
+  z-index: 20;
 }
 
 /* Show the tooltip text when you mouse over the tooltip container */
-.tooltip:hover .tooltiptext {
+.islandTooltip:hover .islandTooltipText {
   visibility: visible;
 }
