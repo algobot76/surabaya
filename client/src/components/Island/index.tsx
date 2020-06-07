@@ -193,14 +193,17 @@ const Island: React.FC = () => {
   const fileSizeAdjustedWidth =
     minIslandWidth > numberOfLines ? minIslandWidth : numberOfLines;
 
+  // TODO max island width arbitrarily set to 400px
+  const finalWidth = fileSizeAdjustedWidth > 400 ? 400 : fileSizeAdjustedWidth;
+
   const onSize = (size) => {
     console.log("TooltipSquare has a width of", size.width);
     setWidth(size.width);
   };
 
   return (
-    <IslandContainer minWidth={fileSizeAdjustedWidth}>
-      <IslandImage src={islandImage} maxWidth={fileSizeAdjustedWidth} />
+    <IslandContainer minWidth={finalWidth}>
+      <IslandImage src={islandImage} maxWidth={finalWidth} />
       <TooltipSquare onSize={onSize}>{toolTipArray}</TooltipSquare>
     </IslandContainer>
   );
