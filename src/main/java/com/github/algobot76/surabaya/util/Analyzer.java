@@ -3,9 +3,6 @@ package com.github.algobot76.surabaya.util;
 import java.io.IOException;
 import java.util.List;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import com.github.algobot76.surabaya.SurabayaApplication;
 import com.github.javaparser.ParseResult;
 import com.github.javaparser.ast.CompilationUnit;
@@ -35,14 +32,6 @@ public class Analyzer {
 			for (ParseResult result : results) {
 				CompilationUnit cu = (CompilationUnit) result.getResult().get();
 				staticAnalysisVisitor.visit(cu, project);
-				ObjectMapper mapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
-				try {
-					System.out.println(mapper.writeValueAsString(project));
-				}
-				catch (JsonProcessingException e) {
-					System.out.println(e.getMessage());
-				}
-				System.out.println("");
 			}
 		}
 		catch (IOException e) {

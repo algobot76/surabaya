@@ -20,6 +20,7 @@ public class SurabayaApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SurabayaApplication.class, args);
 		Analyzer analyzer = new Analyzer();
+		// Temporary test call. TODO: Hookup the frontend to call analyze
 		Project parsedProject = analyzer.analyze("src/main/resources/test.zip");
 		ObjectMapper mapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
 		try {
