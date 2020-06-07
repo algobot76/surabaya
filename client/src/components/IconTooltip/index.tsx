@@ -12,6 +12,8 @@ import Rock from "../../assets/icons/rock.png";
 import RockMultiple from "../../assets/icons/rockMultiples.png";
 import styles from "./styles.module.css";
 import styled from "styled-components";
+import ColoredFlag from "../ColoredFlag";
+import { iconWidth } from "../../util/constants";
 
 interface IconToolTipProps {
   type: IconType;
@@ -30,9 +32,10 @@ export enum IconType {
   Import,
   Method,
   Constructor,
+  Flag,
 }
 
-function getIcon(type: IconType): string {
+function getIconImage(type: IconType): string {
   switch (type) {
     case IconType.Import:
       return RightBoat;
@@ -72,6 +75,15 @@ function getToolTipText(props: IconToolTipProps) {
   switch (props.type) {
     case IconType.Import: // data for imports takes in the *entire class object*
       return <MarginDiv>Imports: {data.imports.join(", ")}</MarginDiv>;
+    case IconType.Flag:
+      return (
+        <div>
+          <MarginDiv>Name: {data.name}</MarginDiv>
+          <MarginDiv>Type: {data.type}</MarginDiv>
+          <MarginDiv>Access modifier: {data.accessModifier}</MarginDiv>
+          <MarginDiv>Lines: {data.lineCount}</MarginDiv>
+        </div>
+      );
     case IconType.Constructor:
     case IconType.Method:
       const parameterString =
@@ -109,9 +121,6 @@ function getToolTipText(props: IconToolTipProps) {
   }
 }
 
-// IMPORTANT!! iconWidth is a constant because it is also used in ToolTipSquare for calculating the ArrayContainer width
-export const iconWidth = 30;
-
 const SizedIconContainer = styled.div`
   width: ${iconWidth}px;
   height: ${iconWidth}px;
@@ -126,12 +135,17 @@ const SizedImage = styled.img`
 `;
 
 const IconToolTip: React.FC<IconToolTipProps> = (props: IconToolTipProps) => {
-  const icon = getIcon(props.type);
+  const isFlag = props.type === IconType.Flag;
+  const iconImage = !isFlag && getIconImage(props.type);
   const toolTipText = getToolTipText(props);
   return (
     <div className={styles.tooltip}>
       <SizedIconContainer>
-        <SizedImage src={icon} />
+        {isFlag ? (
+          <ColoredFlag flagType={props.data.type} />
+        ) : (
+          <SizedImage src={iconImage} />
+        )}
       </SizedIconContainer>
       <span className={styles.tooltiptext}>{toolTipText}</span>
     </div>

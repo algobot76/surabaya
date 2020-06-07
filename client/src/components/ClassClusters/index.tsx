@@ -1,8 +1,7 @@
 import React, { ReactNodeArray } from "react";
 import styled from "styled-components";
-import { iconWidth } from "../IconTooltip";
-
-export const marginSize = 7;
+import { getNumColumnsForSquare } from "../../util/helpers";
+import { iconWidth, marginSize } from "../../util/constants";
 
 const ClassCluster = styled.div<{ width }>`
   width: ${(props) => `${props.width}px`};
@@ -21,11 +20,8 @@ const ClassClusterSquare: React.FC<ClassClusterSquareProps> = (
 ) => {
   const toolTipArray = props.children;
   const numberOfIcons = toolTipArray.length;
-  let i = 1;
-  while (i * i < numberOfIcons) {
-    i++;
-  }
-  const width = i * iconWidth;
+  const columns = getNumColumnsForSquare(numberOfIcons);
+  const width = columns * iconWidth;
 
   return <ClassCluster width={width}>{toolTipArray}</ClassCluster>;
 };

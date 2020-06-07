@@ -1,0 +1,42 @@
+{
+  "imports" : [ ],
+  "classes" : [ {
+    "name" : "NUMBER",
+    "type" : "Class",
+    "fields" : [ {
+      "name" : "value",
+      "type" : "int",
+      "access_modifier" : "private"
+    } ],
+    "methods" : [ {
+      "name" : "parse",
+      "parameters" : [ ],
+      "access_modifier" : "public",
+      "return_type" : "void"
+    }, {
+      "name" : "evaluate",
+      "parameters" : [ ],
+      "access_modifier" : "public",
+      "return_type" : "Integer"
+    }, {
+      "name" : "toString",
+      "parameters" : [ ],
+      "access_modifier" : "public",
+      "return_type" : "String"
+    } ],
+    "constructors" : [ {
+      "name" : "NUMBER",
+      "parameters" : [ ],
+      "access_modifier" : "public"
+    }, {
+      "name" : "NUMBER",
+      "parameters" : [ {
+        "name" : "value",
+        "type" : "int"
+      } ],
+      "access_modifier" : "public"
+    } ],
+    "access_modifier" : "public",
+    "line_count" : 24
+  } ]
+}
