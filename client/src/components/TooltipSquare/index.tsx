@@ -5,10 +5,6 @@ const ToolTipSquare = styled.div<{ width }>`
   width: ${(props) => `${props.width}px`};
   height: ${(props) => `${props.width}px`};
   z-index: 9;
-  position: relative;
-  top: 40%;
-  -webkit-transform: translateY(-40%);
-  transform: translateY(-40%);
   display: flex;
   flex-wrap: wrap;
 `;

@@ -1,13 +1,11 @@
 import React from "react";
-import IconToolTip, { IconType, iconWidth, MarginDiv } from "../IconTooltip";
+import IconToolTip, { IconType, iconWidth } from "../IconTooltip";
 import styled from "styled-components";
-
 import Island1 from "../../assets/islands/island1.png";
 import Island2 from "../../assets/islands/island2.png";
 import Island3 from "../../assets/islands/island3.png";
 import Island4 from "../../assets/islands/island4.png";
 import Island5 from "../../assets/islands/island5.png";
-import styles from "./styles.module.css";
 import TooltipSquare from "../TooltipSquare";
 
 const islandArray = [Island1, Island2, Island3, Island4, Island5];
@@ -177,24 +175,21 @@ const IslandContainer = styled.div<{ minWidth }>`
 const IslandImage = styled.img<{ maxWidth }>`
   max-width: ${(props) => `${props.maxWidth}px`};
   max-height: ${(props) => `${props.maxWidth}px`};
-`;
-
-const IslandToolTipContainer = styled.div`
   position: absolute;
   top: 0;
   left: 0;
 `;
 
-function getIslandToolTipText(classObject: any) {
-  return (
-    <>
-      <MarginDiv>Name: {classObject.name}</MarginDiv>
-      <MarginDiv>Type: {classObject.type}</MarginDiv>
-      <MarginDiv>Access modifier: {classObject.accessModifier}</MarginDiv>
-      <MarginDiv>Lines: {classObject.lineCount}</MarginDiv>
-    </>
-  );
-}
+// function getIslandToolTipText(classObject: any) {
+//   return (
+//     <>
+//       <MarginDiv>Name: {classObject.name}</MarginDiv>
+//       <MarginDiv>Type: {classObject.type}</MarginDiv>
+//       <MarginDiv>Access modifier: {classObject.accessModifier}</MarginDiv>
+//       <MarginDiv>Lines: {classObject.lineCount}</MarginDiv>
+//     </>
+//   );
+// }
 
 const Island: React.FC = () => {
   const toolTipArray = getToolTipDataArray(mockClass);
@@ -203,20 +198,15 @@ const Island: React.FC = () => {
   const numberHorizontal = Math.ceil(square);
   const width = numberHorizontal * iconWidth;
 
-  const minimumInnerIslandWidth = width + iconWidth * 2;
+  const minIslandWidth = width + iconWidth * 2;
   const numberOfIslandImages = islandArray.length;
   const randomIslandIndex = Math.floor(Math.random() * numberOfIslandImages);
   const islandImage = islandArray[randomIslandIndex];
 
-  const islandToolTipText = getIslandToolTipText(mockClass);
-
   return (
-    <IslandContainer minWidth={minimumInnerIslandWidth}>
+    <IslandContainer minWidth={minIslandWidth}>
       <TooltipSquare width={width}>{toolTipArray}</TooltipSquare>
-      <IslandToolTipContainer className={styles.islandTooltip}>
-        <IslandImage src={islandImage} maxWidth={minimumInnerIslandWidth} />
-        <span className={styles.islandTooltipText}>{islandToolTipText}</span>
-      </IslandToolTipContainer>
+      <IslandImage src={islandImage} maxWidth={minIslandWidth} />
     </IslandContainer>
   );
 };
