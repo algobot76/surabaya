@@ -34,6 +34,7 @@ public class StaticAnalysisVisitor extends VoidVisitorAdapter<Project> {
 			Range endRange = tokenRange.getEnd().getRange().get();
 			lineCount = endRange.begin.line - beginRange.begin.line;
 		}
+		System.out.println(n.getName());
 		Class newClass = new Class(n.getName().toString(), type, n.getModifiers().get(0).toString().trim(), lineCount);
 		currentFile.addClass(newClass);
 		currentClass = newClass;
@@ -49,7 +50,7 @@ public class StaticAnalysisVisitor extends VoidVisitorAdapter<Project> {
 			packageName = ((PackageDeclaration) packageDeclaration.get()).getName().toString();
 		}
 		Package newPackage = new Package();
-		project.addPackage(packageName, newPackage);
+		newPackage = project.addPackage(packageName, newPackage);
 		File newFile = new File();
 		newPackage.addFile(newFile);
 		currentFile = newFile;

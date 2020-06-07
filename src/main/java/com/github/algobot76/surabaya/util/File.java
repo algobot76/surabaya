@@ -15,7 +15,7 @@ public class File {
 
 	private final List<String> imports = new ArrayList<>();
 
-	private final List<Class> classes = new ArrayList<>();
+	private List<Class> classes = new ArrayList<>();
 
 	public void addClass(Class k) {
 		this.classes.add(k);

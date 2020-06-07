@@ -19,11 +19,11 @@ public class Class {
 	@JsonProperty("line_count")
 	private final int lineCount;
 
-	private final List<Field> fields = new ArrayList<>();
+	private List<Field> fields = new ArrayList<>();
 
-	private final List<Method> methods = new ArrayList<>();
+	private List<Method> methods = new ArrayList<>();
 
-	private final List<Constructor> constructors = new ArrayList<>();
+	private List<Constructor> constructors = new ArrayList<>();
 
 	public Class(String name, String type, String accessModifier, int lineCount) {
 		this.name = name;

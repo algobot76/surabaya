@@ -1,12 +1,21 @@
 package com.github.algobot76.surabaya.util;
 
+import java.io.IOException;
+import java.util.List;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.github.algobot76.surabaya.SurabayaApplication;
+import com.github.javaparser.ParseResult;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.visitor.VoidVisitor;
 import com.github.javaparser.utils.CodeGenerationUtils;
 import com.github.javaparser.utils.SourceRoot;
 
 public class Analyzer {
+
+	private static final String destpath = "unzipped";
 
 	private Project project;
 
@@ -18,12 +27,27 @@ public class Analyzer {
 	}
 
 	public Project analyze(String filepath) {
-		SourceRoot sourceRoot = new SourceRoot(CodeGenerationUtils.mavenModuleRoot(SurabayaApplication.class)
-				.resolve("src/main/resources/testJavaProject/src"));
-		CompilationUnit cu = sourceRoot.parse("ui", "Main.java"); // TODO: Implement
-																	// multifile parsing
-		staticAnalysisVisitor.visit(cu, project);
-		System.out.println(project.toString());
+		FileUnzipper.unzip(filepath, destpath);
+		SourceRoot sourceRoot = new SourceRoot(
+				CodeGenerationUtils.mavenModuleRoot(SurabayaApplication.class).resolve("unzipped/src"));
+		try {
+			List<ParseResult<CompilationUnit>> results = sourceRoot.tryToParse();
+			for (ParseResult result : results) {
+				CompilationUnit cu = (CompilationUnit) result.getResult().get();
+				staticAnalysisVisitor.visit(cu, project);
+				ObjectMapper mapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
+				try {
+					System.out.println(mapper.writeValueAsString(project));
+				}
+				catch (JsonProcessingException e) {
+					System.out.println(e.getMessage());
+				}
+				System.out.println("");
+			}
+		}
+		catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
 		return project;
 	}
 

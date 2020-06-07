@@ -11,10 +11,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(value = { "currentPackage" })
 public class Project {
 
-	private final Map<String, Package> packages = new HashMap<>();
+	private Map<String, Package> packages = new HashMap<>();
 
-	public void addPackage(String name, Package p) {
+	public Package addPackage(String name, Package p) {
 		packages.putIfAbsent(name, p);
+		return packages.get(name);
 	}
 
 	public Package getPackage(String name) {

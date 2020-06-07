@@ -14,7 +14,7 @@ public class Constructor {
 	@JsonProperty("access_modifier")
 	private final AccessModifier accessModifier;
 
-	private final List<Parameter> parameters = new ArrayList<>();
+	private List<Parameter> parameters = new ArrayList<>();
 
 	public Constructor(String name, String accessModifier) {
 		this.name = name;

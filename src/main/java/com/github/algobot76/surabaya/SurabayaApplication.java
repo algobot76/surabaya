@@ -20,7 +20,7 @@ public class SurabayaApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SurabayaApplication.class, args);
 		Analyzer analyzer = new Analyzer();
-		Project parsedProject = analyzer.analyze("src/test/testProject/src");
+		Project parsedProject = analyzer.analyze("src/main/resources/test.zip");
 		ObjectMapper mapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
 		try {
 			System.out.println(mapper.writeValueAsString(parsedProject));
