@@ -80,7 +80,7 @@ function getToolTipText(props: IconToolTipProps) {
         <div>
           <MarginDiv>Name: {data.name}</MarginDiv>
           <MarginDiv>Type: {data.type}</MarginDiv>
-          <MarginDiv>Access modifier: {data.accessModifier}</MarginDiv>
+          <MarginDiv>Access modifier: {data.access_modifier}</MarginDiv>
           <MarginDiv>Lines: {data.lineCount}</MarginDiv>
         </div>
       );
@@ -88,16 +88,19 @@ function getToolTipText(props: IconToolTipProps) {
     case IconType.Method:
       const parameterString =
         data.parameters &&
-        Object.keys(data.parameters)
-          ?.map((p) => `${p}: ${data.parameters[p]}`)
-          ?.join(", ");
+        data.parameters.length > 0 &&
+        data.parameters
+          .map((p) => {
+            return `${p.type} ${p.name}`;
+          })
+          .join(", ");
       return (
         <div>
           <MarginDiv>Name: {data.name}</MarginDiv>
-          <MarginDiv>Access modifier: {data.accessModifier}</MarginDiv>
+          <MarginDiv>Access modifier: {data.access_modifier}</MarginDiv>
           <MarginDiv>Parameters: {parameterString || "none"}</MarginDiv>
           {props.type === IconType.Method && (
-            <MarginDiv>Return type: {data.returnType}</MarginDiv>
+            <MarginDiv>Return type: {data.return_type}</MarginDiv>
           )}
         </div>
       );
@@ -113,7 +116,7 @@ function getToolTipText(props: IconToolTipProps) {
         <div>
           <MarginDiv>Name: {data.name}</MarginDiv>
           <MarginDiv>Type: {data.type}</MarginDiv>
-          <MarginDiv>Access modifier: {data.accessModifier}</MarginDiv>
+          <MarginDiv>Access modifier: {data.access_modifier}</MarginDiv>
         </div>
       );
     default:
