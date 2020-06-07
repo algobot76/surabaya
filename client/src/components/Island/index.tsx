@@ -189,12 +189,13 @@ const Island: React.FC = () => {
   mockClasses.forEach((c) => {
     numberOfLines = numberOfLines + c.lineCount;
   });
+
+  // TODO max island width based on lines arbitrarily set to 400px
+  const widthByLines = numberOfLines > 400 ? 400 : numberOfLines;
+
   // TODO 1px = 1 line is arbitrary, adjust as desired.
   const fileSizeAdjustedWidth =
-    minIslandWidth > numberOfLines ? minIslandWidth : numberOfLines;
-
-  // TODO max island width arbitrarily set to 400px
-  const finalWidth = fileSizeAdjustedWidth > 400 ? 400 : fileSizeAdjustedWidth;
+    minIslandWidth > numberOfLines ? minIslandWidth : widthByLines;
 
   const onSize = (size) => {
     console.log("TooltipSquare has a width of", size.width);
@@ -202,8 +203,8 @@ const Island: React.FC = () => {
   };
 
   return (
-    <IslandContainer minWidth={finalWidth}>
-      <IslandImage src={islandImage} maxWidth={finalWidth} />
+    <IslandContainer minWidth={fileSizeAdjustedWidth}>
+      <IslandImage src={islandImage} maxWidth={fileSizeAdjustedWidth} />
       <TooltipSquare onSize={onSize}>{toolTipArray}</TooltipSquare>
     </IslandContainer>
   );
