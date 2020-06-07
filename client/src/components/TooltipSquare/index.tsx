@@ -9,7 +9,7 @@ const ToolTipSquare = styled.div<{ width }>`
   height: ${(props) => `${props.width}px`};
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
 `;
 
@@ -42,8 +42,10 @@ const TooltipSquare: React.FC<TooltipSquareProps> = (
   return (
     <ToolTipSquare width={width}>
       {classArray &&
-        classArray.map((classCluster) => {
-          return <ClassClusterSquare>{classCluster}</ClassClusterSquare>;
+        classArray.map((classCluster, index) => {
+          return (
+            <ClassClusterSquare key={index}>{classCluster}</ClassClusterSquare>
+          );
         })}
     </ToolTipSquare>
   );
