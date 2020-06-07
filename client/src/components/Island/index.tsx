@@ -8,6 +8,7 @@ import Island3 from "../../assets/islands/island3.png";
 import Island4 from "../../assets/islands/island4.png";
 import Island5 from "../../assets/islands/island5.png";
 import styles from "./styles.module.css";
+import TooltipSquare from "../TooltipSquare";
 
 const islandArray = [Island1, Island2, Island3, Island4, Island5];
 
@@ -184,15 +185,6 @@ const IslandToolTipContainer = styled.div`
   left: 0;
 `;
 
-const ToolTipSquare = styled.div<{ width }>`
-  width: ${(props) => `${props.width}px`};
-  height: ${(props) => `${props.width}px`};
-  z-index: 9;
-  position: relative;
-  display: flex;
-  flex-wrap: wrap;
-`;
-
 function getIslandToolTipText(classObject: any) {
   return (
     <>
@@ -220,7 +212,7 @@ const Island: React.FC = () => {
 
   return (
     <IslandContainer minWidth={minimumInnerIslandWidth}>
-      <ToolTipSquare width={width}>{toolTipArray}</ToolTipSquare>
+      <TooltipSquare width={width}>{toolTipArray}</TooltipSquare>
       <IslandToolTipContainer className={styles.islandTooltip}>
         <IslandImage src={islandImage} maxWidth={minimumInnerIslandWidth} />
         <span className={styles.islandTooltipText}>{islandToolTipText}</span>
