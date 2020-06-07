@@ -170,6 +170,7 @@ const IslandContainer = styled.div<{ minWidth }>`
   position: relative;
   display: flex;
   justify-content: center;
+  align-items: center;
 `;
 
 const IslandImage = styled.img<{ maxWidth }>`
@@ -188,9 +189,6 @@ const ToolTipSquare = styled.div<{ width }>`
   height: ${(props) => `${props.width}px`};
   z-index: 9;
   position: relative;
-  top: 40%;
-  -webkit-transform: translateY(-40%);
-  transform: translateY(-40%);
   display: flex;
   flex-wrap: wrap;
 `;
@@ -213,7 +211,7 @@ const Island: React.FC = () => {
   const numberHorizontal = Math.ceil(square);
   const width = numberHorizontal * iconWidth;
 
-  const minimumInnerIslandWidth = width + iconWidth * 3;
+  const minimumInnerIslandWidth = width + iconWidth * 2;
   const numberOfIslandImages = islandArray.length;
   const randomIslandIndex = Math.floor(Math.random() * numberOfIslandImages);
   const islandImage = islandArray[randomIslandIndex];
