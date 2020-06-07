@@ -7,7 +7,6 @@ import ClassClusterSquare, { marginSize } from "../ClassClusters";
 const ToolTipSquare = styled.div<{ width }>`
   width: ${(props) => `${props.width}px`};
   height: ${(props) => `${props.width}px`};
-  z-index: 9;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

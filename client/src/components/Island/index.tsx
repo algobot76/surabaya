@@ -200,8 +200,8 @@ const Island: React.FC = () => {
 
   return (
     <IslandContainer minWidth={fileSizeAdjustedWidth}>
-      <TooltipSquare onSize={onSize}>{toolTipArray}</TooltipSquare>
       <IslandImage src={islandImage} maxWidth={fileSizeAdjustedWidth} />
+      <TooltipSquare onSize={onSize}>{toolTipArray}</TooltipSquare>
     </IslandContainer>
   );
 };

@@ -7,7 +7,6 @@ export const marginSize = 5;
 const ClassCluster = styled.div<{ width }>`
   width: ${(props) => `${props.width}px`};
   height: ${(props) => `${props.width}px`};
-  z-index: 9;
   display: flex;
   flex-wrap: wrap;
   margin: ${marginSize}px;
