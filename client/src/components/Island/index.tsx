@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import IconToolTip, { IconType, iconWidth } from "../IconTooltip";
 import styled from "styled-components";
 
@@ -201,7 +201,7 @@ const Island: React.FC = () => {
   const minimumInnerIslandWidth = width + iconWidth * 3;
   const numberOfIslandImages = islandArray.length;
   const randomIslandIndex = Math.floor(Math.random() * numberOfIslandImages);
-  const islandImage = islandArray[randomIslandIndex];
+  const islandImage = useMemo(() => islandArray[randomIslandIndex], []); //added to avoid rerendering
 
   return (
     <IslandContainer minWidth={minimumInnerIslandWidth}>

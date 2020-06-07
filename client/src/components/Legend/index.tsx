@@ -1,5 +1,4 @@
 import React from "react";
-import LegendBg from "../../assets/background/legendbg.svg";
 import RightBoat from "../../assets/icons/boat right.png";
 import Volcano from "../../assets/icons/volcano.png";
 import Factory from "../../assets/icons/factory.png";
@@ -14,32 +13,32 @@ const Legend = () => {
     <div className="legend">
       <h2>Legend</h2>
       <div className="legend-row">
-        <img className="legend-img" src={RightBoat} />
+        <img className="legend-img" src={RightBoat} alt="boat" />
         <p className="legend-text">Import statement</p>
       </div>
 
       <div className="legend-row">
-        <img className="legend-img" src={Volcano} />
+        <img className="legend-img" src={Volcano} alt="volcano" />
         <p className="legend-text">Constructor</p>
       </div>
       <div className="legend-row">
-        <img className="legend-img" src={Factory} />
+        <img className="legend-img" src={Factory} alt="factory" />
         <p className="legend-text">Method</p>
       </div>
       <div className="legend-row">
-        <img className="legend-img" src={Deciduous} />
+        <img className="legend-img" src={Deciduous} alt="tree" />
         <p className="legend-text">Boolean</p>
       </div>
       <div className="legend-row">
-        <img className="legend-img" src={Pond} />
+        <img className="legend-img" src={Pond} alt="pond" />
         <p className="legend-text">Int</p>
       </div>
       <div className="legend-row">
-        <img className="legend-img" src={Evergreen} />
+        <img className="legend-img" src={Evergreen} alt="evergreen" />
         <p className="legend-text">String</p>
       </div>
       <div className="legend-row">
-        <img className="legend-img" src={Rock} />
+        <img className="legend-img" src={Rock} alt="rock" />
         <p className="legend-text">Other</p>
       </div>
     </div>
