@@ -1,80 +1,75 @@
-import React from "react";
-import IconToolTip, { IconType, iconWidth, MarginDiv } from "../IconTooltip";
+import React, { useState } from "react";
+import IconToolTip, { IconType, iconWidth } from "../IconTooltip";
 import styled from "styled-components";
-
 import Island1 from "../../assets/islands/island1.png";
 import Island2 from "../../assets/islands/island2.png";
 import Island3 from "../../assets/islands/island3.png";
 import Island4 from "../../assets/islands/island4.png";
 import Island5 from "../../assets/islands/island5.png";
-import styles from "./styles.module.css";
+import TooltipSquare from "../TooltipSquare";
 
 const islandArray = [Island1, Island2, Island3, Island4, Island5];
 
-const mockClass = {
-  name: "c1",
-  type: "Interface",
-  accessModifier: "private",
-  lineCount: 100,
-  imports: ["ex2", "ex3"],
-  fields: {
-    string: [
+const mockClasses = [
+  {
+    name: "c1",
+    type: "Interface",
+    accessModifier: "private",
+    lineCount: 100,
+    imports: ["ex2", "ex3"],
+    fields: {
+      string: [
+        {
+          name: "field1",
+          type: "String",
+          accessModifier: "public",
+        },
+      ],
+      boolean: [
+        {
+          name: "field1",
+          type: "Boolean",
+          accessModifier: "public",
+        },
+      ],
+      other: [
+        {
+          name: "field3",
+          type: "Object",
+          accessModifier: "private",
+        },
+      ],
+    },
+    methods: [
       {
-        name: "field1",
-        type: "String",
-        accessModifier: "public",
-      },
-    ],
-    boolean: [
-      {
-        name: "field1",
-        type: "Boolean",
-        accessModifier: "public",
-      },
-    ],
-    other: [
-      {
-        name: "field3",
-        type: "Object",
+        name: "method1",
         accessModifier: "private",
+        parameters: { param1: "String", param2: "int" },
+        returnType: "void",
+      },
+      {
+        name: "method1",
+        accessModifier: "private",
+        parameters: { param1: "String", param2: "int" },
+        returnType: "void",
+      },
+      {
+        name: "method1",
+        accessModifier: "private",
+        parameters: { param1: "String", param2: "int" },
+        returnType: "void",
+      },
+    ],
+    constructors: [
+      {
+        name: "ex1",
+        accessModifier: "public",
+        parameters: { param1: "String", param2: "int" },
+        returnType: null,
       },
     ],
   },
-  methods: [
-    {
-      name: "method1",
-      accessModifier: "private",
-      parameters: { param1: "String", param2: "int" },
-      returnType: "void",
-    },
-    {
-      name: "method1",
-      accessModifier: "private",
-      parameters: { param1: "String", param2: "int" },
-      returnType: "void",
-    },
-    {
-      name: "method1",
-      accessModifier: "private",
-      parameters: { param1: "String", param2: "int" },
-      returnType: "void",
-    },
-    {
-      name: "method1",
-      accessModifier: "private",
-      parameters: { param1: "String", param2: "int" },
-      returnType: "void",
-    },
-  ],
-  constructors: [
-    {
-      name: "ex1",
-      accessModifier: "public",
-      parameters: { param1: "String", param2: "int" },
-      returnType: null,
-    },
-  ],
-};
+];
 
 function getToolTipDataArray(classObject: any) {
   const methods = classObject["methods"];
@@ -113,7 +108,7 @@ function getToolTipDataArray(classObject: any) {
         data={sm}
       />
     )) || [];
-  const booleanToolTipsToolTips =
+  const booleanToolTips =
     booleans?.map((b, index) => (
       <IconToolTip key={`boolean_${index}`} type={IconType.Boolean} data={b} />
     )) || [];
@@ -125,7 +120,7 @@ function getToolTipDataArray(classObject: any) {
         data={bm}
       />
     )) || [];
-  const intToolTipsToolTips =
+  const intToolTips =
     ints?.map((i, index) => (
       <IconToolTip key={`int_${index}`} type={IconType.Int} data={i} />
     )) || [];
@@ -137,7 +132,7 @@ function getToolTipDataArray(classObject: any) {
         data={im}
       />
     )) || [];
-  const otherToolTipsToolTips =
+  const otherToolTips =
     other?.map((o, index) => (
       <IconToolTip key={`other_${index}`} type={IconType.Other} data={o} />
     )) || [];
@@ -155,11 +150,11 @@ function getToolTipDataArray(classObject: any) {
     ...constructorToolTips,
     ...stringToolTips,
     ...stringMultiplesToolTips,
-    ...booleanToolTipsToolTips,
+    ...booleanToolTips,
     ...booleanMultiplesToolTips,
-    ...intToolTipsToolTips,
+    ...intToolTips,
     ...intMultiplesToolTips,
-    ...otherToolTipsToolTips,
+    ...otherToolTips,
     ...otherMultiplesToolTips,
   ];
 }
@@ -176,55 +171,41 @@ const IslandContainer = styled.div<{ minWidth }>`
 const IslandImage = styled.img<{ maxWidth }>`
   max-width: ${(props) => `${props.maxWidth}px`};
   max-height: ${(props) => `${props.maxWidth}px`};
-`;
-
-const IslandToolTipContainer = styled.div`
   position: absolute;
   top: 0;
   left: 0;
 `;
 
-const ToolTipSquare = styled.div<{ width }>`
-  width: ${(props) => `${props.width}px`};
-  height: ${(props) => `${props.width}px`};
-  z-index: 9;
-  position: relative;
-  display: flex;
-  flex-wrap: wrap;
-`;
-
-function getIslandToolTipText(classObject: any) {
-  return (
-    <>
-      <MarginDiv>Name: {classObject.name}</MarginDiv>
-      <MarginDiv>Type: {classObject.type}</MarginDiv>
-      <MarginDiv>Access modifier: {classObject.accessModifier}</MarginDiv>
-      <MarginDiv>Lines: {classObject.lineCount}</MarginDiv>
-    </>
-  );
-}
-
 const Island: React.FC = () => {
-  const toolTipArray = getToolTipDataArray(mockClass);
-  const numberOfIcons = toolTipArray.length;
-  const square = Math.sqrt(numberOfIcons);
-  const numberHorizontal = Math.ceil(square);
-  const width = numberHorizontal * iconWidth;
+  const toolTipArray = mockClasses.map((c) => getToolTipDataArray(c));
+  const [width, setWidth] = useState(0);
+  const minIslandWidth = width + iconWidth * 2;
 
-  const minimumInnerIslandWidth = width + iconWidth * 2;
   const numberOfIslandImages = islandArray.length;
   const randomIslandIndex = Math.floor(Math.random() * numberOfIslandImages);
   const islandImage = islandArray[randomIslandIndex];
 
-  const islandToolTipText = getIslandToolTipText(mockClass);
+  let numberOfLines = 0;
+  mockClasses.forEach((c) => {
+    numberOfLines = numberOfLines + c.lineCount;
+  });
+
+  // TODO max island width based on lines arbitrarily set to 400px
+  const widthByLines = numberOfLines > 400 ? 400 : numberOfLines;
+
+  // TODO 1px = 1 line is arbitrary, adjust as desired.
+  const fileSizeAdjustedWidth =
+    minIslandWidth > numberOfLines ? minIslandWidth : widthByLines;
+
+  const onSize = (size) => {
+    console.log("TooltipSquare has a width of", size.width);
+    setWidth(size.width);
+  };
 
   return (
-    <IslandContainer minWidth={minimumInnerIslandWidth}>
-      <ToolTipSquare width={width}>{toolTipArray}</ToolTipSquare>
-      <IslandToolTipContainer className={styles.islandTooltip}>
-        <IslandImage src={islandImage} maxWidth={minimumInnerIslandWidth} />
-        <span className={styles.islandTooltipText}>{islandToolTipText}</span>
-      </IslandToolTipContainer>
+    <IslandContainer minWidth={fileSizeAdjustedWidth}>
+      <IslandImage src={islandImage} maxWidth={fileSizeAdjustedWidth} />
+      <TooltipSquare onSize={onSize}>{toolTipArray}</TooltipSquare>
     </IslandContainer>
   );
 };
