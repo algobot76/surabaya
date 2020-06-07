@@ -1,5 +1,8 @@
 import React, { ReactNodeArray } from "react";
 import styled from "styled-components";
+import sizeMe from "react-sizeme";
+import { iconWidth } from "../IconTooltip";
+import ClassClusterSquare, { marginSize } from "../ClassClusters";
 
 const ToolTipSquare = styled.div<{ width }>`
   width: ${(props) => `${props.width}px`};
@@ -7,20 +10,44 @@ const ToolTipSquare = styled.div<{ width }>`
   z-index: 9;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 `;
 
 interface TooltipSquareProps {
-  width: number;
-  children: ReactNodeArray;
+  children: ReactNodeArray[];
 }
 
 const TooltipSquare: React.FC<TooltipSquareProps> = (
   props: TooltipSquareProps
 ) => {
-  const width = props.width;
-  const toolTipArray = props.children;
+  const classArray = props.children;
 
-  return <ToolTipSquare width={width}>{toolTipArray}</ToolTipSquare>;
+  const clusterNum = classArray.length;
+  let totalClusterWidth = 0;
+  classArray.forEach((c) => {
+    const numberOfIcons = c.length;
+    const square = Math.sqrt(numberOfIcons);
+    const numberHorizontal = Math.ceil(square);
+    const clusterWidth = numberHorizontal * iconWidth + marginSize * 2;
+    totalClusterWidth = totalClusterWidth + clusterWidth;
+  });
+  const avgClusterWidth = totalClusterWidth / clusterNum;
+  const numberOfClusters = classArray.length;
+  let columns = 1;
+  while (columns * columns < numberOfClusters) {
+    columns++;
+  }
+  const width = avgClusterWidth * columns * 1.2;
+
+  return (
+    <ToolTipSquare width={width}>
+      {classArray &&
+        classArray.map((classCluster) => {
+          return <ClassClusterSquare>{classCluster}</ClassClusterSquare>;
+        })}
+    </ToolTipSquare>
+  );
 };
 
-export default TooltipSquare;
+export default sizeMe()(TooltipSquare);
