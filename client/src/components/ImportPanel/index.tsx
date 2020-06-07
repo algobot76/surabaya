@@ -39,11 +39,23 @@ const StyledForm = styled.form`
   flex-direction: column;
 `;
 
+const StyledLabel = styled.label`
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: center;
+`;
+
 const ImportPanel = () => {
   return (
     <Panel>
       <StyledForm action="http://localhost:8080/upload" method="post">
-        <input type="file" name="file" accept="application/zip" />
+        <StyledLabel htmlFor="fileInput">Upload Zip File</StyledLabel>
+        <input
+          id="fileInput"
+          type="file"
+          name="file"
+          accept="application/zip"
+        />
         <InputButton type="submit" value="Start" />
       </StyledForm>
     </Panel>
