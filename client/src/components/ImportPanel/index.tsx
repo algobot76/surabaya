@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
 // note these dimensions are based on the Legend component
@@ -16,7 +16,7 @@ const Panel = styled.div`
   align-items: center;
 `;
 
-const Button = styled.button`
+const InputButton = styled.input`
   background-color: lightgrey;
   height: 35px;
   padding-left: 15px;
@@ -32,31 +32,20 @@ const Button = styled.button`
   }
 `;
 
+const StyledForm = styled.form`
+  width: 200px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+`;
+
 const ImportPanel = () => {
-  const [file, setFile] = useState(null);
-
-  function importFolder() {
-    // using button instead of input because the input button is ugly :P
-    const fakeInput = document.createElement("input");
-    fakeInput.accept = "application/zip";
-    fakeInput.type = "file";
-
-    fakeInput.onchange = (e: any) => {
-      const zip = e.target.files[0];
-      setFile(zip);
-    };
-    fakeInput.click();
-  }
-
-  function startProgram() {
-    // post to backend to start program, can grab the zip file from 'file' in state
-    console.log(file);
-  }
-
   return (
     <Panel>
-      <Button onClick={() => importFolder()}>Import source directory</Button>
-      <Button onClick={() => startProgram()}>Start</Button>
+      <StyledForm action="https://localhost:8080/upload" method="post">
+        <input type="file" name="file" />
+        <InputButton type="submit" value="Start" />
+      </StyledForm>
     </Panel>
   );
 };
