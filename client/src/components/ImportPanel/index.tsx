@@ -42,7 +42,7 @@ const StyledForm = styled.form`
 const ImportPanel = () => {
   return (
     <Panel>
-      <StyledForm action="https://localhost:8080/upload" method="post">
+      <StyledForm action="http://localhost:8080/upload" method="post">
         <input type="file" name="file" />
         <InputButton type="submit" value="Start" />
       </StyledForm>
