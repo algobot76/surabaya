@@ -8,22 +8,22 @@ const IntraPackageDistance = 700; // pixels
 const LinearToCircleReductionFactor = 0.75;
 const MarginOfErrorFactor = 1.5; // basically, a comfortable margin of error to prevent things from being too close
 
-export type Position = {
+export type Coordinates = {
   x: number;
   y: number;
 };
 
 export type DirectedEdge = {
-  from: Position;
-  to: Position;
+  from: Coordinates;
+  to: Coordinates;
 };
 
 export interface JavaClassWithCoordinates extends JavaClassWithRadius {
-  position: Position;
+  position: Coordinates;
 }
 
 export interface JavaPackageWithCoordinates extends JavaPackageWithRadius {
-  position: Position;
+  position: Coordinates;
   classes: JavaClassWithCoordinates[];
 }
 
