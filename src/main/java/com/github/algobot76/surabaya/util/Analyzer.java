@@ -10,6 +10,8 @@ import com.github.javaparser.ast.visitor.VoidVisitor;
 import com.github.javaparser.utils.CodeGenerationUtils;
 import com.github.javaparser.utils.SourceRoot;
 
+import org.springframework.core.io.Resource;
+
 public class Analyzer {
 
 	private static final String destpath = "unzipped";
@@ -23,8 +25,8 @@ public class Analyzer {
 		staticAnalysisVisitor = new StaticAnalysisVisitor();
 	}
 
-	public Project analyze(String filepath) {
-		FileUnzipper.unzip(filepath, destpath);
+	public Project analyze(Resource file) {
+		FileUnzipper.unzip(file, destpath);
 		SourceRoot sourceRoot = new SourceRoot(
 				CodeGenerationUtils.mavenModuleRoot(SurabayaApplication.class).resolve("unzipped/src"));
 		try {
