@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 import styled from "styled-components";
 
 // note these dimensions are based on the Legend component
@@ -46,15 +47,31 @@ const StyledLabel = styled.label`
 `;
 
 const ImportPanel = () => {
+  const [file, setFile] = useState<File | null>();
+
+  function handleFormSubmit(e) {
+    e.preventDefault();
+    const url = "http://localhost:8080/upload";
+    const formData = new FormData();
+    formData.append("file", file);
+    const config = {
+      headers: {
+        "content-type": "multipart/form-data",
+      },
+    };
+    axios.post(url, formData, config).catch((err) => console.log(err));
+  }
+
   return (
     <Panel>
-      <StyledForm action="http://localhost:8080/upload" method="post">
+      <StyledForm onSubmit={(e) => handleFormSubmit(e)}>
         <StyledLabel htmlFor="fileInput">Upload Zip File</StyledLabel>
         <input
           id="fileInput"
           type="file"
           name="file"
           accept="application/zip"
+          onChange={(e) => setFile(e.target.files[0])}
         />
         <InputButton type="submit" value="Start" />
       </StyledForm>
