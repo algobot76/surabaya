@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import IconToolTip, { IconType, iconWidth } from "../IconTooltip";
+import IconToolTip, { IconType } from "../IconTooltip";
 import styled from "styled-components";
 import Island1 from "../../assets/islands/island1.png";
 import Island2 from "../../assets/islands/island2.png";
@@ -7,69 +7,9 @@ import Island3 from "../../assets/islands/island3.png";
 import Island4 from "../../assets/islands/island4.png";
 import Island5 from "../../assets/islands/island5.png";
 import TooltipSquare from "../TooltipSquare";
+import { iconWidth } from "../../util/constants";
 
 const islandArray = [Island1, Island2, Island3, Island4, Island5];
-
-const mockClasses = [
-  {
-    name: "c1",
-    type: "Interface",
-    accessModifier: "private",
-    lineCount: 100,
-    imports: ["ex2", "ex3"],
-    fields: {
-      string: [
-        {
-          name: "field1",
-          type: "String",
-          accessModifier: "public",
-        },
-      ],
-      boolean: [
-        {
-          name: "field1",
-          type: "Boolean",
-          accessModifier: "public",
-        },
-      ],
-      other: [
-        {
-          name: "field3",
-          type: "Object",
-          accessModifier: "private",
-        },
-      ],
-    },
-    methods: [
-      {
-        name: "method1",
-        accessModifier: "private",
-        parameters: { param1: "String", param2: "int" },
-        returnType: "void",
-      },
-      {
-        name: "method1",
-        accessModifier: "private",
-        parameters: { param1: "String", param2: "int" },
-        returnType: "void",
-      },
-      {
-        name: "method1",
-        accessModifier: "private",
-        parameters: { param1: "String", param2: "int" },
-        returnType: "void",
-      },
-    ],
-    constructors: [
-      {
-        name: "ex1",
-        accessModifier: "public",
-        parameters: { param1: "String", param2: "int" },
-        returnType: null,
-      },
-    ],
-  },
-];
 
 function getToolTipDataArray(classObject: any) {
   const methods = classObject["methods"];
@@ -144,6 +84,18 @@ function getToolTipDataArray(classObject: any) {
         data={om}
       />
     )) || [];
+  const flagToolTip = (
+    <IconToolTip
+      key={"flag"}
+      type={IconType.Flag}
+      data={{
+        name: classObject.name,
+        type: classObject.type,
+        accessModifier: classObject["access_modifier"],
+        lineCount: classObject["line_count"],
+      }}
+    />
+  );
 
   return [
     ...methodToolTips,
@@ -156,6 +108,7 @@ function getToolTipDataArray(classObject: any) {
     ...intMultiplesToolTips,
     ...otherToolTips,
     ...otherMultiplesToolTips,
+    flagToolTip,
   ];
 }
 
@@ -176,26 +129,42 @@ const IslandImage = styled.img<{ maxWidth }>`
   left: 0;
 `;
 
-const Island: React.FC = () => {
-  const toolTipArray = mockClasses.map((c) => getToolTipDataArray(c));
-  const [width, setWidth] = useState(0);
-  const minIslandWidth = width + iconWidth * 2;
-
+function getRandomIslandImage() {
   const numberOfIslandImages = islandArray.length;
   const randomIslandIndex = Math.floor(Math.random() * numberOfIslandImages);
-  const islandImage = islandArray[randomIslandIndex];
+  return islandArray[randomIslandIndex];
+}
 
+function getTotalNumberOfLinesInFile(fileAnalysis: any): number {
   let numberOfLines = 0;
-  mockClasses.forEach((c) => {
-    numberOfLines = numberOfLines + c.lineCount;
+  fileAnalysis.classes.forEach((c) => {
+    numberOfLines = numberOfLines + c["line_count"];
   });
+  return numberOfLines;
+}
 
+function getIslandWidth(numberOfLines: number, minIslandWidth: number): number {
   // TODO max island width based on lines arbitrarily set to 400px
   const widthByLines = numberOfLines > 400 ? 400 : numberOfLines;
 
   // TODO 1px = 1 line is arbitrary, adjust as desired.
-  const fileSizeAdjustedWidth =
-    minIslandWidth > numberOfLines ? minIslandWidth : widthByLines;
+  return minIslandWidth > numberOfLines ? minIslandWidth : widthByLines;
+}
+
+// TODO replace any with data type object
+const Island: React.FC = (props: any) => {
+  const { fileAnalysis } = props;
+  const toolTipClassArrays = fileAnalysis.classes.map((c) =>
+    getToolTipDataArray(c)
+  );
+  const [width, setWidth] = useState(0);
+  const minIslandWidth = width + iconWidth;
+
+  const islandImage = getRandomIslandImage();
+
+  let numberOfLines = getTotalNumberOfLinesInFile(fileAnalysis);
+
+  const fileSizeAdjustedWidth = getIslandWidth(numberOfLines, minIslandWidth);
 
   const onSize = (size) => {
     console.log("TooltipSquare has a width of", size.width);
@@ -205,7 +174,7 @@ const Island: React.FC = () => {
   return (
     <IslandContainer minWidth={fileSizeAdjustedWidth}>
       <IslandImage src={islandImage} maxWidth={fileSizeAdjustedWidth} />
-      <TooltipSquare onSize={onSize}>{toolTipArray}</TooltipSquare>
+      <TooltipSquare onSize={onSize}>{toolTipClassArrays}</TooltipSquare>
     </IslandContainer>
   );
 };
