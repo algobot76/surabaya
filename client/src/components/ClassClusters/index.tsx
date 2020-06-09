@@ -1,6 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import { getNumColumnsForSquare } from "../../util/helpers";
+import {
+  checkStringTypeIsCollection,
+  getNumColumnsForSquare,
+} from "../../util/helpers";
 import { iconWidth, marginSize } from "../../util/constants";
 import WoodenFence from "../../assets/Fences/woodenFence.png";
 import StoneFence from "../../assets/Fences/stoneFence.png";
@@ -48,18 +51,45 @@ interface ClassClusterSquareProps {
   classData: any;
 }
 
+function getFieldIconType(fieldObj): IconType {
+  const typeIsCollection = checkStringTypeIsCollection(fieldObj.type);
+  if (typeIsCollection) {
+    if (/<String>/.test(fieldObj)) {
+      return IconType.String;
+    } else if (/<boolean>/.test(fieldObj)) {
+      // lowercase boolean for primitive
+      return IconType.Boolean;
+    } else if (
+      /<char>|<byte>|<short>|<long>|<float>|<int>|<double>/.test(fieldObj)
+    ) {
+      return IconType.Numeric;
+    } else {
+      return IconType.OtherMultiple;
+    }
+  } else {
+    switch (fieldObj.type) {
+      case "String":
+        return IconType.String;
+      case "boolean":
+        return IconType.Boolean;
+      case "char":
+      case "byte":
+      case "short":
+      case "long":
+      case "float":
+      case "int":
+      case "double":
+        return IconType.Numeric;
+      default:
+        return IconType.Other;
+    }
+  }
+}
+
 function getToolTipsForClass(classData: any) {
   const methods = classData["methods"];
   const constructors = classData["constructors"];
   const fields = classData["fields"];
-  const strings = fields?.["string"];
-  const stringMultiples = fields?.["stringMultiples"];
-  const booleans = fields?.["boolean"];
-  const booleanMultiples = fields?.["booleanMultiples"];
-  const ints = fields?.["int"];
-  const intMultiples = fields?.["intMultiples"];
-  const other = fields?.["other"];
-  const otherMultiples = fields?.["otherMultiples"];
 
   const methodToolTips =
     methods?.map((m, index) => (
@@ -73,54 +103,13 @@ function getToolTipsForClass(classData: any) {
         data={c}
       />
     )) || [];
-  const stringToolTips =
-    strings?.map((s, index) => (
-      <IconToolTip key={`string_${index}`} type={IconType.String} data={s} />
-    )) || [];
-  const stringMultiplesToolTips =
-    stringMultiples?.map((sm, index) => (
-      <IconToolTip
-        key={`stringMultiple_${index}`}
-        type={IconType.StringMultiple}
-        data={sm}
-      />
-    )) || [];
-  const booleanToolTips =
-    booleans?.map((b, index) => (
-      <IconToolTip key={`boolean_${index}`} type={IconType.Boolean} data={b} />
-    )) || [];
-  const booleanMultiplesToolTips =
-    booleanMultiples?.map((bm, index) => (
-      <IconToolTip
-        key={`booleanMultiple_${index}`}
-        type={IconType.BooleanMultiple}
-        data={bm}
-      />
-    )) || [];
-  const intToolTips =
-    ints?.map((i, index) => (
-      <IconToolTip key={`int_${index}`} type={IconType.Int} data={i} />
-    )) || [];
-  const intMultiplesToolTips =
-    intMultiples?.map((im, index) => (
-      <IconToolTip
-        key={`intMultiple_${index}`}
-        type={IconType.IntMultiple}
-        data={im}
-      />
-    )) || [];
-  const otherToolTips =
-    other?.map((o, index) => (
-      <IconToolTip key={`other_${index}`} type={IconType.Other} data={o} />
-    )) || [];
-  const otherMultiplesToolTips =
-    otherMultiples?.map((om, index) => (
-      <IconToolTip
-        key={`otherMultiple_${index}`}
-        type={IconType.OtherMultiple}
-        data={om}
-      />
-    )) || [];
+  const fieldToolTips =
+    fields?.map((f, index) => {
+      const fieldIconType: IconType = getFieldIconType(f);
+      return (
+        <IconToolTip key={`field_${index}`} type={fieldIconType} data={f} />
+      );
+    }) || [];
   const flagToolTip = (
     <IconToolTip
       key={"flag"}
@@ -137,14 +126,7 @@ function getToolTipsForClass(classData: any) {
   return [
     ...methodToolTips,
     ...constructorToolTips,
-    ...stringToolTips,
-    ...stringMultiplesToolTips,
-    ...booleanToolTips,
-    ...booleanMultiplesToolTips,
-    ...intToolTips,
-    ...intMultiplesToolTips,
-    ...otherToolTips,
-    ...otherMultiplesToolTips,
+    ...fieldToolTips,
     flagToolTip,
   ];
 }
@@ -157,7 +139,6 @@ const ClassClusterSquare: React.FC<ClassClusterSquareProps> = (
   const numberOfIcons = toolTipArray.length;
   const columns = getNumColumnsForSquare(numberOfIcons);
   const width = columns * iconWidth;
-  console.log("classCluster width: ", width);
 
   return (
     <ClassCluster width={width} accessModifier={classData["access_modifier"]}>

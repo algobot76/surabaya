@@ -62,7 +62,6 @@ const Island: React.FC = (props: any) => {
   const fileSizeAdjustedWidth = getIslandWidth(numberOfLines, minIslandWidth);
 
   const onSize = (size) => {
-    console.log("TooltipSquare has a width of", size.width);
     setWidth(size.width);
   };
 

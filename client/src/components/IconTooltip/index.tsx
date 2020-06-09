@@ -25,8 +25,8 @@ export enum IconType {
   StringMultiple,
   Boolean,
   BooleanMultiple,
-  Int,
-  IntMultiple,
+  Numeric,
+  NumericMultiple,
   Other,
   OtherMultiple,
   Import,
@@ -47,9 +47,9 @@ function getIconImage(type: IconType): string {
       return Deciduous;
     case IconType.BooleanMultiple:
       return DeciduousMultiple;
-    case IconType.Int:
+    case IconType.Numeric:
       return Pond;
-    case IconType.IntMultiple:
+    case IconType.NumericMultiple:
       return PondMultiple;
     case IconType.String:
       return Evergreen;
@@ -106,8 +106,8 @@ function getToolTipText(props: IconToolTipProps) {
       );
     case IconType.Boolean:
     case IconType.BooleanMultiple:
-    case IconType.Int:
-    case IconType.IntMultiple:
+    case IconType.Numeric:
+    case IconType.NumericMultiple:
     case IconType.String:
     case IconType.StringMultiple:
     case IconType.Other:
