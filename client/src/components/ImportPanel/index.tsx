@@ -59,7 +59,11 @@ const ImportPanel = () => {
         "content-type": "multipart/form-data",
       },
     };
-    axios.post(url, formData, config).catch((err) => console.log(err));
+
+    axios
+      .post(url, formData, config)
+      .then(() => alert("You have successfully uploaded the file!"))
+      .catch((err) => alert(err));
   }
 
   return (
