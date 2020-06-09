@@ -51,8 +51,7 @@ public class StaticAnalysisVisitor extends VoidVisitorAdapter<Project> {
 		if (packageDeclaration.isPresent()) {
 			packageName = ((PackageDeclaration) packageDeclaration.get()).getName().toString();
 		}
-		Package newPackage = new Package();
-		newPackage = project.addPackage(packageName, newPackage);
+		Package newPackage = project.getOrCreatePackage(packageName);
 		File newFile = new File();
 		newPackage.addFile(newFile);
 		currentFile = newFile;

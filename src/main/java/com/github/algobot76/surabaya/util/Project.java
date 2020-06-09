@@ -13,12 +13,8 @@ public class Project {
 
 	private final Map<String, Package> packages = new HashMap<>();
 
-	public Package addPackage(String name, Package p) {
-		packages.putIfAbsent(name, p);
-		return packages.get(name);
-	}
-
-	public Package getPackage(String name) {
+	public Package getOrCreatePackage(String name) {
+		packages.putIfAbsent(name, new Package());
 		return packages.get(name);
 	}
 

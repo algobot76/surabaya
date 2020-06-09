@@ -13,7 +13,6 @@ public class AnalysisController {
 	@GetMapping("/analysis")
 	public Project analysis() {
 		Project project = new Project();
-		Package package1 = new Package();
 		File file1 = new File();
 		file1.addImport("import1");
 		Class class1 = new Class("Class1", "Interface", "public", 100);
@@ -29,9 +28,9 @@ public class AnalysisController {
 		Constructor constructor1 = new Constructor("Class1", "public");
 		constructor1.addParameter(new Parameter("z", "double"));
 		class1.addConstructor(constructor1);
+		Package package1 = project.getOrCreatePackage("package1");
 		package1.addFile(file1);
 		file1.addClass(class1);
-		project.addPackage("package1", package1);
 		return project;
 	}
 
