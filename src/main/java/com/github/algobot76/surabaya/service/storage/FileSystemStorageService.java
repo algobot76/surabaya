@@ -15,6 +15,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.time.Instant;
 import java.util.stream.Stream;
 
 @Service
@@ -39,7 +40,9 @@ public class FileSystemStorageService implements StorageService {
 						"Cannot store file with relative path outside current directory " + filename);
 			}
 			try (InputStream inputStream = file.getInputStream()) {
-				Files.copy(inputStream, this.rootLocation.resolve(filename), StandardCopyOption.REPLACE_EXISTING);
+				String timestamp = Long.toString(Instant.now().getEpochSecond());
+				Files.copy(inputStream, this.rootLocation.resolve(timestamp + "-" + filename),
+						StandardCopyOption.REPLACE_EXISTING);
 			}
 		}
 		catch (IOException e) {

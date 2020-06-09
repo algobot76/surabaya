@@ -25,6 +25,7 @@ public class AnalysisController {
 	@GetMapping("/analysis")
 	public Project analysis() {
 
+		// Get the latest file according to the timestamp prefix
 		Optional<Path> path = storageService.loadAll().max(Comparator.naturalOrder());
 
 		if (path.isEmpty()) {
