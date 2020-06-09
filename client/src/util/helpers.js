@@ -5,3 +5,9 @@ export function getNumColumnsForSquare(numberItems) {
   }
   return columns;
 }
+
+export function checkStringTypeIsCollection(type) {
+  return /Collection<(.*)>|List<(.*)>|ArrayList<(.*)>|LinkedList<(.*)>|Vector<(.*)>|Stack<(.*)>|Queue<(.*)>|PriorityQueue<(.*)>|Dequeue<(.*)>|ArrayDeque<(.*)>|Set<(.*)>|HashSet<(.*)>|LinkedHashSet<(.*)>|SortedSet<(.*)>|TreeSet<(.*)>/.test(
+    type
+  );
+}

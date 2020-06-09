@@ -1,4 +1,4 @@
-import React, { ReactNodeArray } from "react";
+import React from "react";
 import styled from "styled-components";
 import sizeMe from "react-sizeme";
 import ClassClusterSquare from "../ClassClusters";
@@ -10,39 +10,48 @@ const ToolTipSquare = styled.div<{ width }>`
   height: ${(props) => `${props.width}px`};
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
+  align-content: center;
 `;
 
 interface TooltipSquareProps {
-  children: ReactNodeArray[];
+  fileData: any;
+}
+
+function getNumberOfIcons(classData): number {
+  let numberOfIcons = 0;
+
+  classData["methods"]?.forEach(() => numberOfIcons++);
+  classData["constructors"]?.forEach(() => numberOfIcons++);
+  classData["fields"]?.forEach(() => numberOfIcons++);
+
+  return numberOfIcons;
 }
 
 const TooltipSquare: React.FC<TooltipSquareProps> = (
   props: TooltipSquareProps
 ) => {
-  const classArray = props.children;
+  const { fileData } = props;
 
-  const clusterNum = classArray.length;
+  const clusterNum = fileData.classes.length;
   let totalClusterWidth = 0;
-  classArray.forEach((c) => {
-    const numberOfIcons = c.length;
+  fileData.classes.forEach((c) => {
+    const numberOfIcons = getNumberOfIcons(c);
     const numberHorizontal = getNumColumnsForSquare(numberOfIcons);
     const clusterWidth = numberHorizontal * iconWidth + marginSize * 2;
     totalClusterWidth = totalClusterWidth + clusterWidth;
   });
   const avgClusterWidth = totalClusterWidth / clusterNum;
-  const numberOfClusters = classArray.length;
+  const numberOfClusters = fileData.classes.length;
   const columns = getNumColumnsForSquare(numberOfClusters);
   const width = avgClusterWidth * columns * 1.2;
 
   return (
     <ToolTipSquare width={width}>
-      {classArray &&
-        classArray.map((classCluster, index) => {
-          return (
-            <ClassClusterSquare key={index}>{classCluster}</ClassClusterSquare>
-          );
+      {fileData.classes &&
+        fileData.classes.map((classData, index) => {
+          return <ClassClusterSquare key={index} classData={classData} />;
         })}
     </ToolTipSquare>
   );
