@@ -1,19 +1,23 @@
 package com.github.algobot76.surabaya.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.io.Resource;
-
 /*
  * Adapted from https://examples.javacodegeeks.com/core-java/util/zip/zipinputstream/java-unzip-file-example/
  */
 
 public class FileUnzipper {
+
+	private static final Logger logger = LoggerFactory.getLogger(FileUnzipper.class);
 
 	public static void unzip(Resource zipfile, String destpath) {
 		java.io.File directory = new java.io.File(destpath);
@@ -35,7 +39,7 @@ public class FileUnzipper {
 				String entryName = entry.getName();
 				FileSystemResource file = new FileSystemResource(destpath + java.io.File.separator + entryName);
 
-				System.out.println("Unzip file " + entryName + " to " + file.getPath());
+				logger.info("Unzip file " + entryName + " to " + file.getPath());
 
 				// create the directories of the zip directory
 				if (entry.isDirectory()) {
@@ -43,7 +47,7 @@ public class FileUnzipper {
 					if (!newDir.exists()) {
 						boolean success = newDir.mkdirs();
 						if (!success) {
-							System.out.println("Problem creating Folder");
+							logger.error("Problem creating Folder");
 						}
 					}
 				}
@@ -68,7 +72,7 @@ public class FileUnzipper {
 			fInput.close();
 		}
 		catch (IOException e) {
-			System.out.println(e.getMessage());
+			logger.error(e.getMessage());
 		}
 	}
 
