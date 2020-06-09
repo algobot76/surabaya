@@ -2,17 +2,49 @@ import React, { ReactNodeArray } from "react";
 import styled from "styled-components";
 import { getNumColumnsForSquare } from "../../util/helpers";
 import { iconWidth, marginSize } from "../../util/constants";
+import WoodenFence from "../../assets/Fences/woodenFence.png";
+import StoneFence from "../../assets/Fences/stoneFence.png";
 
-const ClassCluster = styled.div<{ width }>`
+const ClassCluster = styled.div<{ width; accessModifier: AccessModifiers }>`
   width: ${(props) => `${props.width}px`};
   height: ${(props) => `${props.width}px`};
   display: flex;
   flex-wrap: wrap;
-  margin: ${marginSize}px;
+  margin: ${(props) => {
+    switch (props.accessModifier) {
+      case AccessModifiers.Private:
+      case AccessModifiers.Protected:
+        return "0px";
+      default:
+        return `${marginSize}px`;
+    }
+  }};
+  border: ${(props) =>
+    props.accessModifier === AccessModifiers.Public
+      ? "none"
+      : `${marginSize}px solid transparent`};
+  border-image-source: ${(props) => {
+    switch (props.accessModifier) {
+      case AccessModifiers.Private:
+        return `url(${StoneFence})`;
+      case AccessModifiers.Protected:
+        return `url(${WoodenFence})`;
+      default:
+        return "";
+    }
+  }};
+  border-image-slice: 100;
+  border-image-repeat: stretch;
 `;
 
 interface ClassClusterSquareProps {
   children: ReactNodeArray;
+}
+
+enum AccessModifiers {
+  Public = "public",
+  Private = "private",
+  Protected = "Protected",
 }
 
 const ClassClusterSquare: React.FC<ClassClusterSquareProps> = (
@@ -23,7 +55,11 @@ const ClassClusterSquare: React.FC<ClassClusterSquareProps> = (
   const columns = getNumColumnsForSquare(numberOfIcons);
   const width = columns * iconWidth;
 
-  return <ClassCluster width={width}>{toolTipArray}</ClassCluster>;
+  return (
+    <ClassCluster width={width} accessModifier={AccessModifiers.Private}>
+      {toolTipArray}
+    </ClassCluster>
+  );
 };
 
 export default ClassClusterSquare;

@@ -10,7 +10,7 @@ const ToolTipSquare = styled.div<{ width }>`
   height: ${(props) => `${props.width}px`};
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
 `;
 
