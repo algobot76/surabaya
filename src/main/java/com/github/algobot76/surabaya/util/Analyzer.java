@@ -1,12 +1,20 @@
 package com.github.algobot76.surabaya.util;
 
+import java.io.IOException;
+import java.util.List;
+
 import com.github.algobot76.surabaya.SurabayaApplication;
+import com.github.javaparser.ParseResult;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.visitor.VoidVisitor;
 import com.github.javaparser.utils.CodeGenerationUtils;
 import com.github.javaparser.utils.SourceRoot;
 
+import org.springframework.core.io.Resource;
+
 public class Analyzer {
+
+	private static final String destpath = "unzipped";
 
 	private Project project;
 
@@ -17,13 +25,20 @@ public class Analyzer {
 		staticAnalysisVisitor = new StaticAnalysisVisitor();
 	}
 
-	public Project analyze(String filepath) {
-		SourceRoot sourceRoot = new SourceRoot(CodeGenerationUtils.mavenModuleRoot(SurabayaApplication.class)
-				.resolve("src/main/resources/testJavaProject/src"));
-		CompilationUnit cu = sourceRoot.parse("ui", "Main.java"); // TODO: Implement
-																	// multifile parsing
-		staticAnalysisVisitor.visit(cu, project);
-		System.out.println(project.toString());
+	public Project analyze(Resource file) {
+		FileUnzipper.unzip(file, destpath);
+		SourceRoot sourceRoot = new SourceRoot(
+				CodeGenerationUtils.mavenModuleRoot(SurabayaApplication.class).resolve("unzipped/src"));
+		try {
+			List<ParseResult<CompilationUnit>> results = sourceRoot.tryToParse();
+			for (ParseResult result : results) {
+				CompilationUnit cu = (CompilationUnit) result.getResult().get();
+				staticAnalysisVisitor.visit(cu, project);
+			}
+		}
+		catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
 		return project;
 	}
 

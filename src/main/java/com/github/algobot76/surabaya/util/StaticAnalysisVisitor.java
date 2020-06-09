@@ -1,11 +1,13 @@
 package com.github.algobot76.surabaya.util;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.github.javaparser.Range;
 import com.github.javaparser.TokenRange;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.ImportDeclaration;
+import com.github.javaparser.ast.Modifier;
 import com.github.javaparser.ast.PackageDeclaration;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.ConstructorDeclaration;
@@ -26,6 +28,9 @@ public class StaticAnalysisVisitor extends VoidVisitorAdapter<Project> {
 		if (n.isInterface()) {
 			type = "Interface";
 		}
+		else if (checkAbstractModifier(n.getModifiers())) {
+			type = "Abstract Class";
+		}
 		TokenRange tokenRange;
 		int lineCount = 0;
 		if (n.getTokenRange().isPresent()) {
@@ -34,7 +39,8 @@ public class StaticAnalysisVisitor extends VoidVisitorAdapter<Project> {
 			Range endRange = tokenRange.getEnd().getRange().get();
 			lineCount = endRange.begin.line - beginRange.begin.line;
 		}
-		Class newClass = new Class(n.getName().toString(), type, n.getModifiers().get(0).toString().trim(), lineCount);
+		System.out.printf("Parsing %s\n", n.getName());
+		Class newClass = new Class(n.getName().toString(), type, getAccessModifier(n.getModifiers()), lineCount);
 		currentFile.addClass(newClass);
 		currentClass = newClass;
 
@@ -48,8 +54,7 @@ public class StaticAnalysisVisitor extends VoidVisitorAdapter<Project> {
 		if (packageDeclaration.isPresent()) {
 			packageName = ((PackageDeclaration) packageDeclaration.get()).getName().toString();
 		}
-		Package newPackage = new Package();
-		project.addPackage(packageName, newPackage);
+		Package newPackage = project.getOrCreatePackage(packageName);
 		File newFile = new File();
 		newPackage.addFile(newFile);
 		currentFile = newFile;
@@ -65,7 +70,7 @@ public class StaticAnalysisVisitor extends VoidVisitorAdapter<Project> {
 	public void visit(FieldDeclaration n, Project project) {
 		for (VariableDeclarator variable : n.getVariables()) {
 			Field newField = new Field(variable.getName().getIdentifier().trim(), variable.getType().toString(),
-					n.getModifiers().get(0).toString());
+					getAccessModifier(n.getModifiers()));
 			currentClass.addField(newField);
 		}
 
@@ -73,7 +78,7 @@ public class StaticAnalysisVisitor extends VoidVisitorAdapter<Project> {
 
 	@Override
 	public void visit(MethodDeclaration n, Project project) {
-		Method newMethod = new Method(n.getName().getIdentifier().trim(), n.getModifiers().get(0).toString(),
+		Method newMethod = new Method(n.getName().getIdentifier().trim(), getAccessModifier(n.getModifiers()),
 				n.getType().asString());
 		for (com.github.javaparser.ast.body.Parameter p : n.getParameters()) {
 			Parameter param = new Parameter(p.getName().asString().trim(), p.getType().asString().trim());
@@ -85,13 +90,33 @@ public class StaticAnalysisVisitor extends VoidVisitorAdapter<Project> {
 	@Override
 	public void visit(ConstructorDeclaration n, Project project) {
 		Constructor constructor = new Constructor(n.getName().getIdentifier().trim(),
-				n.getModifiers().get(0).toString());
+				getAccessModifier(n.getModifiers()));
 		for (com.github.javaparser.ast.body.Parameter p : n.getParameters()) {
 			Parameter param = new Parameter(p.getName().asString().trim(), p.getType().asString().trim());
 			constructor.addParameter(param);
 		}
 		currentClass.addConstructor(constructor);
 
+	}
+
+	private String getAccessModifier(List<Modifier> modifiers) {
+		for (Modifier modifier : modifiers) {
+			String mod = modifier.toString().trim();
+			if (mod.equals("public") || mod.equals("protected") || mod.equals("private")) {
+				return mod;
+			}
+		}
+		return "unrecognized";
+	}
+
+	private Boolean checkAbstractModifier(List<Modifier> modifiers) {
+		for (Modifier modifier : modifiers) {
+			String mod = modifier.toString().trim();
+			if (mod.equals("abstract")) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

@@ -12,6 +12,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 
 @SpringBootApplication
 @EnableConfigurationProperties(StorageProperties.class)
@@ -20,7 +22,9 @@ public class SurabayaApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SurabayaApplication.class, args);
 		Analyzer analyzer = new Analyzer();
-		Project parsedProject = analyzer.analyze("src/test/testProject/src");
+		// Temporary test call. TODO: Hookup the frontend to call analyze
+		Resource testZip = new FileSystemResource("src/main/resources/test.zip");
+		Project parsedProject = analyzer.analyze(testZip);
 		ObjectMapper mapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
 		try {
 			System.out.println(mapper.writeValueAsString(parsedProject));

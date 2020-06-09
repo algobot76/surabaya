@@ -4,6 +4,7 @@ target/
 !**/src/main/**
 !**/src/test/**
 upload-dir/
+unzipped/
 
 ### STS ###
 .apt_generated
