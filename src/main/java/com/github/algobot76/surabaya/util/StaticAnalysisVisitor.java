@@ -28,6 +28,9 @@ public class StaticAnalysisVisitor extends VoidVisitorAdapter<Project> {
 		if (n.isInterface()) {
 			type = "Interface";
 		}
+		else if (checkAbstractModifier(n.getModifiers())) {
+			type = "Abstract Class";
+		}
 		TokenRange tokenRange;
 		int lineCount = 0;
 		if (n.getTokenRange().isPresent()) {
@@ -104,6 +107,16 @@ public class StaticAnalysisVisitor extends VoidVisitorAdapter<Project> {
 			}
 		}
 		return "unrecognized";
+	}
+
+	private Boolean checkAbstractModifier(List<Modifier> modifiers) {
+		for (Modifier modifier : modifiers) {
+			String mod = modifier.toString().trim();
+			if (mod.equals("abstract")) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }
