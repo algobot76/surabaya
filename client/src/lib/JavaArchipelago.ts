@@ -8,7 +8,15 @@ import {
   forceLink,
   forceManyBody,
 } from "d3-force";
-import { getFullyQualifiedName, getApproximateIslandRadius } from "./utils";
+import {
+  manyBodyStrength,
+  simIterations,
+  islandInterpackageDistance,
+} from "../util/constants";
+import {
+  getFullyQualifiedName,
+  getApproximateIslandRadius,
+} from "../util/helpers";
 
 export interface JavaIsland extends JavaClass, SimulationNodeDatum {
   package: JavaPackage;
@@ -34,11 +42,6 @@ export interface JavaIsland extends JavaClass, SimulationNodeDatum {
  * ```
  */
 export class JavaArchipelago {
-  static readonly DomesticLinkDistance = 100;
-  static readonly ForeignLinkDistance = 600;
-  static readonly ManyBodyStrength = -1000;
-  static readonly SimIterations = 1000;
-
   project: JavaProject;
   islands: JavaIsland[];
   islandMap = new Map<string, JavaIsland>();
@@ -90,27 +93,27 @@ export class JavaArchipelago {
     );
     sim.force(
       "manybody",
-      forceManyBody<JavaIsland>().strength(JavaArchipelago.ManyBodyStrength)
+      forceManyBody<JavaIsland>().strength(manyBodyStrength)
     );
     sim.force(
       "samePackage",
       forceLink<JavaIsland, SimulationLinkDatum<JavaIsland>>(
         this.links.samePackage
-      ).distance(JavaArchipelago.DomesticLinkDistance)
+      ).distance(islandInterpackageDistance)
     );
     sim.force(
       "domesticDependency",
       forceLink<JavaIsland, SimulationLinkDatum<JavaIsland>>(
         this.links.samePackage
-      ).distance(JavaArchipelago.DomesticLinkDistance)
+      ).distance(islandInterpackageDistance)
     );
     sim.force(
       "foreignDependency",
       forceLink<JavaIsland, SimulationLinkDatum<JavaIsland>>(
         this.links.samePackage
-      ).distance(JavaArchipelago.ForeignLinkDistance)
+      ).distance(islandInterpackageDistance)
     );
-    sim.tick(JavaArchipelago.SimIterations);
+    sim.tick(simIterations);
     sim.stop();
   }
 
