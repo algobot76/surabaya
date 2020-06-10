@@ -17,7 +17,23 @@ const Panel = styled.div`
   align-items: center;
 `;
 
-const InputButton = styled.input`
+const UploadButton = styled.input`
+  background-color: lightgrey;
+  height: 35px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border: none;
+  border-radius: 7px;
+  margin: 10px;
+  text-align: center;
+  cursor: pointer;
+  &:hover {
+    background-color: grey;
+    color: white;
+  }
+`;
+
+const AnalyzeButton = styled.button`
   background-color: lightgrey;
   height: 35px;
   padding-left: 15px;
@@ -46,8 +62,13 @@ const StyledLabel = styled.label`
   text-align: center;
 `;
 
-const ImportPanel = () => {
+interface ImportPanelProps {
+  setData: Function;
+}
+
+const ImportPanel: React.FC<ImportPanelProps> = (props) => {
   const [file, setFile] = useState<File | null>();
+  const { setData } = props;
 
   function handleFormSubmit(e) {
     e.preventDefault();
@@ -66,6 +87,17 @@ const ImportPanel = () => {
       .catch((err) => alert(err));
   }
 
+  function getAnalysis() {
+    const url = "http://localhost:8080/analysis";
+    axios
+      .get(url)
+      .then((res) => {
+        alert("Success");
+        setData(res.data);
+      })
+      .catch((err) => alert(err));
+  }
+
   return (
     <Panel>
       <StyledForm onSubmit={(e) => handleFormSubmit(e)}>
@@ -77,7 +109,10 @@ const ImportPanel = () => {
           accept="application/zip"
           onChange={(e) => setFile(e.target.files[0])}
         />
-        <InputButton type="submit" value="Start" />
+        <UploadButton type="submit" value="Upload" />
+        <AnalyzeButton type="button" onClick={getAnalysis}>
+          Analyze
+        </AnalyzeButton>
       </StyledForm>
     </Panel>
   );
