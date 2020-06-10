@@ -12,6 +12,8 @@ import Rock from "../../assets/icons/rock.png";
 import RockMultiple from "../../assets/icons/rockMultiples.png";
 import styles from "./styles.module.css";
 import styled from "styled-components";
+import ColoredFlag from "../ColoredFlag";
+import { iconWidth } from "../../util/constants";
 
 interface IconToolTipProps {
   type: IconType;
@@ -23,16 +25,17 @@ export enum IconType {
   StringMultiple,
   Boolean,
   BooleanMultiple,
-  Int,
-  IntMultiple,
+  Numeric,
+  NumericMultiple,
   Other,
   OtherMultiple,
   Import,
   Method,
   Constructor,
+  Flag,
 }
 
-function getIcon(type: IconType): string {
+function getIconImage(type: IconType): string {
   switch (type) {
     case IconType.Import:
       return RightBoat;
@@ -44,9 +47,9 @@ function getIcon(type: IconType): string {
       return Deciduous;
     case IconType.BooleanMultiple:
       return DeciduousMultiple;
-    case IconType.Int:
+    case IconType.Numeric:
       return Pond;
-    case IconType.IntMultiple:
+    case IconType.NumericMultiple:
       return PondMultiple;
     case IconType.String:
       return Evergreen;
@@ -61,7 +64,7 @@ function getIcon(type: IconType): string {
   }
 }
 
-const MarginDiv = styled.div`
+export const MarginDiv = styled.div`
   margin-top: 2px;
   margin-bottom: 4px;
   font-size: 12px;
@@ -70,27 +73,41 @@ const MarginDiv = styled.div`
 function getToolTipText(props: IconToolTipProps) {
   const { data } = props;
   switch (props.type) {
-    case IconType.Import:
-      return <MarginDiv>Imports: 'ADD IMPORT DATA HERE'</MarginDiv>;
+    case IconType.Import: // data for imports takes in the *entire class object*
+      return <MarginDiv>Imports: {data.imports.join(", ")}</MarginDiv>;
+    case IconType.Flag:
+      return (
+        <div>
+          <MarginDiv>Name: {data.name}</MarginDiv>
+          <MarginDiv>Type: {data.type}</MarginDiv>
+          <MarginDiv>Access modifier: {data.access_modifier}</MarginDiv>
+          <MarginDiv>Lines: {data.lineCount}</MarginDiv>
+        </div>
+      );
     case IconType.Constructor:
     case IconType.Method:
       const parameterString =
         data.parameters &&
-        Object.keys(data.parameters)
-          ?.map((p) => `${p}: ${data.parameters[p]}`)
-          ?.join(", ");
+        data.parameters.length > 0 &&
+        data.parameters
+          .map((p) => {
+            return `${p.type} ${p.name}`;
+          })
+          .join(", ");
       return (
         <div>
           <MarginDiv>Name: {data.name}</MarginDiv>
-          <MarginDiv>Access modifier: {data.accessModifier}</MarginDiv>
+          <MarginDiv>Access modifier: {data.access_modifier}</MarginDiv>
           <MarginDiv>Parameters: {parameterString || "none"}</MarginDiv>
-          <MarginDiv>Return type: {data.returnType}</MarginDiv>
+          {props.type === IconType.Method && (
+            <MarginDiv>Return type: {data.return_type}</MarginDiv>
+          )}
         </div>
       );
     case IconType.Boolean:
     case IconType.BooleanMultiple:
-    case IconType.Int:
-    case IconType.IntMultiple:
+    case IconType.Numeric:
+    case IconType.NumericMultiple:
     case IconType.String:
     case IconType.StringMultiple:
     case IconType.Other:
@@ -99,16 +116,13 @@ function getToolTipText(props: IconToolTipProps) {
         <div>
           <MarginDiv>Name: {data.name}</MarginDiv>
           <MarginDiv>Type: {data.type}</MarginDiv>
-          <MarginDiv>Access modifier: {data.accessModifier}</MarginDiv>
+          <MarginDiv>Access modifier: {data.access_modifier}</MarginDiv>
         </div>
       );
     default:
       return null;
   }
 }
-
-// IMPORTANT!! iconWidth is a constant because it is also used in ToolTipSquare for calculating the ArrayContainer width
-export const iconWidth = 30;
 
 const SizedIconContainer = styled.div`
   width: ${iconWidth}px;
@@ -124,12 +138,17 @@ const SizedImage = styled.img`
 `;
 
 const IconToolTip: React.FC<IconToolTipProps> = (props: IconToolTipProps) => {
-  const icon = getIcon(props.type);
+  const isFlag = props.type === IconType.Flag;
+  const iconImage = !isFlag && getIconImage(props.type);
   const toolTipText = getToolTipText(props);
   return (
     <div className={styles.tooltip}>
       <SizedIconContainer>
-        <SizedImage src={icon} />
+        {isFlag ? (
+          <ColoredFlag flagType={props.data.type} />
+        ) : (
+          <SizedImage src={iconImage} />
+        )}
       </SizedIconContainer>
       <span className={styles.tooltiptext}>{toolTipText}</span>
     </div>

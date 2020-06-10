@@ -13,4 +13,10 @@ public class Field {
 	@JsonProperty("access_modifier")
 	private final AccessModifier accessModifier;
 
+	public Field(String name, String type, String accessModifier) {
+		this.name = name;
+		this.type = type;
+		this.accessModifier = AccessModifier.fromString(accessModifier);
+	}
+
 }
