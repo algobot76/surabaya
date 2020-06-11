@@ -16,8 +16,42 @@ public class Constructor {
 
 	private final List<Parameter> parameters = new ArrayList<>();
 
+	public Constructor(String name, String accessModifier) {
+		this.name = name;
+		this.accessModifier = AccessModifier.fromString(accessModifier);
+	}
+
 	public void addParameter(Parameter p) {
 		parameters.add(p);
+	}
+
+	@Override
+	public boolean equals(Object o) {
+
+		if (o == this)
+			return true;
+		if (!(o instanceof Constructor)) {
+			return false;
+		}
+
+		Constructor c = (Constructor) o;
+
+		boolean equalParams = c.getParameters().containsAll(parameters)
+				&& c.getParameters().size() == parameters.size();
+		return c.getName().equals(name) && c.getAccessModifier() == accessModifier && equalParams;
+	}
+
+	@Override
+	public int hashCode() {
+		int result = 17;
+		result = 31 * result + name.hashCode();
+		result = 31 * result + accessModifier.hashCode();
+
+		for (Parameter p : parameters) {
+			result = 31 * result + p.hashCode();
+		}
+
+		return result;
 	}
 
 }
