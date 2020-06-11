@@ -38,7 +38,7 @@ Use [JavaParser](https://javaparser.org/) and convert the outputted AST into the
 ### `Class` Class
 
 - `name`: class name
-- `type`: `Interface`, `Abstract`, `Concrete`, etc.
+- `type`: `Interface`, `Abstract Class`, `Class`
 - `accessModifier`: [AccessModifier](#accessmodifier-enum) enum
 - `lineCount`: number of lines
 - `fields`: list of [Field](#field-class) objects
