@@ -20,12 +20,20 @@ Use [JavaParser](https://javaparser.org/) and convert the outputted AST into the
 
 ### `Project` Class
 
-- `packages`: list of [Package](#package-class) objects
+- `packages`: map of package name to [Package](#package-class) objects
+
+```typescript
+  { [key: string]: Package }
+```
 
 ### `Package` Class
 
-- `name`: package name
+- `files`: list of [File](#file-class) objects
+
+### `File` Class
+
 - `classes`: list of [Class](#class-class) objects
+- `imports`: list of imported package names
 
 ### `Class` Class
 
@@ -33,7 +41,6 @@ Use [JavaParser](https://javaparser.org/) and convert the outputted AST into the
 - `type`: `Interface`, `Abstract`, `Concrete`, etc.
 - `accessModifier`: [AccessModifier](#accessmodifier-enum) enum
 - `lineCount`: number of lines
-- `imports`: list of imported package names
 - `fields`: list of [Field](#field-class) objects
 - `methods`: list of [Method](#method-class) objects
 - `constructors`: list of [Constructor](#constructor-class) objects
@@ -72,67 +79,70 @@ Representation of `JavaProject` in JSON:
 
 ```json
 {
-  "packages": [
-    {
-      "name": "p1",
-      "classes": [
+  "packages": {
+    "p1": {
+      "files": [
         {
-          "name": "C1",
-          "type": "Interface",
-          "accessModifier": "private",
-          "lineCount": 100,
-          "imports": ["ex2", "ex3"],
-          "fields": [
-            {
-              "name": "foo",
-              "type": "String",
-              "access_modifier": "public",
-            },
-            {
-              "name": "bar",
-              "type": "int",
-              "access_modifier": "private"
-            }
-          ],
-          "methods": [
-            {
-              "name": "getBar",
-              "access_modifier": "public",
-              "parameters": [],
-              "return_type": "int"
-            },
-            {
-              "name": "setFoo",
-              "access_modifier": "public",
-              "parameters": [
-                {
-                  "name": "foo",
-                  "type": "String"
-                }
-              ],
-              "return_type": "void"
-            }
-          ],
-          "constructors": [
+          "classes": [
             {
               "name": "C1",
-              "access_modifier": "public",
-              "parameters": [
+              "type": "Interface",
+              "accessModifier": "private",
+              "lineCount": 100,
+              "fields": [
                 {
                   "name": "foo",
                   "type": "String",
+                  "access_modifier": "public"
                 },
                 {
                   "name": "bar",
-                  "type": "int"
+                  "type": "int",
+                  "access_modifier": "private"
+                }
+              ],
+              "methods": [
+                {
+                  "name": "getBar",
+                  "access_modifier": "public",
+                  "parameters": [],
+                  "return_type": "int"
+                },
+                {
+                  "name": "setFoo",
+                  "access_modifier": "public",
+                  "parameters": [
+                    {
+                      "name": "foo",
+                      "type": "String"
+                    }
+                  ],
+                  "return_type": "void"
+                }
+              ],
+              "constructors": [
+                {
+                  "name": "C1",
+                  "access_modifier": "public",
+                  "parameters": [
+                    {
+                      "name": "foo",
+                      "type": "String"
+                    },
+                    {
+                      "name": "bar",
+                      "type": "int"
+                    }
+                  ]
                 }
               ]
             }
-          ]
+          ],
+          "imports": ["p2.ex2", "p2.ex3"]
         }
       ]
     }
-  ]
+  }
 }
 ```
 
