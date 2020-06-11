@@ -24,7 +24,6 @@ public class FileUnzipper {
 		java.io.File directory = new java.io.File(destpath);
 
 		try {
-			// if the output directory doesn't exist, create it
 			if (directory.exists()) {
 				FileSystemUtils.deleteRecursively(directory);
 			}
