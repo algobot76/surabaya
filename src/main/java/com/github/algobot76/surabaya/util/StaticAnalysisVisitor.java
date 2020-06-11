@@ -7,6 +7,7 @@ import com.github.javaparser.ast.ImportDeclaration;
 import com.github.javaparser.ast.Modifier;
 import com.github.javaparser.ast.PackageDeclaration;
 import com.github.javaparser.ast.body.*;
+import com.github.javaparser.ast.expr.Name;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,7 +64,15 @@ public class StaticAnalysisVisitor extends VoidVisitorAdapter<Project> {
 
 	@Override
 	public void visit(ImportDeclaration n, Project project) {
-		currentFile.addImport(n.getName().getIdentifier());
+		Name name = n.getName();
+		String identifier;
+		if (name.getQualifier().isPresent()) {
+			identifier = name.getQualifier().get() + "." + name.getIdentifier();
+		}
+		else {
+			identifier = name.getIdentifier();
+		}
+		currentFile.addImport(identifier);
 	}
 
 	@Override
