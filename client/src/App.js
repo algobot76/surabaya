@@ -1,9 +1,11 @@
 import React, { Fragment, useState } from "react";
 import styles from "./App.module.css";
 import Legend from "./components/Legend";
+import IslandMap from "./components/IslandMap";
 import ImportPanel from "./components/ImportPanel";
 import Island from "./components/Island";
 import RecoilRoot from "recoil";
+import RightSide from "./components/RightSide";
 
 const Package = (props) => {
   const { content } = props;

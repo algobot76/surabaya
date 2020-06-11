@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
+import { useMemo, useState } from "react";
+import IconToolTip, { IconType } from "../IconTooltip";
 import styled from "styled-components";
 import Island1 from "../../assets/islands/island1.png";
 import Island2 from "../../assets/islands/island2.png";
@@ -32,6 +34,7 @@ const IslandImage = styled.img<{ maxWidth }>`
 function getRandomIslandImage() {
   const numberOfIslandImages = islandArray.length;
   const randomIslandIndex = Math.floor(Math.random() * numberOfIslandImages);
+  const islandImage = useMemo(() => islandArray[randomIslandIndex], []); //added to avoid rerendering
   return islandArray[randomIslandIndex];
 }
 
