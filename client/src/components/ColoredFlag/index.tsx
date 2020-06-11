@@ -2,9 +2,15 @@ import React from "react";
 import styled from "styled-components";
 import { iconWidth } from "../../util/constants";
 
+enum FlagType {
+  Interface = "Interface",
+  AbstractClass = "Abstract Class",
+  ConcreteClass = "Class",
+}
+
 const FlagRectangle = styled.div<{ type: FlagType }>`
   height: 50%;
-  width: 100%;
+  width: 80%;
   border: 1px solid black;
   background-image: ${(props) => {
     switch (props.type) {
@@ -25,12 +31,6 @@ const Flag = styled.div`
   width: ${iconWidth * 0.8}px;
   border-left: 2px solid black;
 `;
-
-enum FlagType {
-  Interface = "Interface",
-  AbstractClass = "Abstract Class",
-  ConcreteClass = "Class",
-}
 
 interface FlagProps {
   flagType: FlagType;

@@ -1,22 +1,22 @@
 package com.github.algobot76.surabaya.util;
 
-import java.util.List;
-import java.util.Optional;
-
 import com.github.javaparser.Range;
 import com.github.javaparser.TokenRange;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.ImportDeclaration;
 import com.github.javaparser.ast.Modifier;
 import com.github.javaparser.ast.PackageDeclaration;
-import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
-import com.github.javaparser.ast.body.ConstructorDeclaration;
-import com.github.javaparser.ast.body.FieldDeclaration;
-import com.github.javaparser.ast.body.MethodDeclaration;
-import com.github.javaparser.ast.body.VariableDeclarator;
+import com.github.javaparser.ast.body.*;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.List;
+import java.util.Optional;
 
 public class StaticAnalysisVisitor extends VoidVisitorAdapter<Project> {
+
+	private static final Logger logger = LoggerFactory.getLogger(StaticAnalysisVisitor.class);
 
 	private File currentFile;
 
@@ -39,7 +39,7 @@ public class StaticAnalysisVisitor extends VoidVisitorAdapter<Project> {
 			Range endRange = tokenRange.getEnd().getRange().get();
 			lineCount = endRange.begin.line - beginRange.begin.line;
 		}
-		System.out.printf("Parsing %s\n", n.getName());
+		logger.info(String.format("Parsing %s\n", n.getName()));
 		Class newClass = new Class(n.getName().toString(), type, getAccessModifier(n.getModifiers()), lineCount);
 		currentFile.addClass(newClass);
 		currentClass = newClass;

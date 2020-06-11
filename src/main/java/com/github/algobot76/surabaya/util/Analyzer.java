@@ -1,18 +1,21 @@
 package com.github.algobot76.surabaya.util;
 
-import java.io.IOException;
-import java.util.List;
-
 import com.github.algobot76.surabaya.SurabayaApplication;
 import com.github.javaparser.ParseResult;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.visitor.VoidVisitor;
 import com.github.javaparser.utils.CodeGenerationUtils;
 import com.github.javaparser.utils.SourceRoot;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
 
+import java.io.IOException;
+import java.util.List;
+
 public class Analyzer {
+
+	private static final Logger logger = LoggerFactory.getLogger(Analyzer.class);
 
 	private static final String destpath = "unzipped";
 
@@ -37,7 +40,7 @@ public class Analyzer {
 			}
 		}
 		catch (IOException e) {
-			System.out.println(e.getMessage());
+			logger.error(e.getMessage());
 		}
 		return project;
 	}
