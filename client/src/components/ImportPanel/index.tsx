@@ -5,11 +5,11 @@ import styled from "styled-components";
 // note these dimensions are based on the Legend component
 // TODO: fix the dimensions of this and the Legend so they are more independent
 const Panel = styled.div`
-  width: calc(25vh + 30px);
-  height: 45vh;
+  width: 300px;
+  height: 35vh;
   background-color: rgba(255, 255, 255, 0.5);
   position: absolute;
-  top: 55vh;
+  top: 65vh;
   border-top: 2px solid white;
   display: flex;
   flex-direction: column;

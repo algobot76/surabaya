@@ -5,8 +5,8 @@ import {
   getNumColumnsForSquare,
 } from "../../util/helpers";
 import { iconWidth, marginSize } from "../../util/constants";
-import WoodenFence from "../../assets/Fences/woodenFence.png";
-import StoneFence from "../../assets/Fences/stoneFence.png";
+import WoodenFence from "../../assets/fences/woodenFence.png";
+import StoneFence from "../../assets/fences/stoneFence.png";
 import IconToolTip, { IconType } from "../IconTooltip";
 
 enum AccessModifiers {
