@@ -18,4 +18,27 @@ public class Project {
 		return packages.get(name);
 	}
 
+	@Override
+	public boolean equals(Object o) {
+
+		if (o == this)
+			return true;
+		if (!(o instanceof Project)) {
+			return false;
+		}
+
+		Project p = (Project) o;
+
+		return p.getPackages().equals(packages);
+	}
+
+	@Override
+	public int hashCode() {
+		int result = 17;
+
+		result = 31 * result + packages.hashCode();
+
+		return result;
+	}
+
 }

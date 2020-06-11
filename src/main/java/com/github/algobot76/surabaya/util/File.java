@@ -20,4 +20,35 @@ public class File {
 		imports.add(i);
 	}
 
+	@Override
+	public boolean equals(Object o) {
+
+		if (o == this)
+			return true;
+		if (!(o instanceof File)) {
+			return false;
+		}
+
+		File f = (File) o;
+
+		boolean equalImports = f.getImports().containsAll(imports) && f.getImports().size() == imports.size();
+		boolean equalClasses = f.getClasses().containsAll(classes) && f.getClasses().size() == classes.size();
+		return equalImports && equalClasses;
+	}
+
+	@Override
+	public int hashCode() {
+		int result = 17;
+
+		for (String i : imports) {
+			result = 31 * result + i.hashCode();
+		}
+
+		for (Class c : classes) {
+			result = 31 * result + c.hashCode();
+		}
+
+		return result;
+	}
+
 }

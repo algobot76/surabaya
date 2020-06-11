@@ -2,10 +2,12 @@ import React from "react";
 import styled from "styled-components";
 import { iconWidth } from "../../util/constants";
 
-enum FlagType {
+// TODO change with Java Types when added
+export enum FlagType {
   Interface = "Interface",
   AbstractClass = "Abstract Class",
   ConcreteClass = "Class",
+  Enum = "Enum",
 }
 
 const FlagRectangle = styled.div<{ type: FlagType }>`
@@ -20,6 +22,8 @@ const FlagRectangle = styled.div<{ type: FlagType }>`
         return "linear-gradient(to right, #b8a830, #f7e240)"; // yellow
       case FlagType.Interface:
         return "linear-gradient(to right, #833ead, #c76eff)"; // purple
+      case FlagType.Enum:
+        return "linear-gradient(to right, #b00c00, #ff786e)"; // red
       default:
         return "grey";
     }
