@@ -80,7 +80,7 @@ function getToolTipText(props: IconToolTipProps) {
         <div>
           <MarginDiv>Name: {data.name}</MarginDiv>
           <MarginDiv>Type: {data.type}</MarginDiv>
-          <MarginDiv>Access modifier: {data.access_modifier}</MarginDiv>
+          <MarginDiv>Access modifier: {data.accessModifier}</MarginDiv>
           <MarginDiv>Lines: {data.lineCount}</MarginDiv>
         </div>
       );
