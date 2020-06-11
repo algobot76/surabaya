@@ -31,7 +31,7 @@ public class Analyzer {
 	public Project analyze(Resource file) {
 		FileUnzipper.unzip(file, destpath);
 		SourceRoot sourceRoot = new SourceRoot(
-				CodeGenerationUtils.mavenModuleRoot(SurabayaApplication.class).resolve("unzipped/src"));
+				CodeGenerationUtils.mavenModuleRoot(SurabayaApplication.class).resolve("unzipped"));
 		try {
 			List<ParseResult<CompilationUnit>> results = sourceRoot.tryToParse();
 			for (ParseResult result : results) {
