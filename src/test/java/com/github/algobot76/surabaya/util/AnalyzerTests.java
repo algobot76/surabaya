@@ -1,19 +1,15 @@
 package com.github.algobot76.surabaya.util;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.util.List;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class AnalyzerTests {
 
-	static final String testProjectDir = "src/main/resources/test/";
+	static final String testProjectDir = "src/test/resources/SampleJavaProjects/";
 
 	Analyzer analyzer;
 
@@ -23,8 +19,9 @@ public class AnalyzerTests {
 	}
 
 	@Test
-	void analyzeSimpleZipFileSuccess() throws JsonProcessingException {
+	void analyzeSimpleZipFileSuccess() {
 		Resource testFile = new FileSystemResource(testProjectDir.concat("simpleZip.zip"));
+		System.out.println(testFile);
 		Project resultProject = analyzer.analyze(testFile);
 
 		Project expectedProject = new Project();
@@ -42,7 +39,7 @@ public class AnalyzerTests {
 	}
 
 	@Test
-	void analyzeInterfaceSuccess() throws JsonProcessingException {
+	void analyzeInterfaceSuccess() {
 		Resource testFile = new FileSystemResource(testProjectDir.concat("interface.zip"));
 		Project resultProject = analyzer.analyze(testFile);
 
@@ -58,7 +55,7 @@ public class AnalyzerTests {
 	}
 
 	@Test
-	void analyzeAbstractClassSuccess() throws JsonProcessingException {
+	void analyzeAbstractClassSuccess() {
 		Resource testFile = new FileSystemResource(testProjectDir.concat("abstractClass.zip"));
 		Project resultProject = analyzer.analyze(testFile);
 
@@ -76,7 +73,7 @@ public class AnalyzerTests {
 	}
 
 	@Test
-	void analyzeMultipleClassesSuccess() throws JsonProcessingException {
+	void analyzeMultipleClassesSuccess() {
 		Resource testFile = new FileSystemResource(testProjectDir.concat("multipleClasses.zip"));
 		Project resultProject = analyzer.analyze(testFile);
 
@@ -104,7 +101,7 @@ public class AnalyzerTests {
 	}
 
 	@Test
-	void analyzeNoSrcDirectorySuccess() throws JsonProcessingException {
+	void analyzeNoSrcDirectorySuccess() {
 		Resource testFile = new FileSystemResource(testProjectDir.concat("noSrc.zip"));
 		Project resultProject = analyzer.analyze(testFile);
 
@@ -122,7 +119,7 @@ public class AnalyzerTests {
 	}
 
 	@Test
-	void analyzeWrongFileFormat() throws JsonProcessingException {
+	void analyzeWrongFileFormat() {
 		Resource testFile = new FileSystemResource(testProjectDir.concat("test,java"));
 		Project results = analyzer.analyze(testFile);
 		assertEquals(new Project(), results);
