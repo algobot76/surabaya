@@ -23,7 +23,7 @@ const Legend = () => {
         <div className={styles.legendLeftContainer}>
           <div className={styles.legendRow}>
             <img className={styles.legendImg} src={RightBoat} alt="" />
-            <p className={styles.legendText}>Import statement</p>
+            <p className={styles.legendText}>Imports</p>
           </div>
           <div className={styles.legendRow}>
             <img className={styles.legendImg} src={Volcano} alt="" />
