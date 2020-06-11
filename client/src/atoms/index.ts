@@ -1,10 +1,8 @@
-import { memoize, atom } from "recoil";
+import { atomFamily } from "recoil";
 
-export const islandByID = memoize((id) =>
-  atom({
-    key: `id`,
-    default: {
-      hovered: false,
-    },
-  })
-);
+export const islandFamily = atomFamily({
+  key: "islandFamily",
+  default: {
+    hovered: false,
+  },
+});

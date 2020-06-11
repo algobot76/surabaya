@@ -9,7 +9,7 @@ import Island4 from "../../assets/islands/island4.png";
 import Island5 from "../../assets/islands/island5.png";
 import TooltipSquare from "../TooltipSquare";
 import { iconWidth } from "../../util/constants";
-import { islandByID } from "../../atoms";
+import { islandFamily } from "../../atoms";
 import { useSetRecoilState } from "recoil";
 
 const islandArray = [Island1, Island2, Island3, Island4, Island5];
@@ -34,7 +34,7 @@ const IslandImage = styled.img<{ maxWidth }>`
 function getRandomIslandImage() {
   const numberOfIslandImages = islandArray.length;
   const randomIslandIndex = Math.floor(Math.random() * numberOfIslandImages);
-  const islandImage = useMemo(() => islandArray[randomIslandIndex], []); //added to avoid rerendering
+  // const islandImage = useMemo(() => islandArray[randomIslandIndex], []); //added to avoid rerendering
   return islandArray[randomIslandIndex];
 }
 
@@ -58,7 +58,7 @@ function getIslandWidth(numberOfLines: number, minIslandWidth: number): number {
 const Island: React.FC<{ fileAnalysis }> = (props: any) => {
   const { fileAnalysis } = props;
   const [width, setWidth] = useState(0);
-  const setIslandState = useSetRecoilState(islandByID());
+  const setIslandState = useSetRecoilState(islandFamily);
   const minIslandWidth = width + iconWidth;
 
   const islandImage = getRandomIslandImage();
@@ -70,12 +70,16 @@ const Island: React.FC<{ fileAnalysis }> = (props: any) => {
   const onSize = (size) => {
     setWidth(size.width);
   };
-
+  const handleHover = () => {
+    setIslandState({ hover: true });
+  };
   return (
-    <IslandContainer minWidth={fileSizeAdjustedWidth}>
-      <IslandImage src={islandImage} maxWidth={fileSizeAdjustedWidth} />
-      <TooltipSquare onSize={onSize} fileData={fileAnalysis} />
-    </IslandContainer>
+    <div onMouseEnter={handleHover}>
+      <IslandContainer minWidth={fileSizeAdjustedWidth}>
+        <IslandImage src={islandImage} maxWidth={fileSizeAdjustedWidth} />
+        <TooltipSquare onSize={onSize} fileData={fileAnalysis} />
+      </IslandContainer>
+    </div>
   );
 };
 

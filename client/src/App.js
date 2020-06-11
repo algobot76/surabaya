@@ -4,7 +4,7 @@ import Legend from "./components/Legend";
 import IslandMap from "./components/IslandMap";
 import ImportPanel from "./components/ImportPanel";
 import Island from "./components/Island";
-import RecoilRoot from "recoil";
+import { RecoilRoot } from "recoil";
 import RightSide from "./components/RightSide";
 
 const Package = (props) => {
@@ -28,7 +28,7 @@ function App() {
           <Legend />
           <ImportPanel setData={setData} />
         </div>
-        <RightSide></RightSide>
+        <RightSide javaProject={data}></RightSide>
       </div>
     </RecoilRoot>
   );
