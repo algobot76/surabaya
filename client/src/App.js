@@ -4,12 +4,15 @@ import Island from "./components/Island";
 import Legend from "./components/Legend";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import IslandMap from "./components/IslandMap";
+import ImportPanel from "./components/ImportPanel";
+import mockFile from "./mockFile.json";
 
 function App() {
   return (
     <div className={styles.App}>
       <div className={styles.leftSide}>
-        <Legend></Legend>
+        <Legend />
+        <ImportPanel />
       </div>
 
       <div>
@@ -32,7 +35,9 @@ function App() {
               </div>
               <TransformComponent style={{ width: "100%", height: "100%" }}>
                 <div className={styles.rightSide}>
-                  <Island></Island>
+                  <Island fileAnalysis={mockFile} />
+                  <Island fileAnalysis={mockFile} />
+                  <Island fileAnalysis={mockFile} />
                   <IslandMap></IslandMap>
                 </div>
               </TransformComponent>

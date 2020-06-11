@@ -14,12 +14,10 @@ public class Class {
 	private final String type;
 
 	@JsonProperty("access_modifier")
-	private final AccessModifier access_modifier;
+	private final AccessModifier accessModifier;
 
 	@JsonProperty("line_count")
 	private final int lineCount;
-
-	private final List<String> imports = new ArrayList<>();
 
 	private final List<Field> fields = new ArrayList<>();
 
@@ -27,8 +25,11 @@ public class Class {
 
 	private final List<Constructor> constructors = new ArrayList<>();
 
-	public void addImport(String i) {
-		imports.add(i);
+	public Class(String name, String type, String accessModifier, int lineCount) {
+		this.name = name;
+		this.type = type;
+		this.accessModifier = AccessModifier.fromString(accessModifier);
+		this.lineCount = lineCount;
 	}
 
 	public void addField(Field f) {

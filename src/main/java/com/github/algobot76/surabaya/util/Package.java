@@ -8,12 +8,10 @@ import java.util.List;
 @Data
 public class Package {
 
-	private final String name;
+	private final List<File> files = new ArrayList<>();
 
-	private final List<Class> classes = new ArrayList<>();
-
-	public void addClass(Class k) {
-		this.classes.add(k);
+	public void addFile(File f) {
+		this.files.add(f);
 	}
 
 }

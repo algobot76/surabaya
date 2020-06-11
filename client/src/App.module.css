@@ -1,12 +1,14 @@
 .App {
   width: 100vw;
+  height: 100vh;
   display: flex;
 }
 
 .leftSide {
   width: 300px;
   height: 100%;
-  background-color: grey;
+  display: flex;
+  flex-direction: column;
 }
 
 .rightSide {
