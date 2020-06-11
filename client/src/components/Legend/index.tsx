@@ -35,11 +35,11 @@ const Legend = () => {
           </div>
           <div className={styles.legendRow}>
             <img className={styles.legendImg} src={WoodenFence} alt="" />
-            <p className={styles.legendText}>Protected Class</p>
+            <p className={styles.legendText}>Protected</p>
           </div>
           <div className={styles.legendRow}>
             <img className={styles.legendImg} src={StoneFence} alt="" />
-            <p className={styles.legendText}>Private Class</p>
+            <p className={styles.legendText}>Private</p>
           </div>
           <div className={styles.legendRow}>
             <div className={styles.legendImg}>
