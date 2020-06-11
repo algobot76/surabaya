@@ -1,8 +1,7 @@
 export enum JavaType {
   Interface = "Interface",
-  Enum = "Enum",
-  Abstract = "Abstract",
-  Concrete = "Concrete",
+  Abstract = "Abstract Class",
+  Concrete = "Class",
 }
 
 export enum JavaAccessModifier {
@@ -40,15 +39,18 @@ export type JavaClass = {
   type: JavaType;
   accessModifier: JavaAccessModifier;
   lineCount: number;
-  imports: string[];
   fields: JavaField[];
   methods: JavaMethod[];
   constructors: JavaContructor[];
 };
 
-export type JavaPackage = {
-  name: string;
+export type JavaFile = {
   classes: JavaClass[];
+  imports: string[];
+};
+
+export type JavaPackage = {
+  files: JavaFile[];
 };
 
 export type JavaProject = {
