@@ -69,11 +69,11 @@ const Legend = () => {
         <div className={styles.legendRightContainer}>
           <div className={styles.legendRow}>
             <img className={styles.legendImg} src={Deciduous} alt="" />
-            <p className={styles.legendText}>Boolean</p>
+            <p className={styles.legendText}>Primitive boolean</p>
           </div>
           <div className={styles.legendRow}>
             <img className={styles.legendImg} src={DeciduousMultiples} alt="" />
-            <p className={styles.legendText}>Boolean Collection</p>
+            <p className={styles.legendText}>Primitive boolean Collection</p>
           </div>
           <div className={styles.legendRow}>
             <img className={styles.legendImg} src={Pond} alt="" />
