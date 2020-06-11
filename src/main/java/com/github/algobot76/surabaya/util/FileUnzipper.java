@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
+import org.springframework.util.FileSystemUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,14 +23,14 @@ public class FileUnzipper {
 	public static void unzip(Resource zipfile, String destpath) {
 		java.io.File directory = new java.io.File(destpath);
 
-		// if the output directory doesn't exist, create it
-		if (!directory.exists())
+		try {
+			if (directory.exists()) {
+				FileSystemUtils.deleteRecursively(directory);
+			}
 			directory.mkdirs();
 
-		// buffer for read and write data to file
-		byte[] buffer = new byte[2048];
-
-		try {
+			// buffer for read and write data to file
+			byte[] buffer = new byte[2048];
 			InputStream fInput = zipfile.getInputStream();
 			ZipInputStream zipInput = new ZipInputStream(fInput);
 

@@ -26,7 +26,7 @@ function getNumberOfIcons(classData): number {
   classData["constructors"]?.forEach(() => numberOfIcons++);
   classData["fields"]?.forEach(() => numberOfIcons++);
 
-  return numberOfIcons;
+  return numberOfIcons + 1;
 }
 
 const TooltipSquare: React.FC<TooltipSquareProps> = (
