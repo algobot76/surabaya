@@ -11,6 +11,7 @@ const Panel = styled.div`
   position: absolute;
   top: 65vh;
   border-top: 2px solid white;
+  border-right: 2px solid white;
   display: flex;
   flex-direction: column;
   justify-content: center;
