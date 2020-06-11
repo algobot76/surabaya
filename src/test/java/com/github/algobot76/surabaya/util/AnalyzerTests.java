@@ -28,7 +28,7 @@ public class AnalyzerTests {
 		Package expectedPackage = expectedProject.getOrCreatePackage("ast");
 		File expectedFile = new File();
 		expectedPackage.addFile(expectedFile);
-		expectedFile.addImport("Main");
+		expectedFile.addImport("ui.Main");
 		Class expectedClass = new Class("DEC", "Class", "public", 15);
 		expectedFile.addClass(expectedClass);
 		expectedClass.addField(new Field("name", "String", "private"));
@@ -63,7 +63,7 @@ public class AnalyzerTests {
 		Package expectedPackage = expectedProject.getOrCreatePackage("libs");
 		File expectedFile = new File();
 		expectedPackage.addFile(expectedFile);
-		expectedFile.addImport("PrintWriter");
+		expectedFile.addImport("java.io.PrintWriter");
 		Class expectedClass = new Class("Node", "Abstract Class", "public", 5);
 		expectedFile.addClass(expectedClass);
 		expectedClass.addField(new Field("tokenizer", "Tokenizer", "protected"));
@@ -81,7 +81,7 @@ public class AnalyzerTests {
 		Package expectedPackage = expectedProject.getOrCreatePackage("ast");
 		File expectedFile = new File();
 		expectedPackage.addFile(expectedFile);
-		expectedFile.addImport("Main");
+		expectedFile.addImport("ui.Main");
 		Class expectedClass = new Class("DEC", "Class", "public", 15);
 		expectedFile.addClass(expectedClass);
 		expectedClass.addField(new Field("name", "String", "private"));
@@ -91,7 +91,7 @@ public class AnalyzerTests {
 		Package expectedPackage2 = expectedProject.getOrCreatePackage("libs");
 		File expectedFile2 = new File();
 		expectedPackage2.addFile(expectedFile2);
-		expectedFile2.addImport("PrintWriter");
+		expectedFile2.addImport("java.io.PrintWriter");
 		Class expectedClass2 = new Class("Node", "Abstract Class", "public", 5);
 		expectedFile2.addClass(expectedClass2);
 		expectedClass2.addField(new Field("tokenizer", "Tokenizer", "protected"));
@@ -109,7 +109,7 @@ public class AnalyzerTests {
 		Package expectedPackage = expectedProject.getOrCreatePackage("ast");
 		File expectedFile = new File();
 		expectedPackage.addFile(expectedFile);
-		expectedFile.addImport("Main");
+		expectedFile.addImport("ui.Main");
 		Class expectedClass = new Class("DEC", "Class", "public", 15);
 		expectedFile.addClass(expectedClass);
 		expectedClass.addField(new Field("name", "String", "private"));
