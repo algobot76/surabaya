@@ -3,6 +3,7 @@ import styles from "./App.module.css";
 import Legend from "./components/Legend";
 import ImportPanel from "./components/ImportPanel";
 import Island from "./components/Island";
+import RecoilRoot from "recoil";
 
 const Package = (props) => {
   const { content } = props;
@@ -19,19 +20,15 @@ function App() {
   const [data, setData] = useState({});
 
   return (
-    <div className={styles.App}>
-      <div className={styles.leftSide}>
-        <Legend />
-        <ImportPanel setData={setData} />
+    <RecoilRoot>
+      <div className={styles.App}>
+        <div className={styles.leftSide}>
+          <Legend />
+          <ImportPanel setData={setData} />
+        </div>
+        <RightSide></RightSide>
       </div>
-      <div className={styles.rightSide}>
-        {data.packages &&
-          Object.entries(data.packages).map((entry, index) => {
-            const [packageName, packageContent] = entry;
-            return <Package key={index} content={packageContent} />;
-          })}
-      </div>
-    </div>
+    </RecoilRoot>
   );
 }
 
