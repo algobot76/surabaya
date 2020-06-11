@@ -136,7 +136,7 @@ const ClassClusterSquare: React.FC<ClassClusterSquareProps> = (
 ) => {
   const { classData } = props;
   const toolTipArray = getToolTipsForClass(classData);
-  const numberOfIcons = toolTipArray.length;
+  const numberOfIcons = toolTipArray.length + 1;
   const columns = getNumColumnsForSquare(numberOfIcons);
   const width = columns * iconWidth;
 
