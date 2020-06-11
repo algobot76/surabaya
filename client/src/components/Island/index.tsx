@@ -49,6 +49,8 @@ function getIslandWidth(numberOfLines: number, minIslandWidth: number): number {
   return minIslandWidth > numberOfLines ? minIslandWidth : widthByLines;
 }
 
+export const getIslandDimension = getIslandWidth; // used by JavaArchipelago
+
 // TODO replace any with data type object
 const Island: React.FC = (props: any) => {
   const { fileAnalysis } = props;
