@@ -35,11 +35,11 @@ const Legend = () => {
           </div>
           <div className={styles.legendRow}>
             <img className={styles.legendImg} src={WoodenFence} alt="" />
-            <p className={styles.legendText}>Protected Class Info</p>
+            <p className={styles.legendText}>Protected Class</p>
           </div>
           <div className={styles.legendRow}>
             <img className={styles.legendImg} src={StoneFence} alt="" />
-            <p className={styles.legendText}>Private Class Info</p>
+            <p className={styles.legendText}>Private Class</p>
           </div>
           <div className={styles.legendRow}>
             <div className={styles.legendImg}>
@@ -51,19 +51,19 @@ const Legend = () => {
             <div className={styles.legendImg}>
               <ColoredFlag flagType={FlagType.AbstractClass} />
             </div>
-            <p className={styles.legendText}>Abstract Class</p>
+            <p className={styles.legendText}>Abstract Class Info</p>
           </div>
           <div className={styles.legendRow}>
             <div className={styles.legendImg}>
               <ColoredFlag flagType={FlagType.Interface} />
             </div>
-            <p className={styles.legendText}>Interface Class</p>
+            <p className={styles.legendText}>Interface Info</p>
           </div>
           <div className={styles.legendRow}>
             <div className={styles.legendImg}>
               <ColoredFlag flagType={FlagType.Enum} />
             </div>
-            <p className={styles.legendText}>Enum</p>
+            <p className={styles.legendText}>Enum Info</p>
           </div>
         </div>
         <div className={styles.legendRightContainer}>
