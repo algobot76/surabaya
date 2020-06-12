@@ -14,7 +14,7 @@ import { JavaAccessModifier } from "../../JavaProjectTypes";
 
 const islandArray = [Island1, Island2, Island3, Island4, Island5];
 
-const IslandContainer = styled.div<{ minWidth; x; y }>`
+const IslandContainer = styled.div<{ minWidth }>`
   width: ${(props) => `${props.minWidth}px`};
   height: ${(props) => `${props.minWidth}px`};
   position: absolute;
@@ -41,6 +41,9 @@ const IslandWithFileName = styled.div<{ width; x; y }>`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  left: ${(props) => `${props.x}px`};
+  top: ${(props) => `${props.y}px`};
+  position: absolute;
   margin-bottom: ${fileNameSpace}px;
 `;
 
