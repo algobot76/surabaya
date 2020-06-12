@@ -63,7 +63,10 @@ export function getIslandWidth(javaFile: JavaFile): number {
   const widthByLines = numberOfLines > 400 ? 400 : numberOfLines;
 
   // TODO 1px = 1 line is arbitrary, adjust as desired.
-  return minIslandWidth > numberOfLines ? minIslandWidth : widthByLines;
+  return (
+    (minIslandWidth > numberOfLines ? minIslandWidth : widthByLines) +
+    marginSize
+  );
 }
 
 // For collision boundary
