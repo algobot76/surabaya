@@ -54,5 +54,6 @@ export type JavaPackage = {
 };
 
 export type JavaProject = {
+  name: string;
   packages: JavaPackage[];
 };
