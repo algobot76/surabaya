@@ -21,7 +21,13 @@ public class StaticAnalysisVisitor extends VoidVisitorAdapter<Project> {
 
 	private File currentFile;
 
+	private String[] currentFileSrc;
+
 	private Class currentClass;
+
+	public void setFileSrc(String[] src) {
+		this.currentFileSrc = src;
+	}
 
 	@Override
 	public void visit(ClassOrInterfaceDeclaration n, Project project) {
@@ -87,8 +93,14 @@ public class StaticAnalysisVisitor extends VoidVisitorAdapter<Project> {
 
 	@Override
 	public void visit(MethodDeclaration n, Project project) {
+		if (n.getRange().isEmpty()) {
+			return;
+		}
+		Range range = n.getRange().get();
+		String src = getSrcFromRange(range);
+
 		Method newMethod = new Method(n.getName().getIdentifier().trim(), getAccessModifier(n.getModifiers()),
-				n.getType().asString());
+				n.getType().asString(), src);
 		for (com.github.javaparser.ast.body.Parameter p : n.getParameters()) {
 			Parameter param = new Parameter(p.getName().asString().trim(), p.getType().asString().trim());
 			newMethod.addParameter(param);
@@ -98,14 +110,47 @@ public class StaticAnalysisVisitor extends VoidVisitorAdapter<Project> {
 
 	@Override
 	public void visit(ConstructorDeclaration n, Project project) {
+		if (n.getRange().isEmpty()) {
+			return;
+		}
+		Range range = n.getRange().get();
+		String src = getSrcFromRange(range);
 		Constructor constructor = new Constructor(n.getName().getIdentifier().trim(),
-				getAccessModifier(n.getModifiers()));
+				getAccessModifier(n.getModifiers()), src);
 		for (com.github.javaparser.ast.body.Parameter p : n.getParameters()) {
 			Parameter param = new Parameter(p.getName().asString().trim(), p.getType().asString().trim());
 			constructor.addParameter(param);
 		}
 		currentClass.addConstructor(constructor);
 
+	}
+
+	private String getSrcFromRange(Range range) {
+		System.out.println("getSrcFromRange :");
+		System.out.println(range);
+		StringBuilder sb = new StringBuilder();
+
+		// JavaParser Positions are 1-indexed
+		// https://www.javadoc.io/doc/com.github.javaparser/javaparser-core/3.2.7/com/github/javaparser/Position.html
+
+		String firstLineStr = this.currentFileSrc[range.begin.line - 1];
+		sb.append(firstLineStr.substring(range.begin.column - 1));
+
+		int currLine = range.begin.line;
+		int lastLine = range.end.line - 1;
+		while (currLine < lastLine) {
+			sb.append(System.lineSeparator());
+			sb.append(this.currentFileSrc[currLine]);
+			++currLine;
+		}
+		String lastLineStr = this.currentFileSrc[lastLine];
+
+		// https://stackoverflow.com/questions/52559564/call-to-substring-is-redundant
+		// This does the same as lastLineStr.substring(0, range.end.column);
+		sb.append(lastLineStr, 0, range.end.column);
+		sb.append(System.lineSeparator());
+
+		return sb.toString();
 	}
 
 	private String getAccessModifier(List<Modifier> modifiers) {
