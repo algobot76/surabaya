@@ -279,7 +279,6 @@ export class JavaArchipelago {
         packageName,
         dependency
       );
-      console.log(receiverIsland.name, dependency, fullyQualifiedName);
       if (this.islandMap.has(fullyQualifiedName)) {
         return this.islandMap.get(fullyQualifiedName);
       }
