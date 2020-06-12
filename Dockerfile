@@ -13,7 +13,7 @@ RUN cp scripts/pre-commit .git/hooks/pre-commit && chmod +x .git/hooks/pre-commi
 RUN ./mvnw clean install
 
 #Clearing cache
-RUN rm -rf /var/cache/apk/* && mvn clean cache 
+RUN rm -rf /var/cache/apk/*
 
 #Run application
 ENTRYPOINT ["./mvnw","spring-boot:run"] 
