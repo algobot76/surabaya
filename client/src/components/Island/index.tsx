@@ -13,12 +13,9 @@ import { AccessModifiers } from "../ClassClusters";
 
 const islandArray = [Island1, Island2, Island3, Island4, Island5];
 
-const IslandContainer = styled.div<{ minWidth; x; y }>`
+const IslandContainer = styled.div<{ minWidth }>`
   width: ${(props) => `${props.minWidth}px`};
   height: ${(props) => `${props.minWidth}px`};
-  left: ${(props) => `${props.x + legendWidth}px`};
-  top: ${(props) => `${props.y}px`};
-  position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -32,13 +29,16 @@ const IslandImage = styled.img<{ maxWidth }>`
   left: 0;
 `;
 
-const IslandWithFileName = styled.div<{ width }>`
+const IslandWithFileName = styled.div<{ width; x; y }>`
   width: ${(props) => props.width}px;
   height: auto;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  left: ${(props) => `${props.x + legendWidth}px`};
+  top: ${(props) => `${props.y}px`};
+  position: absolute;
   margin-bottom: ${fileNameSpace}px;
 `;
 
@@ -85,13 +85,12 @@ const Island: React.FC = (props: any) => {
   )[0].name;
 
   return (
-
-    <IslandWithFileName width={fileSizeAdjustedWidth}>
-      <IslandContainer
-        minWidth={fileSizeAdjustedWidth}
-        x={fileAnalysis.topLeftCorner.x}
-        y={fileAnalysis.topLeftCorner.y}
-      >
+    <IslandWithFileName
+      width={fileSizeAdjustedWidth}
+      x={fileAnalysis.topLeftCorner.x}
+      y={fileAnalysis.topLeftCorner.y}
+    >
+      <IslandContainer minWidth={fileSizeAdjustedWidth}>
         <IslandImage src={islandImage} maxWidth={fileSizeAdjustedWidth} />
         <TooltipSquare onSize={onSize} fileData={fileAnalysis} />
       </IslandContainer>
