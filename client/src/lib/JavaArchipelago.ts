@@ -46,6 +46,7 @@ export interface JavaIsland extends JavaFile, SimulationNodeDatum {
     x: number;
     y: number;
   };
+  superIslands: JavaIsland[];
 }
 
 export interface Link extends SimulationLinkDatum<JavaIsland> {
@@ -67,6 +68,8 @@ export class JavaArchipelago {
     samePackage: new Array<Link>(),
     domesticDependencies: new Array<Link>(), // within a package
     foreignDependencies: new Array<Link>(), // between packages
+    domesticInheritances: new Array<Link>(), // source = superclass, target = subclass
+    foreignInheritances: new Array<Link>(), // source = superclass, target = subclass
   };
   width: number;
   height: number;
@@ -101,6 +104,12 @@ export class JavaArchipelago {
     for (const link of this.links.foreignDependencies) {
       this.calCurve(link);
     }
+    for (const link of this.links.domesticInheritances) {
+      this.calCurve(link);
+    }
+    for (const link of this.links.foreignInheritances) {
+      this.calCurve(link);
+    }
   }
 
   private normalizePositions() {
@@ -115,7 +124,7 @@ export class JavaArchipelago {
       minX = Math.min(minX, island.x - island.width / 2);
       minY = Math.min(minY, island.y - island.width / 2 - heightAdjustment);
       maxX = Math.max(maxX, island.x + island.width / 2);
-      maxY = Math.max(maxY, island.y - island.width / 2 - heightAdjustment);
+      maxY = Math.max(maxY, island.y + island.width / 2 - heightAdjustment);
     });
 
     minX = Math.round(minX) - padding;
@@ -179,13 +188,25 @@ export class JavaArchipelago {
     sim.force(
       "domesticDependency",
       forceLink<JavaIsland, SimulationLinkDatum<JavaIsland>>(
-        this.links.samePackage
+        this.links.domesticDependencies
       ).distance(this.linkDistance(domesticIslandDistance))
     );
     sim.force(
       "foreignDependency",
       forceLink<JavaIsland, SimulationLinkDatum<JavaIsland>>(
-        this.links.samePackage
+        this.links.foreignDependencies
+      ).distance(this.linkDistance(islandInterpackageDistance))
+    );
+    sim.force(
+      "domesticInheritance",
+      forceLink<JavaIsland, SimulationLinkDatum<JavaIsland>>(
+        this.links.domesticInheritances
+      ).distance(this.linkDistance(domesticIslandDistance))
+    );
+    sim.force(
+      "foreignInheritance",
+      forceLink<JavaIsland, SimulationLinkDatum<JavaIsland>>(
+        this.links.foreignInheritances
       ).distance(this.linkDistance(islandInterpackageDistance))
     );
 
@@ -221,15 +242,43 @@ export class JavaArchipelago {
     });
   }
 
-  private getDependencyIsland(receiverIsland: JavaIsland, dependancy: string) {
+  private getFullyQualifiedNameSingleImport(
+    packageImport: string,
+    type: string
+  ): string | null {
+    if (packageImport.endsWith("." + type)) {
+      return packageImport;
+    } else {
+      return null;
+    }
+  }
+
+  private getDependencyIsland(receiverIsland: JavaIsland, dependency: string) {
     // look for island by simple name
-    if (this.islandMap.has(dependancy)) {
-      return this.islandMap.get(dependancy);
+    if (this.islandMap.has(dependency)) {
+      return this.islandMap.get(dependency);
     }
 
     // look for island by fully qualified name
+    // from own package
+    let fullyQualifiedName = getFullyQualifiedName(
+      receiverIsland.package.name,
+      dependency
+    );
+    if (this.islandMap.has(fullyQualifiedName)) {
+      return this.islandMap.get(fullyQualifiedName);
+    }
+
+    // from imported packages
     for (const packageName of receiverIsland.imports) {
-      const fullyQualifiedName = getFullyQualifiedName(packageName, dependancy);
+      fullyQualifiedName = getFullyQualifiedName(packageName, dependency);
+      if (this.islandMap.has(fullyQualifiedName)) {
+        return this.islandMap.get(fullyQualifiedName);
+      }
+      fullyQualifiedName = this.getFullyQualifiedNameSingleImport(
+        packageName,
+        dependency
+      );
       if (this.islandMap.has(fullyQualifiedName)) {
         return this.islandMap.get(fullyQualifiedName);
       }
@@ -257,9 +306,27 @@ export class JavaArchipelago {
     }
   }
 
+  private processInheritance(target: JavaIsland, supertype: string) {
+    const source = this.getDependencyIsland(target, supertype);
+    if (source !== "not found") {
+      const link = { source, target };
+
+      // Create domestic or foreign inheritance depending on if they're from the same package
+      if (target.package === source.package) {
+        this.links.domesticInheritances.push(link);
+      } else {
+        this.links.foreignInheritances.push(link);
+      }
+      target.superIslands.push(source);
+    }
+  }
+
   private makeDependencyLinks() {
     this.islands.forEach((island) => {
       island.classes.forEach((cls) => {
+        cls.supertypes.forEach((supertype) => {
+          this.processInheritance(island, supertype);
+        });
         cls.fields.forEach((field) => {
           this.processDependency(island, field.type);
         });
@@ -328,6 +395,7 @@ export class JavaArchipelago {
       package: pkg,
       publicClass,
       otherClasses,
+      superIslands: [],
       name: publicClass.name,
       fullyQualifiedName,
       radius,
