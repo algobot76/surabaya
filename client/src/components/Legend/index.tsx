@@ -15,6 +15,8 @@ import WoodenFence from "../../assets/fences/woodenFence.png";
 import styles from "./Legend.module.css";
 import ColoredFlag, { FlagType } from "../ColoredFlag";
 import Airplane from "../../assets/icons/airplane.png";
+import RedDottedLine from "../../assets/icons/red dotted line.svg";
+import WhiteDottedLine from "../../assets/icons/white dotted line.svg";
 const Legend = () => {
   return (
     <div className={styles.legend}>
@@ -22,16 +24,33 @@ const Legend = () => {
       <div className={styles.legendContent}>
         <div className={styles.legendLeftContainer}>
           <div className={styles.legendRow}>
-            <img className={styles.legendImg} src={RightBoat} alt="" />
+            <div>
+              <img className={styles.legendImg} src={RightBoat} alt="" />
+              <img
+                style={{ marginTop: "-10px" }}
+                className={styles.legendImg}
+                src={WhiteDottedLine}
+                alt=""
+              />
+            </div>
             <p className={styles.legendText}>Imports within package</p>
           </div>
+
           <div className={styles.legendRow}>
-            <img
-              className={styles.legendImg}
-              style={{ width: "50px" }}
-              src={Airplane}
-              alt=""
-            />
+            <div>
+              <img
+                className={styles.legendImg}
+                style={{ width: "50px" }}
+                src={Airplane}
+                alt=""
+              />
+              <img
+                className={styles.legendImg}
+                style={{ marginTop: "-10px" }}
+                src={RedDottedLine}
+                alt=""
+              />
+            </div>
             <p className={styles.legendText}>Imports outside package</p>
           </div>
           <div className={styles.legendRow}>
