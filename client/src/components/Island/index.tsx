@@ -103,7 +103,10 @@ const Island: React.FC<Props> = (props: Props) => {
         <IslandImage src={islandImage} maxWidth={fileSizeAdjustedWidth} />
         <TooltipSquare onSize={onSize} fileData={fileAnalysis} />
       </IslandContainer>
-      <FileName fileName={fileName || "File_name_n/a"} />
+      <FileName
+        fileName={fileName || "File_name_n/a"}
+        islandWidth={fileSizeAdjustedWidth}
+      />
     </IslandWithFileName>
   );
 };

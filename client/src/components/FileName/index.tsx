@@ -3,6 +3,7 @@ import styled, { keyframes } from "styled-components";
 
 interface FileNameProps {
   fileName: string;
+  islandWidth: number;
 }
 
 const waveAnimation = keyframes`
@@ -32,7 +33,7 @@ const WaveContainer = styled.div`
 `;
 
 const FileName: React.FC<FileNameProps> = (props: FileNameProps) => {
-  const { fileName } = props;
+  const { fileName, islandWidth } = props;
   const letterArray = fileName?.split("");
   const spanArray = letterArray?.map((letter, index) => {
     return (
@@ -42,7 +43,19 @@ const FileName: React.FC<FileNameProps> = (props: FileNameProps) => {
     );
   });
 
-  return <>{fileName ? <WaveContainer>{spanArray}</WaveContainer> : null}</>;
+  return (
+    <div
+      style={{
+        position: "absolute",
+        top: `${islandWidth}px`,
+        width: `${islandWidth}px`,
+        display: "flex",
+        justifyContent: "center",
+      }}
+    >
+      {fileName ? <WaveContainer>{spanArray}</WaveContainer> : null}
+    </div>
+  );
 };
 
 export default FileName;
