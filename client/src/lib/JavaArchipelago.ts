@@ -165,7 +165,7 @@ export class JavaArchipelago {
     // General repulsion force between islands
     sim.force(
       "manybody",
-      forceManyBody<JavaIsland>().strength(-manyBodyStrength)
+      forceManyBody<JavaIsland>().strength(manyBodyStrength)
     );
 
     // Attraction between islands through dependencies
