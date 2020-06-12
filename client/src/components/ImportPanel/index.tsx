@@ -7,10 +7,10 @@ import { JavaArchipelago } from "../../lib/JavaArchipelago";
 // TODO: fix the dimensions of this and the Legend so they are more independent
 const Panel = styled.div`
   width: 300px;
-  height: 35vh;
+  height: 30vh;
   background-color: rgba(255, 255, 255, 0.5);
   position: absolute;
-  top: 65vh;
+  top: 70vh;
   border-top: 2px solid white;
   border-right: 2px solid white;
   display: flex;

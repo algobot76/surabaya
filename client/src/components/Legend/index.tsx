@@ -39,10 +39,6 @@ const Legend = () => {
             <p className={styles.legendText}>Constructor</p>
           </div>
           <div className={styles.legendRow}>
-            <img className={styles.legendImg} src={Factory} alt="" />
-            <p className={styles.legendText}>Method</p>
-          </div>
-          <div className={styles.legendRow}>
             <img className={styles.legendImg} src={WoodenFence} alt="" />
             <p className={styles.legendText}>Protected</p>
           </div>
@@ -76,6 +72,10 @@ const Legend = () => {
           </div>
         </div>
         <div className={styles.legendRightContainer}>
+          <div className={styles.legendRow}>
+            <img className={styles.legendImg} src={Factory} alt="" />
+            <p className={styles.legendText}>Method</p>
+          </div>
           <div className={styles.legendRow}>
             <img className={styles.legendImg} src={Deciduous} alt="" />
             <p className={styles.legendText}>Primitive boolean</p>
