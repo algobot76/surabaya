@@ -8,7 +8,7 @@ import Island2 from "../../assets/islands/island2.png";
 const ForeignDependencyArrow = ({ link: { source, target } }) => {
   return (
     <svg width="100%" height="100%" style={{ position: "absolute" }}>
-      <image href={Island1} width="100px">
+      {/*<image href={Island1} width="100px">
         <animateMotion
           path={`M${source.x},${source.y} Q0,0 ${target.x},${target.y}`}
         />
@@ -17,17 +17,17 @@ const ForeignDependencyArrow = ({ link: { source, target } }) => {
         <animateMotion
           path={`M${target.x},${target.y} Q0,0 ${target.x},${target.y}`}
         />
-      </image>
+  </image>*/}
 
       <path
         className="importLine"
-        d={`M${source.x},${source.y} Q0,0 ${target.x},${target.y}`}
+        d={`M${source.topLeftCorner.x},${source.topLeftCorner.y} Q0,0 ${target.topLeftCorner.x},${target.topLeftCorner.y}`}
       />
       <image href={RightBoat} width="50px" x="-25px" y="-50px">
         <animateMotion
           dur="5s"
           repeatCount="indefinite"
-          path={`M${source.x},${source.y} Q0,0 ${target.x},${target.y}`}
+          path={`M${source.topLeftCorner.x},${source.topLeftCorner.y} Q0,0 ${target.topLeftCorner.x},${target.topLeftCorner.y}`}
         />
       </image>
     </svg>

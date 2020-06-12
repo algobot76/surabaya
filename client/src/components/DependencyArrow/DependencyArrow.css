@@ -8,6 +8,9 @@
   fill: none;
 }
 @keyframes dash {
+  from {
+    stroke-dashoffset: 50;
+  }
   to {
     stroke-dashoffset: 200;
   }

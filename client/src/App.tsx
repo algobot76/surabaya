@@ -1,11 +1,11 @@
 import React, { Fragment, useState } from "react";
 import styles from "./App.module.css";
 import Legend from "./components/Legend";
-import IslandMap from "./components/IslandMap";
 import ImportPanel from "./components/ImportPanel";
 import Island from "./components/Island";
 import { RecoilRoot } from "recoil";
 import RightSide from "./components/RightSide";
+import { JavaArchipelago } from "./lib/JavaArchipelago";
 
 const Package = (props) => {
   const { content } = props;
@@ -19,7 +19,7 @@ const Package = (props) => {
 };
 
 function App() {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState<JavaArchipelago>(null);
 
   return (
     <RecoilRoot>
@@ -28,7 +28,7 @@ function App() {
           <Legend />
           <ImportPanel setData={setData} />
         </div>
-        <RightSide javaProject={data}></RightSide>
+        {data && <RightSide javaProject={data}></RightSide>}
       </div>
     </RecoilRoot>
   );

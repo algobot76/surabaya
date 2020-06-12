@@ -7,14 +7,14 @@ import Island4 from "../../assets/islands/island4.png";
 import Island5 from "../../assets/islands/island5.png";
 import TooltipSquare from "../TooltipSquare";
 import { getIslandWidth, getTooltipWidth } from "../../util/helpers";
-import { legendWidth } from "../../util/constants";
+import { JavaIsland } from "../../lib/JavaArchipelago";
 
 const islandArray = [Island1, Island2, Island3, Island4, Island5];
 
 const IslandContainer = styled.div<{ minWidth; x; y }>`
   width: ${(props) => `${props.minWidth}px`};
   height: ${(props) => `${props.minWidth}px`};
-  left: ${(props) => `${props.x + legendWidth}px`};
+  left: ${(props) => `${props.x}px`};
   top: ${(props) => `${props.y}px`};
   position: absolute;
   display: flex;
@@ -37,8 +37,9 @@ function getRandomIslandImage() {
   return islandArray[randomIslandIndex];
 }
 
-// TODO replace any with data type object
-const Island: React.FC<{ fileAnalysis }> = (props: any) => {
+const Island: React.FC<{ fileAnalysis: JavaIsland }> = (props: {
+  fileAnalysis: JavaIsland;
+}) => {
   const { fileAnalysis } = props;
   const tooltipWidth = useMemo(() => getTooltipWidth(fileAnalysis), []);
 

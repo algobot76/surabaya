@@ -32,3 +32,8 @@ code {
   width: 100vw;
   filter: url("#turbulence");
 }
+
+.react-transform-component,
+.react-transform-element {
+  /* width: 100% !important; */
+}
