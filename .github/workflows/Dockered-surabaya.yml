@@ -1,0 +1,31 @@
+name: Dockered-surabaya
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+env:
+  DOCKER_ID: ${{ secrets.DOCKER_ID }}
+  DOCKER_KEY: ${{ secrets.DOCKER_KEY }}
+  IMAGE_NAME: pratikbalar123/dockered-surabaya:latest
+
+jobs:
+  #testing docker login and image creation 
+  Dockify:
+    runs-on: ubuntu-latest
+
+    steps:
+      
+    - uses: actions/checkout@v2
+    - run:  docker login -u $DOCKER_ID -p $DOCKER_KEY
+    
+    - name: Create Docker image
+      run: docker build . -t $IMAGE_NAME
+      
+    #Pushing docker image to Docker registry
+    - name: Push to docker registry
+      run: |
+        docker push $IMAGE_NAME
+      
