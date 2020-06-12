@@ -95,7 +95,6 @@ const ImportPanel: React.FC<ImportPanelProps> = (props) => {
       .get(url)
       .then((res) => {
         const javaArchipelago = new JavaArchipelago(res.data);
-        (window as any).javaArchipelago = javaArchipelago;
         alert("Success.");
         setData(javaArchipelago);
       })
