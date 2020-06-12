@@ -1,4 +1,9 @@
-import { JavaClass, JavaPackage, JavaProject } from "../JavaProjectTypes";
+import {
+  JavaClass,
+  JavaPackage,
+  JavaProject,
+  JavaFile,
+} from "../JavaProjectTypes";
 import {
   SimulationNodeDatum,
   SimulationLinkDatum,
@@ -17,22 +22,24 @@ import {
   getFullyQualifiedName,
   getApproximateIslandRadius,
 } from "../util/helpers";
+import { getIslandDimension } from "../components/Island";
 
-export interface JavaIsland extends JavaClass, SimulationNodeDatum {
+/**
+ * 1 JavaIsland represents 1 JavaFile
+ */
+export interface JavaIsland extends JavaFile, SimulationNodeDatum {
   package: JavaPackage;
   fullyQualifiedName: string;
   radius: number;
-  links: {
-    samePackage: SimulationLinkDatum<JavaIsland>[];
-    domesticDependencies: {
-      asTarget: SimulationLinkDatum<JavaIsland>[];
-      asSource: SimulationLinkDatum<JavaIsland>[];
-    };
-    foreignDependencies: {
-      asTarget: SimulationLinkDatum<JavaIsland>[];
-      asSource: SimulationLinkDatum<JavaIsland>[];
-    };
+  center: {
+    x: number;
+    y: number;
   };
+  topLeftCorner: {
+    x: number;
+    y: number;
+  };
+  publicClass: JavaClass;
 }
 
 /**
@@ -219,29 +226,24 @@ export class JavaArchipelago {
   private makeIsland(
     index: number,
     pkg: JavaPackage,
-    cls: JavaClass
+    file: JavaFile
   ): JavaIsland {
-    const radius = getApproximateIslandRadius(
-      cls.fields.length + cls.methods.length + cls.constructors.length
-    );
+    const dimension = getIslandDimension();
     const fullyQualifiedName = getFullyQualifiedName(pkg.name, cls.name);
     return {
-      ...cls,
+      ...file,
       index,
       package: pkg,
       radius,
-      links: {
-        samePackage: [],
-        domesticDependencies: {
-          asTarget: [],
-          asSource: [],
-        },
-        foreignDependencies: {
-          asTarget: [],
-          asSource: [],
-        },
-      },
       fullyQualifiedName,
+      center: {
+        x: undefined,
+        y: undefined,
+      },
+      topLeftCorner: {
+        x: undefined,
+        y: undefined,
+      },
     };
   }
 
@@ -249,8 +251,8 @@ export class JavaArchipelago {
     let index = 0;
     this.islands = [];
     this.project.packages.forEach((pkg) => {
-      pkg.classes.forEach((cls) => {
-        this.islands.push(this.makeIsland(index, pkg, cls));
+      pkg.files.forEach((file) => {
+        this.islands.push(this.makeIsland(index, pkg, file));
         ++index;
       });
     });
