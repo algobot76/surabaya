@@ -163,17 +163,8 @@ export class JavaArchipelago {
     );
 
     // Run simulations
-    console.time("Simulations");
-    console.log(
-      `Starting ${simIterations} simulations (${this.islands.length} islands, ${
-        this.links.samePackage.length +
-        this.links.domesticDependencies.length +
-        this.links.foreignDependencies.length
-      } links)`
-    );
     sim.tick(simIterations);
     sim.stop();
-    console.timeEnd("Simulations");
   }
 
   private makeIntraPackageLinks() {

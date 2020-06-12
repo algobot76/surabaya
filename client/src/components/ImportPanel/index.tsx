@@ -94,12 +94,7 @@ const ImportPanel: React.FC<ImportPanelProps> = (props) => {
     axios
       .get(url)
       .then((res) => {
-        console.log(res.data);
-        console.log("Creating Archipelago");
-        console.time("Archipelago");
         const javaArchipelago = new JavaArchipelago(res.data);
-        console.timeEnd("Archipelago");
-        console.log("Done!");
         alert("Success.");
         setData(javaArchipelago);
       })

@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Island1 from "../../assets/islands/island1.png";
 import Island2 from "../../assets/islands/island2.png";
@@ -6,15 +6,17 @@ import Island3 from "../../assets/islands/island3.png";
 import Island4 from "../../assets/islands/island4.png";
 import Island5 from "../../assets/islands/island5.png";
 import TooltipSquare from "../TooltipSquare";
-import { getIslandWidth, getTooltipWidth } from "../../util/helpers";
-import { JavaIsland } from "../../lib/JavaArchipelago";
+
+import { fileNameSpace, iconWidth, legendWidth } from "../../util/constants";
+import FileName from "../FileName";
+import { AccessModifiers } from "../ClassClusters";
 
 const islandArray = [Island1, Island2, Island3, Island4, Island5];
 
 const IslandContainer = styled.div<{ minWidth; x; y }>`
   width: ${(props) => `${props.minWidth}px`};
   height: ${(props) => `${props.minWidth}px`};
-  left: ${(props) => `${props.x}px`};
+  left: ${(props) => `${props.x + legendWidth}px`};
   top: ${(props) => `${props.y}px`};
   position: absolute;
   display: flex;
@@ -30,32 +32,70 @@ const IslandImage = styled.img<{ maxWidth }>`
   left: 0;
 `;
 
+const IslandWithFileName = styled.div<{ width }>`
+  width: ${(props) => props.width}px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: ${fileNameSpace}px;
+`;
+
 function getRandomIslandImage() {
   const numberOfIslandImages = islandArray.length;
   const randomIslandIndex = Math.floor(Math.random() * numberOfIslandImages);
-  // const islandImage = useMemo(() => islandArray[randomIslandIndex], []); //added to avoid rerendering
   return islandArray[randomIslandIndex];
 }
 
-const Island: React.FC<{ fileAnalysis: JavaIsland }> = (props: {
-  fileAnalysis: JavaIsland;
-}) => {
+function getTotalNumberOfLinesInFile(fileAnalysis: any): number {
+  let numberOfLines = 0;
+  fileAnalysis.classes.forEach((c) => {
+    numberOfLines = numberOfLines + c["line_count"];
+  });
+  return numberOfLines;
+}
+
+function getIslandWidth(numberOfLines: number, minIslandWidth: number): number {
+  // TODO max island width based on lines arbitrarily set to 400px
+  const widthByLines = numberOfLines > 400 ? 400 : numberOfLines;
+
+  // TODO 1px = 1 line is arbitrary, adjust as desired.
+  return minIslandWidth > numberOfLines ? minIslandWidth : widthByLines;
+}
+
+// TODO replace any with data type object
+const Island: React.FC = (props: any) => {
   const { fileAnalysis } = props;
-  const tooltipWidth = useMemo(() => getTooltipWidth(fileAnalysis), []);
+  const [width, setWidth] = useState(0);
+  const minIslandWidth = width + iconWidth;
 
-  const islandImage = useMemo(() => getRandomIslandImage(), []);
+  const islandImage = getRandomIslandImage();
 
-  const fileSizeAdjustedWidth = useMemo(() => getIslandWidth(fileAnalysis), []);
+  let numberOfLines = getTotalNumberOfLinesInFile(fileAnalysis);
+
+  const fileSizeAdjustedWidth = getIslandWidth(numberOfLines, minIslandWidth);
+
+  const onSize = (size) => {
+    setWidth(size.width);
+  };
+
+  const fileName = fileAnalysis.classes.filter(
+    (c) => c["access_modifier"] === AccessModifiers.Public
+  )[0].name;
 
   return (
-    <IslandContainer
-      minWidth={fileSizeAdjustedWidth}
-      x={fileAnalysis.topLeftCorner.x}
-      y={fileAnalysis.topLeftCorner.y}
-    >
-      <IslandImage src={islandImage} maxWidth={fileSizeAdjustedWidth} />
-      <TooltipSquare width={tooltipWidth} fileData={fileAnalysis} />
-    </IslandContainer>
+    <IslandWithFileName width={fileSizeAdjustedWidth}>
+      <IslandContainer
+        minWidth={fileSizeAdjustedWidth}
+        x={fileAnalysis.topLeftCorner.x}
+        y={fileAnalysis.topLeftCorner.y}
+      >
+        <IslandImage src={islandImage} maxWidth={fileSizeAdjustedWidth} />
+        <TooltipSquare onSize={onSize} fileData={fileAnalysis} />
+      </IslandContainer>
+      <FileName fileName={fileName || "File_name_n/a"} />
+    </IslandWithFileName>
   );
 };
 
