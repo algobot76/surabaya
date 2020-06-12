@@ -1,0 +1,25 @@
+.importLine {
+  animation: dash 5s linear infinite;
+  stroke: white;
+  stroke-opacity: 0.6;
+  stroke-dasharray: 10;
+  stroke-width: 3;
+  stroke-linecap: round;
+  fill: none;
+}
+
+.foreignImportLine {
+  animation: dash 5s linear infinite;
+  stroke: palevioletred;
+  stroke-opacity: 0.6;
+  stroke-dasharray: 10;
+  stroke-width: 5;
+  stroke-linecap: round;
+  fill: none;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 150;
+  }
+}

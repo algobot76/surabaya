@@ -11,24 +11,3 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-
-.background {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 100vw;
-  background-image: url("./assets/background/bg.png");
-  background-size: cover;
-}
-
-.background .water {
-  position: absolute;
-  background-image: url("./assets/background/bg.png");
-  background-size: cover;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 100vw;
-  filter: url("#turbulence");
-}
