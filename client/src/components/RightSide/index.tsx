@@ -27,8 +27,8 @@ const RightSide = ({ javaProject }: { javaProject?: JavaArchipelago }) => {
         return (
           <DomesticDependencyArrow
             link={link}
-            width={javaProject.width}
-            height={javaProject.height}
+            width={javaProject.width + 150}
+            height={javaProject.height + 150}
           />
         );
       })}
@@ -36,8 +36,8 @@ const RightSide = ({ javaProject }: { javaProject?: JavaArchipelago }) => {
         return (
           <ForeignDependencyArrow
             link={link}
-            width={javaProject.width}
-            height={javaProject.height}
+            width={javaProject.width + 150}
+            height={javaProject.height + 150}
           />
         );
       })}
