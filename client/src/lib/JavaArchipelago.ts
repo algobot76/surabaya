@@ -115,7 +115,7 @@ export class JavaArchipelago {
       minX = Math.min(minX, island.x - island.width / 2);
       minY = Math.min(minY, island.y - island.width / 2 - heightAdjustment);
       maxX = Math.max(maxX, island.x + island.width / 2);
-      maxY = Math.max(maxY, island.y - island.width / 2 - heightAdjustment);
+      maxY = Math.max(maxY, island.y + island.width / 2 - heightAdjustment);
     });
 
     minX = Math.round(minX) - padding;

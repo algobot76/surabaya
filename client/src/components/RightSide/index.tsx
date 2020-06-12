@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "../../App.module.css";
 import { JavaProject } from "../../JavaProjectTypes";
 import Island from "../Island";
@@ -7,17 +7,25 @@ import ForeignDependencyArrow from "../DependencyArrow/ForeignDependencyArrow";
 // import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { JavaArchipelago } from "../../lib/JavaArchipelago";
 import { legendWidth } from "../../util/constants";
-import PinchToZoom from "react-pinch-and-zoom";
 import { MapInteractionCSS } from "react-map-interaction";
-
-const PinchToZoomCompat = PinchToZoom as any;
 
 const RightSide = ({ javaProject }: { javaProject?: JavaArchipelago }) => {
   const islands = javaProject.islands;
   const links = javaProject.links;
   const width = Math.max(window.innerWidth - 300, javaProject.width);
   const height = Math.max(window.innerHeight, javaProject.height);
-  console.log(width, height);
+  const initialScale = Math.min(
+    1,
+    Math.min(
+      (window.innerWidth - 300) / javaProject.width,
+      window.innerHeight / javaProject.height
+    )
+  );
+  const initialZoomValue = {
+    scale: initialScale,
+    translation: { x: 0, y: 0 },
+  };
+  const [zoomValue, setZoomValue] = useState(initialZoomValue);
 
   return (
     <div
@@ -27,7 +35,7 @@ const RightSide = ({ javaProject }: { javaProject?: JavaArchipelago }) => {
         width: `${width}px`,
       }}
     >
-      <MapInteractionCSS>
+      <MapInteractionCSS value={zoomValue} onChange={setZoomValue}>
         <div>
           {islands.map((island, index) => {
             return <Island fileAnalysis={island} key={index} />;
