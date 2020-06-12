@@ -44,6 +44,7 @@ export type JavaClass = {
   fields: JavaField[];
   methods: JavaMethod[];
   constructors: JavaContructor[];
+  supertypes: string[];
 };
 
 export type JavaFile = {

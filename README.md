@@ -44,6 +44,7 @@ Use [JavaParser](https://javaparser.org/) and convert the outputted AST into the
 - `fields`: list of [Field](#field-class) objects
 - `methods`: list of [Method](#method-class) objects
 - `constructors`: list of [Constructor](#constructor-class) objects
+- `supertypes`: list of class or interface names that this class/interface extends/implements
 
 ### `Field` Class
 
