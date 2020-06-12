@@ -1,0 +1,16 @@
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-image: url("../../assets/background/bg.png");
+  background-repeat: repeat;
+}
+
+.background .water {
+  position: absolute;
+  background-image: url("../../assets/background/bg.png");
+  background-repeat: repeat;
+  top: 0;
+  left: 0;
+  filter: url("#turbulence");
+}

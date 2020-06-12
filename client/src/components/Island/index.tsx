@@ -7,9 +7,8 @@ import Island4 from "../../assets/islands/island4.png";
 import Island5 from "../../assets/islands/island5.png";
 import TooltipSquare from "../TooltipSquare";
 
-import { fileNameSpace, iconWidth, legendWidth } from "../../util/constants";
+import { fileNameSpace, iconWidth } from "../../util/constants";
 import FileName from "../FileName";
-import { AccessModifiers } from "../ClassClusters";
 import { JavaIsland } from "../../lib/JavaArchipelago";
 import { JavaAccessModifier } from "../../JavaProjectTypes";
 
@@ -18,8 +17,6 @@ const islandArray = [Island1, Island2, Island3, Island4, Island5];
 const IslandContainer = styled.div<{ minWidth; x; y }>`
   width: ${(props) => `${props.minWidth}px`};
   height: ${(props) => `${props.minWidth}px`};
-  left: ${(props) => `${props.x + legendWidth}px`};
-  top: ${(props) => `${props.y}px`};
   position: absolute;
   display: flex;
   justify-content: center;
@@ -34,9 +31,12 @@ const IslandImage = styled.img<{ maxWidth }>`
   left: 0;
 `;
 
-const IslandWithFileName = styled.div<{ width }>`
+const IslandWithFileName = styled.div<{ width; x; y }>`
+  position: absolute;
   width: ${(props) => props.width}px;
   height: auto;
+  left: ${(props) => props.x}px;
+  top: ${(props) => props.y}px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -91,12 +91,12 @@ const Island: React.FC<Props> = (props: Props) => {
   )[0].name;
 
   return (
-    <IslandWithFileName width={fileSizeAdjustedWidth}>
-      <IslandContainer
-        minWidth={fileSizeAdjustedWidth}
-        x={fileAnalysis.topLeftCorner.x}
-        y={fileAnalysis.topLeftCorner.y}
-      >
+    <IslandWithFileName
+      width={fileSizeAdjustedWidth}
+      x={fileAnalysis.topLeftCorner.x}
+      y={fileAnalysis.topLeftCorner.y}
+    >
+      <IslandContainer minWidth={fileSizeAdjustedWidth}>
         <IslandImage src={islandImage} maxWidth={fileSizeAdjustedWidth} />
         <TooltipSquare onSize={onSize} fileData={fileAnalysis} />
       </IslandContainer>

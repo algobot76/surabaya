@@ -48,6 +48,11 @@ export interface JavaIsland extends JavaFile, SimulationNodeDatum {
   };
 }
 
+export interface Link extends SimulationLinkDatum<JavaIsland> {
+  curveX?: number; // used in quadratic bezier path
+  curveY?: number;
+}
+
 /**
  * ## Usage:
  * ```javascript
@@ -59,9 +64,9 @@ export class JavaArchipelago {
   islands: JavaIsland[];
   islandMap = new Map<string, JavaIsland>(); // map of string to island
   links = {
-    samePackage: new Array<SimulationLinkDatum<JavaIsland>>(),
-    domesticDependencies: new Array<SimulationLinkDatum<JavaIsland>>(), // within a package
-    foreignDependencies: new Array<SimulationLinkDatum<JavaIsland>>(), // between packages
+    samePackage: new Array<Link>(),
+    domesticDependencies: new Array<Link>(), // within a package
+    foreignDependencies: new Array<Link>(), // between packages
   };
   width: number;
   height: number;
@@ -74,6 +79,28 @@ export class JavaArchipelago {
     this.makeDependencyLinks();
     this.runSimulation();
     this.normalizePositions();
+    this.calculateCurves();
+  }
+  private calCurve(link: Link) {
+    const source = link.source as JavaIsland;
+    const target = link.target as JavaIsland;
+    const sourceX = source.topLeftCorner.x;
+    const sourceY = source.topLeftCorner.y;
+    const targetX = target.topLeftCorner.x;
+    const targetY = target.topLeftCorner.y;
+    let deltaX = Math.random() * 400 - 200;
+    let deltaY = Math.random() * 400 - 200;
+
+    link.curveX = Math.round((sourceX + targetX) / 2 + deltaX);
+    link.curveY = Math.round((sourceY + targetY) / 2 + deltaY);
+  }
+  private calculateCurves() {
+    for (const link of this.links.domesticDependencies) {
+      this.calCurve(link);
+    }
+    for (const link of this.links.foreignDependencies) {
+      this.calCurve(link);
+    }
   }
 
   private normalizePositions() {
@@ -138,7 +165,7 @@ export class JavaArchipelago {
     // General repulsion force between islands
     sim.force(
       "manybody",
-      forceManyBody<JavaIsland>().strength(manyBodyStrength)
+      forceManyBody<JavaIsland>().strength(-manyBodyStrength)
     );
 
     // Attraction between islands through dependencies

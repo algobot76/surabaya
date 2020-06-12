@@ -14,7 +14,7 @@ import StoneFence from "../../assets/fences/stoneFence.png";
 import WoodenFence from "../../assets/fences/woodenFence.png";
 import styles from "./Legend.module.css";
 import ColoredFlag, { FlagType } from "../ColoredFlag";
-
+import Airplane from "../../assets/icons/airplane.png";
 const Legend = () => {
   return (
     <div className={styles.legend}>
@@ -23,7 +23,16 @@ const Legend = () => {
         <div className={styles.legendLeftContainer}>
           <div className={styles.legendRow}>
             <img className={styles.legendImg} src={RightBoat} alt="" />
-            <p className={styles.legendText}>Imports</p>
+            <p className={styles.legendText}>Imports within package</p>
+          </div>
+          <div className={styles.legendRow}>
+            <img
+              className={styles.legendImg}
+              style={{ width: "50px" }}
+              src={Airplane}
+              alt=""
+            />
+            <p className={styles.legendText}>Imports outside package</p>
           </div>
           <div className={styles.legendRow}>
             <img className={styles.legendImg} src={Volcano} alt="" />

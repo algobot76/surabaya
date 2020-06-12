@@ -13,15 +13,33 @@ const RightSide = ({ javaProject }: { javaProject?: JavaArchipelago }) => {
   const links = javaProject.links;
 
   return (
-    <div className={styles.rightSide}>
+    <div
+      className={styles.rightSide}
+      style={{
+        height: `${javaProject.height}px`,
+        width: `${javaProject.width}px`,
+      }}
+    >
       {islands.map((island, index) => {
         return <Island fileAnalysis={island} key={index} />;
       })}
       {links.domesticDependencies.map((link, index) => {
-        return <DomesticDependencyArrow link={link} />;
+        return (
+          <DomesticDependencyArrow
+            link={link}
+            width={javaProject.width}
+            height={javaProject.height}
+          />
+        );
       })}
       {links.foreignDependencies.map((link, index) => {
-        return <ForeignDependencyArrow link={link} />;
+        return (
+          <ForeignDependencyArrow
+            link={link}
+            width={javaProject.width}
+            height={javaProject.height}
+          />
+        );
       })}
     </div>
   );

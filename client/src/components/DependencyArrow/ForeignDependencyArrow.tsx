@@ -2,32 +2,32 @@ import React from "react";
 import "./DependencyArrow.css";
 import RightBoat from "../../assets/icons/boat right.png";
 import LeftBoat from "../../assets/icons/boat left.png";
-
+import Airplane from "../../assets/icons/airplane.png";
 import Island1 from "../../assets/islands/island1.png";
 import Island2 from "../../assets/islands/island2.png";
-const ForeignDependencyArrow = ({ link: { source, target } }) => {
-  return (
-    <svg width="100%" height="100%" style={{ position: "absolute" }}>
-      {/*<image href={Island1} width="100px">
-        <animateMotion
-          path={`M${source.x},${source.y} Q0,0 ${target.x},${target.y}`}
-        />
-      </image>
-      <image href={Island2} width="100px">
-        <animateMotion
-          path={`M${target.x},${target.y} Q0,0 ${target.x},${target.y}`}
-        />
-  </image>*/}
+const ForeignDependencyArrow = ({ link, width, height }) => {
+  const { source, target, curveX, curveY } = link;
+  const sX = source.topLeftCorner.x + 20;
+  const sY = source.topLeftCorner.y + 20;
+  const tX = target.topLeftCorner.x + 20;
+  const tY = target.topLeftCorner.y + 20;
 
+  return (
+    <svg
+      pointerEvents="none"
+      width={`${width}px`}
+      height={`${height}px`}
+      style={{ position: "absolute" }}
+    >
       <path
-        className="importLine"
-        d={`M${source.topLeftCorner.x},${source.topLeftCorner.y} Q0,0 ${target.topLeftCorner.x},${target.topLeftCorner.y}`}
+        className="foreignImportLine"
+        d={`M${tX},${tY} Q${curveX || 0},${curveY || 0} ${sX},${sY}`}
       />
-      <image href={RightBoat} width="50px" x="-25px" y="-50px">
+      <image href={Airplane} width="80px" x="-25px" y="-25px">
         <animateMotion
           dur="5s"
           repeatCount="indefinite"
-          path={`M${source.topLeftCorner.x},${source.topLeftCorner.y} Q0,0 ${target.topLeftCorner.x},${target.topLeftCorner.y}`}
+          path={`M${sX},${sY} Q${curveX || 0},${curveY || 0} ${tX},${tY}`}
         />
       </image>
     </svg>

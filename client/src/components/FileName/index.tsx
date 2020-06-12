@@ -27,7 +27,7 @@ const StyledLetter = styled.span<{ delay }>`
 `;
 
 const WaveContainer = styled.div`
-  position: relative;
+  position: absolute;
   -webkit-box-reflect: below 0 linear-gradient(transparent, rgba(0, 0, 0, 0.5));
 `;
 
