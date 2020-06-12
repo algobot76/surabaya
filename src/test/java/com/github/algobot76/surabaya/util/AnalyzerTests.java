@@ -25,14 +25,25 @@ public class AnalyzerTests {
 		Class parsedClass = resultProject.getPackages().get("ast").getFiles().get(0).getClasses().get(0);
 		Method parsedParseMethod = parsedClass.getMethods().get(0);
 		Method parsedEvaluateMethod = parsedClass.getMethods().get(1);
-		String expectedParseSrc = "@Override\r\n" + "    public void parse() {\r\n"
-				+ "        tokenizer.getAndCheckNext(\"new\");\r\n" + "        name = tokenizer.getNext();    }\r\n";
-		String expectedEvaluateSrc = "@Override\r\n" + "    public Integer evaluate() {\r\n"
-				+ "        System.out.println(\"Putting \" + this.name + \" into symbol table\");\r\n"
-				+ "        Main.symbolTable.put(name,null); // no value yet; use null as a placeholder\r\n"
-				+ "        return null;    }\r\n";
-		assertEquals(expectedParseSrc, parsedParseMethod.getSrc());
-		assertEquals(expectedEvaluateSrc, parsedEvaluateMethod.getSrc());
+		String expectedParseSrc = "@Override\n" + "    public void parse() {\n"
+				+ "        tokenizer.getAndCheckNext(\"new\");\n" + "        name = tokenizer.getNext();    }\n";
+		String[] expectedParseSrcLines = expectedParseSrc.lines().toArray(String[]::new);
+		String expectedEvaluateSrc = "@Override\n" + "    public Integer evaluate() {\n"
+				+ "        System.out.println(\"Putting \" + this.name + \" into symbol table\");\n"
+				+ "        Main.symbolTable.put(name,null); // no value yet; use null as a placeholder\n"
+				+ "        return null;    }\n";
+		String[] expectedEvaluateSrcLines = expectedEvaluateSrc.lines().toArray(String[]::new);
+		String[] actualParseSrcLines = parsedParseMethod.getSrc().lines().toArray(String[]::new);
+		String[] actualEvaluateSrcLines = parsedEvaluateMethod.getSrc().lines().toArray(String[]::new);
+		assertEquals(expectedParseSrcLines.length, actualParseSrcLines.length);
+		assertEquals(expectedEvaluateSrcLines.length, actualEvaluateSrcLines.length);
+
+		for (int i = 0; i < expectedParseSrcLines.length; i++) {
+			assertEquals(expectedParseSrcLines[i], actualParseSrcLines[i]);
+		}
+		for (int i = 0; i < expectedEvaluateSrcLines.length; i++) {
+			assertEquals(expectedEvaluateSrcLines[i], actualEvaluateSrcLines[i]);
+		}
 	}
 
 	@Test
