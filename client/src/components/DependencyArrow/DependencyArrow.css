@@ -1,9 +1,9 @@
 .importLine {
   animation: dash 5s linear infinite;
   stroke: white;
-  stroke-opacity: 0.7;
-  stroke-dasharray: 20;
-  stroke-width: 6;
+  stroke-opacity: 0.6;
+  stroke-dasharray: 10;
+  stroke-width: 3;
   stroke-linecap: round;
   fill: none;
 }
@@ -11,17 +11,14 @@
 .foreignImportLine {
   animation: dash 5s linear infinite;
   stroke: palevioletred;
-  stroke-opacity: 0.8;
-  stroke-dasharray: 20;
-  stroke-width: 8;
+  stroke-opacity: 0.6;
+  stroke-dasharray: 10;
+  stroke-width: 5;
   stroke-linecap: round;
   fill: none;
 }
 
 @keyframes dash {
-  from {
-    stroke-dashoffset: 50;
-  }
   to {
     stroke-dashoffset: 150;
   }

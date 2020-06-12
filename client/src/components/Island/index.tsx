@@ -43,7 +43,6 @@ const IslandWithFileName = styled.div<{ width; x; y }>`
   align-items: center;
   left: ${(props) => `${props.x}px`};
   top: ${(props) => `${props.y}px`};
-  position: absolute;
   margin-bottom: ${fileNameSpace}px;
 `;
 
@@ -103,7 +102,10 @@ const Island: React.FC<Props> = (props: Props) => {
         <IslandImage src={islandImage} maxWidth={fileSizeAdjustedWidth} />
         <TooltipSquare onSize={onSize} fileData={fileAnalysis} />
       </IslandContainer>
-      <FileName fileName={fileName || "File_name_n/a"} />
+      <FileName
+        fileName={fileName || "File_name_n/a"}
+        islandWidth={fileSizeAdjustedWidth}
+      />
     </IslandWithFileName>
   );
 };
