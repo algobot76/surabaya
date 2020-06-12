@@ -65,7 +65,8 @@ public class Class {
 		boolean equalMethods = c.getMethods().containsAll(methods) && c.getMethods().size() == methods.size();
 		boolean equalConstructors = c.getConstructors().containsAll(constructors)
 				&& c.getConstructors().size() == constructors.size();
-		boolean equalSupertypes = c.getSupertypes().containsAll(supertypes) && c.getSupertypes().size() == supertypes.size();
+		boolean equalSupertypes = c.getSupertypes().containsAll(supertypes)
+				&& c.getSupertypes().size() == supertypes.size();
 		return c.getName().equals(name) && c.getType().equals(type) && c.getLineCount() == lineCount
 				&& c.getAccessModifier() == accessModifier && equalFields && equalMethods && equalConstructors;
 	}
