@@ -16,8 +16,6 @@
   position: absolute;
   left: 300px;
   overflow: auto;
-  /* overflow-x: auto; */
-  /* background-color: black; */
 }
 
 .zoomBtn {

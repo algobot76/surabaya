@@ -1,7 +1,7 @@
 .importLine {
   animation: dash 5s linear infinite;
   stroke: white;
-  stroke-opacity: 0.8;
+  stroke-opacity: 0.7;
   stroke-dasharray: 20;
   stroke-width: 6;
   stroke-linecap: round;
@@ -10,7 +10,7 @@
 
 .foreignImportLine {
   animation: dash 5s linear infinite;
-  stroke: blue;
+  stroke: palevioletred;
   stroke-opacity: 0.8;
   stroke-dasharray: 20;
   stroke-width: 8;

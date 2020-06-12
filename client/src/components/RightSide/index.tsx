@@ -16,8 +16,8 @@ const RightSide = ({ javaProject }: { javaProject?: JavaArchipelago }) => {
     <div
       className={styles.rightSide}
       style={{
-        height: `${javaProject.height}px`,
-        width: `${javaProject.width}px`,
+        height: `${javaProject.height + 150}px`,
+        width: `${javaProject.width + 150}px`,
       }}
     >
       {islands.map((island, index) => {

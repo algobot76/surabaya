@@ -13,8 +13,8 @@ function App() {
   let width = "100vw";
   let height = "100vh";
   if (data) {
-    width = `${data.width + legendWidth}px`;
-    height = `${data.height}px`;
+    width = `${data.width + legendWidth + 150}px`;
+    height = `${data.height + 150}px`;
   }
 
   return (
