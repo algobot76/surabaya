@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
+import { JavaArchipelago } from "../../lib/JavaArchipelago";
 
 // note these dimensions are based on the Legend component
 // TODO: fix the dimensions of this and the Legend so they are more independent
@@ -93,8 +94,14 @@ const ImportPanel: React.FC<ImportPanelProps> = (props) => {
     axios
       .get(url)
       .then((res) => {
-        alert("Success");
-        setData(res.data);
+        console.log(res.data);
+        console.log("Creating Archipelago");
+        console.time("Archipelago");
+        const javaArchipelago = new JavaArchipelago(res.data);
+        console.timeEnd("Archipelago");
+        console.log("Done!");
+        alert("Success.");
+        setData(javaArchipelago);
       })
       .catch((err) => alert(err));
   }

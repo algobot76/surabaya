@@ -19,7 +19,7 @@ const Package = (props) => {
 };
 
 function App() {
-  const [data, setData] = useState({});
+  const [data, setData] = useState(null);
 
   return (
     <RecoilRoot>
