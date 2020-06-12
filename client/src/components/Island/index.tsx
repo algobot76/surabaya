@@ -8,6 +8,7 @@ import Island5 from "../../assets/islands/island5.png";
 import TooltipSquare from "../TooltipSquare";
 import { fileNameSpace, iconWidth } from "../../util/constants";
 import FileName from "../FileName";
+import { AccessModifiers } from "../ClassClusters";
 
 const islandArray = [Island1, Island2, Island3, Island4, Island5];
 
@@ -75,6 +76,10 @@ const Island: React.FC = (props: any) => {
     setWidth(size.width);
   };
 
+  const fileName = fileAnalysis.classes.filter(
+    (c) => c["access_modifier"] === AccessModifiers.Public
+  )[0].name;
+
   return (
     <IslandWithFileName
       width={fileSizeAdjustedWidth}
@@ -84,7 +89,7 @@ const Island: React.FC = (props: any) => {
         <IslandImage src={islandImage} maxWidth={fileSizeAdjustedWidth} />
         <TooltipSquare onSize={onSize} fileData={fileAnalysis} />
       </IslandContainer>
-      <FileName fileName={fileAnalysis.name} />
+      <FileName fileName={fileName || "File_name_n/a"} />
     </IslandWithFileName>
   );
 };
