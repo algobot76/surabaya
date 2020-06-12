@@ -7,15 +7,17 @@ import Island4 from "../../assets/islands/island4.png";
 import Island5 from "../../assets/islands/island5.png";
 import TooltipSquare from "../TooltipSquare";
 
-import { fileNameSpace, iconWidth, legendWidth } from "../../util/constants";
+import { fileNameSpace, iconWidth } from "../../util/constants";
 import FileName from "../FileName";
-import { AccessModifiers } from "../ClassClusters";
+import { JavaIsland } from "../../lib/JavaArchipelago";
+import { JavaAccessModifier } from "../../JavaProjectTypes";
 
 const islandArray = [Island1, Island2, Island3, Island4, Island5];
 
 const IslandContainer = styled.div<{ minWidth }>`
   width: ${(props) => `${props.minWidth}px`};
   height: ${(props) => `${props.minWidth}px`};
+  position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -30,15 +32,17 @@ const IslandImage = styled.img<{ maxWidth }>`
 `;
 
 const IslandWithFileName = styled.div<{ width; x; y }>`
+  position: absolute;
   width: ${(props) => props.width}px;
   height: auto;
+  left: ${(props) => props.x}px;
+  top: ${(props) => props.y}px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  left: ${(props) => `${props.x + legendWidth}px`};
+  left: ${(props) => `${props.x}px`};
   top: ${(props) => `${props.y}px`};
-  position: absolute;
   margin-bottom: ${fileNameSpace}px;
 `;
 
@@ -64,8 +68,12 @@ function getIslandWidth(numberOfLines: number, minIslandWidth: number): number {
   return minIslandWidth > numberOfLines ? minIslandWidth : widthByLines;
 }
 
+type Props = {
+  fileAnalysis: JavaIsland;
+};
+
 // TODO replace any with data type object
-const Island: React.FC = (props: any) => {
+const Island: React.FC<Props> = (props: Props) => {
   const { fileAnalysis } = props;
   const [width, setWidth] = useState(0);
   const minIslandWidth = width + iconWidth;
@@ -81,7 +89,7 @@ const Island: React.FC = (props: any) => {
   };
 
   const fileName = fileAnalysis.classes.filter(
-    (c) => c["access_modifier"] === AccessModifiers.Public
+    (c) => c.access_modifier === JavaAccessModifier.Public
   )[0].name;
 
   return (
@@ -94,7 +102,10 @@ const Island: React.FC = (props: any) => {
         <IslandImage src={islandImage} maxWidth={fileSizeAdjustedWidth} />
         <TooltipSquare onSize={onSize} fileData={fileAnalysis} />
       </IslandContainer>
-      <FileName fileName={fileName || "File_name_n/a"} />
+      <FileName
+        fileName={fileName || "File_name_n/a"}
+        islandWidth={fileSizeAdjustedWidth}
+      />
     </IslandWithFileName>
   );
 };

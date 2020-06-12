@@ -1,6 +1,6 @@
 .App {
-  width: 100vw;
-  height: 100vh;
+  max-width: 100%;
+  max-height: 100%;
   display: flex;
 }
 
@@ -12,8 +12,14 @@
 }
 
 .rightSide {
-  width: calc(100vw - 300px);
-  height: 100%;
-  background-color: lightyellow;
+  display: block;
+  position: absolute;
+  left: 300px;
   overflow: auto;
+}
+
+.zoomBtn {
+  background-color: darkblue;
+  border: none;
+  color: white;
 }
