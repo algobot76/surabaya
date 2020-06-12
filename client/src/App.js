@@ -16,7 +16,7 @@ const Package = (props) => {
 };
 
 function App() {
-  const [data, setData] = useState({});
+  const [data, setData] = useState(null);
 
   return (
     <div className={styles.App}>
@@ -25,11 +25,8 @@ function App() {
         <ImportPanel setData={setData} />
       </div>
       <div className={styles.rightSide}>
-        {data.packages &&
-          Object.entries(data.packages).map((entry, index) => {
-            const [packageName, packageContent] = entry;
-            return <Package key={index} content={packageContent} />;
-          })}
+        {data && data.islands.map((island) => <Island fileAnalysis={island} />)}{" "}
+        {/* Temporary, to test the placement, replace as needed */}
       </div>
     </div>
   );

@@ -6,16 +6,19 @@ import Island3 from "../../assets/islands/island3.png";
 import Island4 from "../../assets/islands/island4.png";
 import Island5 from "../../assets/islands/island5.png";
 import TooltipSquare from "../TooltipSquare";
-import { fileNameSpace, iconWidth } from "../../util/constants";
+
+import { fileNameSpace, iconWidth, legendWidth } from "../../util/constants";
 import FileName from "../FileName";
 import { AccessModifiers } from "../ClassClusters";
 
 const islandArray = [Island1, Island2, Island3, Island4, Island5];
 
-const IslandContainer = styled.div<{ minWidth }>`
+const IslandContainer = styled.div<{ minWidth; x; y }>`
   width: ${(props) => `${props.minWidth}px`};
   height: ${(props) => `${props.minWidth}px`};
-  position: relative;
+  left: ${(props) => `${props.x + legendWidth}px`};
+  top: ${(props) => `${props.y}px`};
+  position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -82,8 +85,13 @@ const Island: React.FC = (props: any) => {
   )[0].name;
 
   return (
+
     <IslandWithFileName width={fileSizeAdjustedWidth}>
-      <IslandContainer minWidth={fileSizeAdjustedWidth}>
+      <IslandContainer
+        minWidth={fileSizeAdjustedWidth}
+        x={fileAnalysis.topLeftCorner.x}
+        y={fileAnalysis.topLeftCorner.y}
+      >
         <IslandImage src={islandImage} maxWidth={fileSizeAdjustedWidth} />
         <TooltipSquare onSize={onSize} fileData={fileAnalysis} />
       </IslandContainer>
