@@ -279,6 +279,7 @@ export class JavaArchipelago {
         packageName,
         dependency
       );
+      console.log(receiverIsland.name, dependency, fullyQualifiedName);
       if (this.islandMap.has(fullyQualifiedName)) {
         return this.islandMap.get(fullyQualifiedName);
       }
@@ -323,6 +324,7 @@ export class JavaArchipelago {
 
   private makeDependencyLinks() {
     this.islands.forEach((island) => {
+      island.imports.forEach((imp) => this.processDependency(island, imp));
       island.classes.forEach((cls) => {
         cls.supertypes.forEach((supertype) => {
           this.processInheritance(island, supertype);
