@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import styled from "styled-components";
 import Island1 from "../../assets/islands/island1.png";
 import Island2 from "../../assets/islands/island2.png";
@@ -78,7 +78,7 @@ const Island: React.FC<Props> = (props: Props) => {
   const [width, setWidth] = useState(0);
   const minIslandWidth = width + iconWidth;
 
-  const islandImage = getRandomIslandImage();
+  const islandImage = useMemo(getRandomIslandImage, []);
 
   let numberOfLines = getTotalNumberOfLinesInFile(fileAnalysis);
 
