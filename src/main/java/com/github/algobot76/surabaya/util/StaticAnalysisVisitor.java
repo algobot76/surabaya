@@ -42,6 +42,9 @@ public class StaticAnalysisVisitor extends VoidVisitorAdapter<Project> {
 		}
 		logger.info(String.format("Parsing %s\n", n.getName()));
 		Class newClass = new Class(n.getName().toString(), type, getAccessModifier(n.getModifiers()), lineCount);
+		n.getExtendedTypes().forEach(node -> {
+			newClass.addSupertype(node.getName().getIdentifier());
+		});
 		currentFile.addClass(newClass);
 		currentClass = newClass;
 
