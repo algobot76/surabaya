@@ -50,10 +50,10 @@ export type JavaFile = {
 };
 
 export type JavaPackage = {
+  name: string;
   files: JavaFile[];
 };
 
 export type JavaProject = {
-  name: string;
   packages: JavaPackage[];
 };
