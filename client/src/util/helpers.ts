@@ -19,20 +19,6 @@ export function getFullyQualifiedName(packageName: string, className: string) {
   return `${packageName}.${className}`;
 }
 
-/**
- * @returns not a whole number
- */
-export function getApproximateIslandRadius(
-  count: number,
-  padding: number = marginSize,
-  length: number = iconWidth
-): number {
-  if (count === 0) {
-    return padding;
-  }
-  return padding + count * length * Math.sqrt(count);
-}
-
 function getNumberOfIcons(classData: JavaClass): number {
   let numberOfIcons = 0;
 
@@ -78,4 +64,9 @@ export function getIslandWidth(javaFile: JavaFile): number {
 
   // TODO 1px = 1 line is arbitrary, adjust as desired.
   return minIslandWidth > numberOfLines ? minIslandWidth : widthByLines;
+}
+
+// For collision boundary
+export function getApproxRadiusFromWidth(width: number) {
+  return width * 1.3;
 }
