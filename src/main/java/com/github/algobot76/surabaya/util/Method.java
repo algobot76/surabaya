@@ -17,12 +17,15 @@ public class Method {
 	@JsonProperty("return_type")
 	private final String returnType;
 
+	private final String src;
+
 	private final List<Parameter> parameters = new ArrayList<>();
 
-	public Method(String name, String accessModifier, String returnType) {
+	public Method(String name, String accessModifier, String returnType, String src) {
 		this.name = name;
 		this.accessModifier = AccessModifier.fromString(accessModifier);
 		this.returnType = returnType;
+		this.src = src;
 	}
 
 	public void addParameter(Parameter p) {

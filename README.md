@@ -57,12 +57,14 @@ Use [JavaParser](https://javaparser.org/) and convert the outputted AST into the
 - `accessModifier`: [AccessModifier](#accessmodifier-enum) enum
 - `parameters`: list of [Parameter](#parameter-class) objects
 - `returnType`: return type (e.g. `int`)
+- `src`: raw source code string
 
 ### `Constructor` Class
 
 - `name`: constructor name
 - `accessModifier`: [AccessModifier](#accessmodifier-enum) enum
 - `parameters`: list of [Parameter](#parameter-class) objects
+- `src`: raw source code string
 
 ### `Parameter` Class
 
@@ -106,7 +108,8 @@ Representation of `JavaProject` in JSON:
                   "name": "getBar",
                   "access_modifier": "public",
                   "parameters": [],
-                  "return_type": "int"
+                  "return_type": "int",
+                  "src": "public int getBar(){ return this.bar }"
                 },
                 {
                   "name": "setFoo",
@@ -117,7 +120,8 @@ Representation of `JavaProject` in JSON:
                       "type": "String"
                     }
                   ],
-                  "return_type": "void"
+                  "return_type": "void",
+                  "src": "public void setFoo(String foo){ this.foo = foo; } "
                 }
               ],
               "constructors": [
@@ -133,7 +137,8 @@ Representation of `JavaProject` in JSON:
                       "name": "bar",
                       "type": "int"
                     }
-                  ]
+                  ],
+                  "src": "public C1(String foo, int bar) { this.foo = foo; this.bar = bar; }"
                 }
               ]
             }
