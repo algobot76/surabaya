@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Island1 from "../../assets/islands/island1.png";
 import Island2 from "../../assets/islands/island2.png";
@@ -6,7 +6,7 @@ import Island3 from "../../assets/islands/island3.png";
 import Island4 from "../../assets/islands/island4.png";
 import Island5 from "../../assets/islands/island5.png";
 import TooltipSquare from "../TooltipSquare";
-import { getIslandWidth, getTooltipWidth } from "../../util/helpers";
+import { iconWidth } from "../../util/constants";
 
 const islandArray = [Island1, Island2, Island3, Island4, Island5];
 
@@ -33,19 +33,42 @@ function getRandomIslandImage() {
   return islandArray[randomIslandIndex];
 }
 
+function getTotalNumberOfLinesInFile(fileAnalysis: any): number {
+  let numberOfLines = 0;
+  fileAnalysis.classes.forEach((c) => {
+    numberOfLines = numberOfLines + c["line_count"];
+  });
+  return numberOfLines;
+}
+
+function getIslandWidth(numberOfLines: number, minIslandWidth: number): number {
+  // TODO max island width based on lines arbitrarily set to 400px
+  const widthByLines = numberOfLines > 400 ? 400 : numberOfLines;
+
+  // TODO 1px = 1 line is arbitrary, adjust as desired.
+  return minIslandWidth > numberOfLines ? minIslandWidth : widthByLines;
+}
+
 // TODO replace any with data type object
 const Island: React.FC = (props: any) => {
   const { fileAnalysis } = props;
-  const tooltipWidth = useMemo(() => getTooltipWidth(fileAnalysis), []);
+  const [width, setWidth] = useState(0);
+  const minIslandWidth = width + iconWidth;
 
-  const islandImage = useMemo(() => getRandomIslandImage(), []);
+  const islandImage = getRandomIslandImage();
 
-  const fileSizeAdjustedWidth = useMemo(() => getIslandWidth(fileAnalysis), []);
+  let numberOfLines = getTotalNumberOfLinesInFile(fileAnalysis);
+
+  const fileSizeAdjustedWidth = getIslandWidth(numberOfLines, minIslandWidth);
+
+  const onSize = (size) => {
+    setWidth(size.width);
+  };
 
   return (
     <IslandContainer minWidth={fileSizeAdjustedWidth}>
       <IslandImage src={islandImage} maxWidth={fileSizeAdjustedWidth} />
-      <TooltipSquare width={tooltipWidth} fileData={fileAnalysis} />
+      <TooltipSquare onSize={onSize} fileData={fileAnalysis} />
     </IslandContainer>
   );
 };
