@@ -282,7 +282,6 @@ export class JavaArchipelago {
     file: JavaFile
   ): JavaIsland | "empty" {
     const publicClass = this.getPublicClass(file);
-    console.log(publicClass);
 
     if (!publicClass) {
       return "empty";
