@@ -43,7 +43,6 @@ const IslandWithFileName = styled.div<{ width; x; y }>`
   align-items: center;
   left: ${(props) => `${props.x}px`};
   top: ${(props) => `${props.y}px`};
-  position: absolute;
   margin-bottom: ${fileNameSpace}px;
 `;
 
