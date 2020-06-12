@@ -10,6 +10,8 @@ import TooltipSquare from "../TooltipSquare";
 import { fileNameSpace, iconWidth, legendWidth } from "../../util/constants";
 import FileName from "../FileName";
 import { AccessModifiers } from "../ClassClusters";
+import { JavaIsland } from "../../lib/JavaArchipelago";
+import { JavaAccessModifier } from "../../JavaProjectTypes";
 
 const islandArray = [Island1, Island2, Island3, Island4, Island5];
 
@@ -64,8 +66,12 @@ function getIslandWidth(numberOfLines: number, minIslandWidth: number): number {
   return minIslandWidth > numberOfLines ? minIslandWidth : widthByLines;
 }
 
+type Props = {
+  fileAnalysis: JavaIsland;
+};
+
 // TODO replace any with data type object
-const Island: React.FC = (props: any) => {
+const Island: React.FC<Props> = (props: Props) => {
   const { fileAnalysis } = props;
   const [width, setWidth] = useState(0);
   const minIslandWidth = width + iconWidth;
@@ -81,7 +87,7 @@ const Island: React.FC = (props: any) => {
   };
 
   const fileName = fileAnalysis.classes.filter(
-    (c) => c["access_modifier"] === AccessModifiers.Public
+    (c) => c.access_modifier === JavaAccessModifier.Public
   )[0].name;
 
   return (
