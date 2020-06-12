@@ -29,13 +29,14 @@ const IslandImage = styled.img<{ maxWidth }>`
   left: 0;
 `;
 
-const IslandWithFileName = styled.div<{ width; height }>`
+const IslandWithFileName = styled.div<{ width }>`
   width: ${(props) => props.width}px;
-  height: ${(props) => props.height}px;
+  height: auto;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: ${fileNameSpace}px;
 `;
 
 function getRandomIslandImage() {
@@ -81,10 +82,7 @@ const Island: React.FC = (props: any) => {
   )[0].name;
 
   return (
-    <IslandWithFileName
-      width={fileSizeAdjustedWidth}
-      height={fileSizeAdjustedWidth + fileNameSpace}
-    >
+    <IslandWithFileName width={fileSizeAdjustedWidth}>
       <IslandContainer minWidth={fileSizeAdjustedWidth}>
         <IslandImage src={islandImage} maxWidth={fileSizeAdjustedWidth} />
         <TooltipSquare onSize={onSize} fileData={fileAnalysis} />
