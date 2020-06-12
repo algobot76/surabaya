@@ -13,7 +13,7 @@ export enum JavaAccessModifier {
 export type JavaField = {
   name: string;
   type: string;
-  accessModifier: JavaAccessModifier;
+  access_modifier: JavaAccessModifier; // snake case to match JSON
 };
 
 export type JavaParameter = {
@@ -23,21 +23,21 @@ export type JavaParameter = {
 
 export type JavaMethod = {
   name: string;
-  accessModifier: JavaAccessModifier;
+  access_modifier: JavaAccessModifier; // snake case to match JSON
   parameters: JavaParameter[];
   returnType: string;
 };
 
 export type JavaContructor = {
   name: string;
-  accessModifier: JavaAccessModifier;
+  access_modifier: JavaAccessModifier; // snake case to match JSON
   parameters: JavaParameter[];
 };
 
 export type JavaClass = {
   name: string;
   type: JavaType;
-  accessModifier: JavaAccessModifier;
+  access_modifier: JavaAccessModifier; // snake case to match JSON
   lineCount: number;
   fields: JavaField[];
   methods: JavaMethod[];
