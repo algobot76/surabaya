@@ -5,3 +5,4 @@ export const domesticIslandDistance = 100;
 export const islandInterpackageDistance = 400;
 export const manyBodyStrength = -200; // negative is repulsion
 export const simIterations = 500;
+export const fileNameSpace = 15;

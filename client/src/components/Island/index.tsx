@@ -6,7 +6,10 @@ import Island3 from "../../assets/islands/island3.png";
 import Island4 from "../../assets/islands/island4.png";
 import Island5 from "../../assets/islands/island5.png";
 import TooltipSquare from "../TooltipSquare";
-import { iconWidth, legendWidth } from "../../util/constants";
+
+import { fileNameSpace, iconWidth, legendWidth } from "../../util/constants";
+import FileName from "../FileName";
+import { AccessModifiers } from "../ClassClusters";
 
 const islandArray = [Island1, Island2, Island3, Island4, Island5];
 
@@ -27,6 +30,16 @@ const IslandImage = styled.img<{ maxWidth }>`
   position: absolute;
   top: 0;
   left: 0;
+`;
+
+const IslandWithFileName = styled.div<{ width }>`
+  width: ${(props) => props.width}px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: ${fileNameSpace}px;
 `;
 
 function getRandomIslandImage() {
@@ -67,15 +80,23 @@ const Island: React.FC = (props: any) => {
     setWidth(size.width);
   };
 
+  const fileName = fileAnalysis.classes.filter(
+    (c) => c["access_modifier"] === AccessModifiers.Public
+  )[0].name;
+
   return (
-    <IslandContainer
-      minWidth={fileSizeAdjustedWidth}
-      x={fileAnalysis.topLeftCorner.x}
-      y={fileAnalysis.topLeftCorner.y}
-    >
-      <IslandImage src={islandImage} maxWidth={fileSizeAdjustedWidth} />
-      <TooltipSquare onSize={onSize} fileData={fileAnalysis} />
-    </IslandContainer>
+
+    <IslandWithFileName width={fileSizeAdjustedWidth}>
+      <IslandContainer
+        minWidth={fileSizeAdjustedWidth}
+        x={fileAnalysis.topLeftCorner.x}
+        y={fileAnalysis.topLeftCorner.y}
+      >
+        <IslandImage src={islandImage} maxWidth={fileSizeAdjustedWidth} />
+        <TooltipSquare onSize={onSize} fileData={fileAnalysis} />
+      </IslandContainer>
+      <FileName fileName={fileName || "File_name_n/a"} />
+    </IslandWithFileName>
   );
 };
 

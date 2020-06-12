@@ -9,7 +9,8 @@ import WoodenFence from "../../assets/fences/woodenFence.png";
 import StoneFence from "../../assets/fences/stoneFence.png";
 import IconToolTip, { IconType } from "../IconTooltip";
 
-enum AccessModifiers {
+// TODO replace with JavaType
+export enum AccessModifiers {
   Public = "public",
   Private = "private",
   Protected = "protected",
