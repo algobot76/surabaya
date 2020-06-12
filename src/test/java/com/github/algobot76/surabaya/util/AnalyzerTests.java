@@ -25,13 +25,21 @@ public class AnalyzerTests {
 		Class parsedClass = resultProject.getPackages().get("ast").getFiles().get(0).getClasses().get(0);
 		Method parsedParseMethod = parsedClass.getMethods().get(0);
 		Method parsedEvaluateMethod = parsedClass.getMethods().get(1);
-		String expectedParseSrc = "@Override\n" + "public void parse() {\n"
-				+ "    tokenizer.getAndCheckNext(\"new\");\n" + "    name = tokenizer.getNext();\n" + "}\n";
+		String expectedParseSrc =
+				"@Override\n"
+				+ "public void parse() {\n"
+				+ "    tokenizer.getAndCheckNext(\"new\");\n"
+				+ "    name = tokenizer.getNext();\n"
+				+ "}\n";
 		String[] expectedParseSrcLines = expectedParseSrc.lines().toArray(String[]::new);
-		String expectedEvaluateSrc = "@Override\n" + "public Integer evaluate() {\n"
+		String expectedEvaluateSrc =
+				"@Override\n"
+				+ "public Integer evaluate() {\n"
 				+ "    System.out.println(\"Putting \" + this.name + \" into symbol table\");\n"
-				+ "    // no value yet; use null as a placeholder\n" + "    Main.symbolTable.put(name, null);\n"
-				+ "    return null;\n" + "}\n";
+				+ "    // no value yet; use null as a placeholder\n"
+				+ "    Main.symbolTable.put(name, null);\n"
+				+ "    return null;\n"
+				+ "}\n";
 		String[] expectedEvaluateSrcLines = expectedEvaluateSrc.lines().toArray(String[]::new);
 		String[] actualParseSrcLines = parsedParseMethod.getSrc().lines().toArray(String[]::new);
 		String[] actualEvaluateSrcLines = parsedEvaluateMethod.getSrc().lines().toArray(String[]::new);
