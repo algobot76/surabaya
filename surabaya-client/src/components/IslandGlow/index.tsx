@@ -3,18 +3,16 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 
 const StyledIslandGlow = styled.div<{
-  margin: number;
   halfWidth: number;
   color: string;
 }>`
-  margin: ${(props) => props.margin}px;
-  width: 1px;
-  height: 1px;
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
   box-shadow: 0 0 50px ${(props) => props.halfWidth}px ${(props) => props.color};
   position: absolute;
-  top: -${(props) => props.halfWidth}px;
-  left: -${(props) => props.halfWidth}px;
+  top: ${(props) => props.halfWidth}px;
+  left: ${(props) => props.halfWidth}px;
 `;
 
 interface IslandGlowProps {
@@ -33,11 +31,7 @@ const IslandGlow: React.FC<IslandGlowProps> = (props: IslandGlowProps) => {
   return (
     <>
       {isHighlightedIsland && (
-        <StyledIslandGlow
-          margin={width}
-          halfWidth={halfWidth}
-          color={glowColor}
-        />
+        <StyledIslandGlow halfWidth={halfWidth} color={glowColor} />
       )}
     </>
   );
