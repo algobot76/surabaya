@@ -18,7 +18,9 @@ import Airplane from "../../assets/icons/airplane.png";
 import RedDottedLine from "../../assets/icons/red dotted line.svg";
 import WhiteDottedLine from "../../assets/icons/white dotted line.svg";
 import GreenDottedLine from "../../assets/icons/green dotted line.svg";
-const Legend = () => {
+import Checkbox from "./Checkbox";
+
+const Legend = ({ arrowVisibility }) => {
   return (
     <div className={styles.legend}>
       <h3 className={styles.heading}>Legend</h3>
@@ -34,7 +36,7 @@ const Legend = () => {
                 alt=""
               />
             </div>
-            <p className={styles.legendText}>Imports within package</p>
+            <p className={styles.legendText}>Dependencies within package</p>
           </div>
 
           <div className={styles.legendRow}>
@@ -52,7 +54,7 @@ const Legend = () => {
                 alt=""
               />
             </div>
-            <p className={styles.legendText}>Imports outside package</p>
+            <p className={styles.legendText}>Dependencies outside package</p>
           </div>
           <div className={styles.legendRow}>
             <div>
@@ -94,12 +96,6 @@ const Legend = () => {
             </div>
             <p className={styles.legendText}>Interface Info</p>
           </div>
-          <div className={styles.legendRow}>
-            <div className={styles.legendImg}>
-              <ColoredFlag flagType={FlagType.Enum} />
-            </div>
-            <p className={styles.legendText}>Enum Info</p>
-          </div>
         </div>
         <div className={styles.legendRightContainer}>
           <div className={styles.legendRow}>
@@ -135,6 +131,11 @@ const Legend = () => {
             <p className={styles.legendText}>Other Collection</p>
           </div>
         </div>
+      </div>
+
+      <div>
+        Show:
+        <Checkbox arrowVisibility={arrowVisibility} />
       </div>
     </div>
   );

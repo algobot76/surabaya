@@ -14,7 +14,7 @@
   background-color: rgba(255, 255, 255, 0.5);
   flex-wrap: wrap;
   border-right: 2px solid white;
-  overflow: auto;
+  overflow-y: scroll;
 }
 
 .legendRow {
