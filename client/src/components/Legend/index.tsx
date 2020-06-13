@@ -94,6 +94,10 @@ const Legend = ({ arrowVisibility, codeVisibility }) => {
             </div>
             <p className={styles.legendText}>Interface Info</p>
           </div>
+          <div className={styles.legendRow}>
+            <img className={styles.legendImg} src={Volcano} alt="" />
+            <p className={styles.legendText}>Constructor</p>
+          </div>
         </div>
         <div className={styles.legendRightContainer}>
           <div className={styles.legendRow}>
