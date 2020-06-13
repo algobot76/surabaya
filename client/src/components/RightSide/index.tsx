@@ -7,6 +7,7 @@ import InheritanceArrow from "../DependencyArrow/InheritanceArrow";
 import { JavaArchipelago } from "../../lib/JavaArchipelago";
 import { MapInteractionCSS } from "react-map-interaction";
 import { Visibility } from "../../App";
+import CodeDisplay from "../CodeDisplay";
 import { connect } from "react-redux";
 import PackageNameBanner from "../PackageNameBanner";
 import { setPackageColorAction } from "../../reducersAndActions/actions";
@@ -15,6 +16,7 @@ import { randomColorArray } from "../../util/constants";
 interface RightSideProps {
   javaProject?: JavaArchipelago;
   arrowVisibility: any;
+  codeVisibility: any;
 }
 
 function setPackageColors(props: any, packagesWithColors: any) {
@@ -22,8 +24,9 @@ function setPackageColors(props: any, packagesWithColors: any) {
 }
 
 const RightSide: React.FC<RightSideProps> = (props: RightSideProps) => {
-  const { javaProject, arrowVisibility } = props;
+  const { javaProject, arrowVisibility, codeVisibility } = props;
   const [visibility]: [Visibility] = arrowVisibility;
+  const [codeOpened] = codeVisibility;
   const islands = javaProject.islands;
   const links = javaProject.links;
   const width = Math.max(window.innerWidth - 300, javaProject.width);
@@ -118,6 +121,8 @@ const RightSide: React.FC<RightSideProps> = (props: RightSideProps) => {
             })}
         </div>
       </MapInteractionCSS>
+
+      {codeOpened && <CodeDisplay />}
     </div>
   );
 };

@@ -20,7 +20,8 @@ import WhiteDottedLine from "../../assets/icons/white dotted line.svg";
 import GreenDottedLine from "../../assets/icons/green dotted line.svg";
 import Checkbox from "./Checkbox";
 
-const Legend = ({ arrowVisibility }) => {
+const Legend = ({ arrowVisibility, codeVisibility }) => {
+  const [codeOpened, setCodeOpened] = codeVisibility;
   return (
     <div className={styles.legend}>
       <h3 className={styles.heading}>Legend</h3>
@@ -62,6 +63,11 @@ const Legend = ({ arrowVisibility }) => {
             </div>
             <p className={styles.legendText}>Inheritance</p>
           </div>
+          <div className={styles.legendRow}>
+            <img className={styles.legendImg} src={Volcano} alt="" />
+            <p className={styles.legendText}>Constructor</p>
+          </div>
+
           <div className={styles.legendRow}>
             <img className={styles.legendImg} src={WoodenFence} alt="" />
             <p className={styles.legendText}>Protected</p>
@@ -133,9 +139,22 @@ const Legend = ({ arrowVisibility }) => {
         </div>
       </div>
 
-      <div>
+      <div style={{ marginTop: "10px" }}>
         Show:
         <Checkbox arrowVisibility={arrowVisibility} />
+      </div>
+
+      <div style={{ marginTop: "10px" }}>
+        <label className={styles.legendText}>Open Code Display:</label>
+        <input
+          type="checkbox"
+          checked={codeOpened}
+          onChange={() =>
+            setCodeOpened((prevState) => {
+              return !prevState;
+            })
+          }
+        />
       </div>
     </div>
   );

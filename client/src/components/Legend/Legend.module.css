@@ -46,3 +46,18 @@
 .legendRightContainer {
   width: 150px;
 }
+
+.showCode {
+  position: absolute;
+  /* top: 0; */
+  color: white;
+  /* display: flex;
+  flex-direction: row; */
+}
+.showCode input {
+  top: 10px;
+}
+.showCode p {
+  font-weight: bold;
+  font-size: small;
+}
