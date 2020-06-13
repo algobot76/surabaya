@@ -6,11 +6,13 @@ import Island3 from "../../assets/islands/island3.png";
 import Island4 from "../../assets/islands/island4.png";
 import Island5 from "../../assets/islands/island5.png";
 import TooltipSquare from "../TooltipSquare";
-
 import { fileNameSpace, iconWidth } from "../../util/constants";
 import FileName from "../FileName";
 import { JavaIsland } from "../../lib/JavaArchipelago";
 import { JavaAccessModifier } from "../../JavaProjectTypes";
+import { connect } from "react-redux";
+import { setCurrentPackageAction } from "../../reducersAndActions/actions";
+import IslandGlow from "../IslandGlow";
 
 const islandArray = [Island1, Island2, Island3, Island4, Island5];
 
@@ -23,7 +25,7 @@ const IslandContainer = styled.div<{ minWidth }>`
   align-items: center;
 `;
 
-const IslandImage = styled.img<{ maxWidth }>`
+const IslandImage = styled.img<{ maxWidth; isHighlighted }>`
   max-width: ${(props) => `${props.maxWidth}px`};
   max-height: ${(props) => `${props.maxWidth}px`};
   position: absolute;
@@ -44,6 +46,7 @@ const IslandWithFileName = styled.div<{ width; x; y }>`
   left: ${(props) => `${props.x}px`};
   top: ${(props) => `${props.y}px`};
   margin-bottom: ${fileNameSpace}px;
+  cursor: pointer;
 `;
 
 function getRandomIslandImage() {
@@ -68,13 +71,21 @@ function getIslandWidth(numberOfLines: number, minIslandWidth: number): number {
   return minIslandWidth > numberOfLines ? minIslandWidth : widthByLines;
 }
 
+function onMouseHover(props: any, thisIslandPackage: string) {
+  props.setCurrentPackageAction(thisIslandPackage);
+}
+
+function onMouseLeave(props: any) {
+  props.setCurrentPackageAction(null);
+}
+
 type Props = {
   fileAnalysis: JavaIsland;
+  thisIslandPackage: string;
 };
 
-// TODO replace any with data type object
 const Island: React.FC<Props> = (props: Props) => {
-  const { fileAnalysis } = props;
+  const { fileAnalysis, thisIslandPackage } = props;
   const [width, setWidth] = useState(0);
   const minIslandWidth = width + iconWidth;
 
@@ -97,7 +108,13 @@ const Island: React.FC<Props> = (props: Props) => {
       width={fileSizeAdjustedWidth}
       x={fileAnalysis.topLeftCorner.x}
       y={fileAnalysis.topLeftCorner.y}
+      onMouseEnter={() => onMouseHover(props, thisIslandPackage)}
+      onMouseLeave={() => onMouseLeave(props)}
     >
+      <IslandGlow
+        thisIslandPackage={thisIslandPackage}
+        width={fileSizeAdjustedWidth}
+      />
       <IslandContainer minWidth={fileSizeAdjustedWidth}>
         <IslandImage src={islandImage} maxWidth={fileSizeAdjustedWidth} />
         <TooltipSquare onSize={onSize} fileData={fileAnalysis} />
@@ -110,4 +127,4 @@ const Island: React.FC<Props> = (props: Props) => {
   );
 };
 
-export default Island;
+export default connect(null, { setCurrentPackageAction })(Island);

@@ -26,7 +26,7 @@ export function Background(props: Props) {
             height: props.height,
             width: props.width,
           }}
-        ></div>
+        />
       </div>
       <svg height="0px">
         <filter
@@ -41,8 +41,8 @@ export function Background(props: Props) {
             numOctaves="3"
             seed="2"
             baseFrequency="0.02 0.05"
-          ></feTurbulence>
-          <feDisplacementMap scale="20" in="SourceGraphic"></feDisplacementMap>
+          />
+          <feDisplacementMap scale="20" in="SourceGraphic" />
           <animate
             xlinkHref="#sea-filter"
             attributeName="baseFrequency"
