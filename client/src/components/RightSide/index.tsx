@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../../App.module.css";
 import Island from "../Island";
 import DomesticDependencyArrow from "../DependencyArrow/DomesticDependencyArrow";
@@ -8,16 +8,23 @@ import { JavaArchipelago } from "../../lib/JavaArchipelago";
 import { MapInteractionCSS } from "react-map-interaction";
 import { Visibility } from "../../App";
 import CodeDisplay from "../CodeDisplay";
+import { connect } from "react-redux";
+import PackageNameBanner from "../PackageNameBanner";
+import { setPackageColorAction } from "../../reducersAndActions/actions";
+import { randomColorArray } from "../../util/constants";
 
-const RightSide = ({
-  javaProject,
-  arrowVisibility,
-  codeVisibility,
-}: {
+interface RightSideProps {
   javaProject?: JavaArchipelago;
   arrowVisibility: any;
   codeVisibility: any;
-}) => {
+}
+
+function setPackageColors(props: any, packagesWithColors: any) {
+  props.setPackageColorAction(packagesWithColors);
+}
+
+const RightSide: React.FC<RightSideProps> = (props: RightSideProps) => {
+  const { javaProject, arrowVisibility, codeVisibility } = props;
   const [visibility]: [Visibility] = arrowVisibility;
   const [codeOpened] = codeVisibility;
   const islands = javaProject.islands;
@@ -37,6 +44,17 @@ const RightSide = ({
   };
   const [zoomValue, setZoomValue] = useState(initialZoomValue);
 
+  useEffect(() => {
+    const packagesNames = Object.keys(javaProject.project.packages);
+    let packagesWithColors = {};
+    packagesNames.forEach((p, index) => {
+      const randomColorArrayLength = randomColorArray.length;
+      const moduloIndex = index % randomColorArrayLength;
+      packagesWithColors[p] = randomColorArray[moduloIndex];
+      setPackageColors(props, packagesWithColors);
+    });
+  }, []);
+
   return (
     <div
       className={styles.rightSide}
@@ -45,10 +63,17 @@ const RightSide = ({
         width: `${width}px`,
       }}
     >
+      <PackageNameBanner width={width} />
       <MapInteractionCSS value={zoomValue} onChange={setZoomValue}>
         <div>
           {islands.map((island, index) => {
-            return <Island fileAnalysis={island} key={index} />;
+            return (
+              <Island
+                fileAnalysis={island}
+                key={index}
+                thisIslandPackage={island.package.name}
+              />
+            );
           })}
           {visibility.showDomesticDependencies &&
             links.domesticDependencies.map((link, index) => {
@@ -57,6 +82,7 @@ const RightSide = ({
                   link={link}
                   width={javaProject.width}
                   height={javaProject.height}
+                  key={index}
                 />
               );
             })}
@@ -67,6 +93,7 @@ const RightSide = ({
                   link={link}
                   width={javaProject.width}
                   height={javaProject.height}
+                  key={index}
                 />
               );
             })}
@@ -77,6 +104,7 @@ const RightSide = ({
                   link={link}
                   width={javaProject.width}
                   height={javaProject.height}
+                  key={index}
                 />
               );
             })}
@@ -87,6 +115,7 @@ const RightSide = ({
                   link={link}
                   width={javaProject.width}
                   height={javaProject.height}
+                  key={index}
                 />
               );
             })}
@@ -97,4 +126,5 @@ const RightSide = ({
     </div>
   );
 };
-export default RightSide;
+
+export default connect(null, { setPackageColorAction })(RightSide);
