@@ -3,7 +3,7 @@ import styled from "styled-components";
 import sizeMe from "react-sizeme";
 import ClassClusterSquare from "../ClassClusters";
 import { getNumColumnsForSquare } from "../../util/helpers";
-import { iconWidth, marginSize } from "../../util/constants";
+import { iconWidth, marginSize, tooltipScale } from "../../util/constants";
 
 const ToolTipSquare = styled.div<{ width }>`
   width: ${(props) => `${props.width}px`};
@@ -45,7 +45,7 @@ const TooltipSquare: React.FC<TooltipSquareProps> = (
   const avgClusterWidth = totalClusterWidth / clusterNum;
   const numberOfClusters = fileData.classes.length;
   const columns = getNumColumnsForSquare(numberOfClusters);
-  const width = avgClusterWidth * columns * 1.5;
+  const width = avgClusterWidth * columns * tooltipScale;
 
   return (
     <ToolTipSquare width={width}>
