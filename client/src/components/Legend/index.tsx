@@ -17,7 +17,10 @@ import ColoredFlag, { FlagType } from "../ColoredFlag";
 import Airplane from "../../assets/icons/airplane.png";
 import RedDottedLine from "../../assets/icons/red dotted line.svg";
 import WhiteDottedLine from "../../assets/icons/white dotted line.svg";
-const Legend = () => {
+import GreenDottedLine from "../../assets/icons/green dotted line.svg";
+import Checkbox from "./Checkbox";
+
+const Legend = ({ arrowVisibility }) => {
   return (
     <div className={styles.legend}>
       <h3 className={styles.heading}>Legend</h3>
@@ -33,7 +36,7 @@ const Legend = () => {
                 alt=""
               />
             </div>
-            <p className={styles.legendText}>Imports within package</p>
+            <p className={styles.legendText}>Dependencies within package</p>
           </div>
 
           <div className={styles.legendRow}>
@@ -51,7 +54,13 @@ const Legend = () => {
                 alt=""
               />
             </div>
-            <p className={styles.legendText}>Imports outside package</p>
+            <p className={styles.legendText}>Dependencies outside package</p>
+          </div>
+          <div className={styles.legendRow}>
+            <div>
+              <img className={styles.legendImg} src={GreenDottedLine} alt="" />
+            </div>
+            <p className={styles.legendText}>Inheritance</p>
           </div>
           <div className={styles.legendRow}>
             <img className={styles.legendImg} src={Volcano} alt="" />
@@ -86,12 +95,6 @@ const Legend = () => {
               <ColoredFlag flagType={FlagType.Interface} />
             </div>
             <p className={styles.legendText}>Interface Info</p>
-          </div>
-          <div className={styles.legendRow}>
-            <div className={styles.legendImg}>
-              <ColoredFlag flagType={FlagType.Enum} />
-            </div>
-            <p className={styles.legendText}>Enum Info</p>
           </div>
         </div>
         <div className={styles.legendRightContainer}>
@@ -128,6 +131,11 @@ const Legend = () => {
             <p className={styles.legendText}>Other Collection</p>
           </div>
         </div>
+      </div>
+
+      <div>
+        Show:
+        <Checkbox arrowVisibility={arrowVisibility} />
       </div>
     </div>
   );

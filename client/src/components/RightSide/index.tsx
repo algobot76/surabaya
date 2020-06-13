@@ -1,15 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, SetStateAction } from "react";
 import styles from "../../App.module.css";
-import { JavaProject } from "../../JavaProjectTypes";
 import Island from "../Island";
 import DomesticDependencyArrow from "../DependencyArrow/DomesticDependencyArrow";
 import ForeignDependencyArrow from "../DependencyArrow/ForeignDependencyArrow";
-// import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
+import InheritanceArrow from "../DependencyArrow/InheritanceArrow";
 import { JavaArchipelago } from "../../lib/JavaArchipelago";
-import { legendWidth } from "../../util/constants";
 import { MapInteractionCSS } from "react-map-interaction";
+import { Visibility } from "../../App";
 
-const RightSide = ({ javaProject }: { javaProject?: JavaArchipelago }) => {
+const RightSide = ({
+  javaProject,
+  arrowVisibility,
+}: {
+  javaProject?: JavaArchipelago;
+  arrowVisibility: any;
+}) => {
+  const [visibility]: [Visibility] = arrowVisibility;
   const islands = javaProject.islands;
   const links = javaProject.links;
   const width = Math.max(window.innerWidth - 300, javaProject.width);
@@ -40,24 +46,46 @@ const RightSide = ({ javaProject }: { javaProject?: JavaArchipelago }) => {
           {islands.map((island, index) => {
             return <Island fileAnalysis={island} key={index} />;
           })}
-          {links.domesticDependencies.map((link, index) => {
-            return (
-              <DomesticDependencyArrow
-                link={link}
-                width={javaProject.width}
-                height={javaProject.height}
-              />
-            );
-          })}
-          {links.foreignDependencies.map((link, index) => {
-            return (
-              <ForeignDependencyArrow
-                link={link}
-                width={javaProject.width}
-                height={javaProject.height}
-              />
-            );
-          })}
+          {visibility.showDomesticDependencies &&
+            links.domesticDependencies.map((link, index) => {
+              return (
+                <DomesticDependencyArrow
+                  link={link}
+                  width={javaProject.width}
+                  height={javaProject.height}
+                />
+              );
+            })}
+          {visibility.showForeignDependencies &&
+            links.foreignDependencies.map((link, index) => {
+              return (
+                <ForeignDependencyArrow
+                  link={link}
+                  width={javaProject.width}
+                  height={javaProject.height}
+                />
+              );
+            })}
+          {visibility.showInheritance &&
+            links.domesticInheritances.map((link, index) => {
+              return (
+                <InheritanceArrow
+                  link={link}
+                  width={javaProject.width}
+                  height={javaProject.height}
+                />
+              );
+            })}
+          {visibility.showInheritance &&
+            links.foreignInheritances.map((link, index) => {
+              return (
+                <InheritanceArrow
+                  link={link}
+                  width={javaProject.width}
+                  height={javaProject.height}
+                />
+              );
+            })}
         </div>
       </MapInteractionCSS>
     </div>
