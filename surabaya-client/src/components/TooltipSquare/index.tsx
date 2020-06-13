@@ -45,7 +45,7 @@ const TooltipSquare: React.FC<TooltipSquareProps> = (
   const avgClusterWidth = totalClusterWidth / clusterNum;
   const numberOfClusters = fileData.classes.length;
   const columns = getNumColumnsForSquare(numberOfClusters);
-  const width = avgClusterWidth * columns * 1.2;
+  const width = avgClusterWidth * columns * 1.5;
 
   return (
     <ToolTipSquare width={width}>

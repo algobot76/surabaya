@@ -25,9 +25,9 @@ const IslandContainer = styled.div<{ minWidth }>`
   align-items: center;
 `;
 
-const IslandImage = styled.img<{ maxWidth; isHighlighted }>`
-  max-width: ${(props) => `${props.maxWidth}px`};
-  max-height: ${(props) => `${props.maxWidth}px`};
+const IslandImage = styled.img<{ width; isHighlighted }>`
+  width: ${(props) => `${props.width}px`};
+  height: ${(props) => `${props.width}px`};
   position: absolute;
   top: 0;
   left: 0;
@@ -116,7 +116,7 @@ const Island: React.FC<Props> = (props: Props) => {
         width={fileSizeAdjustedWidth}
       />
       <IslandContainer minWidth={fileSizeAdjustedWidth}>
-        <IslandImage src={islandImage} maxWidth={fileSizeAdjustedWidth} />
+        <IslandImage src={islandImage} width={fileSizeAdjustedWidth} />
         <TooltipSquare onSize={onSize} fileData={fileAnalysis} />
       </IslandContainer>
       <FileName

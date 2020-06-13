@@ -42,8 +42,7 @@ export function getTooltipWidth(fileData: JavaFile): number {
   const avgClusterWidth = totalClusterWidth / clusterNum;
   const numberOfClusters = fileData.classes.length;
   const columns = getNumColumnsForSquare(numberOfClusters);
-  const width = avgClusterWidth * columns * 1.2;
-  return width;
+  return avgClusterWidth * columns * 1.5;
 }
 
 function getTotalNumberOfLinesInFile(fileAnalysis: any): number {

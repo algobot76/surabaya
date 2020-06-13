@@ -31,15 +31,17 @@ const RightSide: React.FC<RightSideProps> = (props: RightSideProps) => {
   const links = javaProject.links;
   const width = Math.max(window.innerWidth - 300, javaProject.width);
   const height = Math.max(window.innerHeight, javaProject.height);
-  const initialScale = Math.min(
-    1,
-    Math.min(
-      (window.innerWidth - 300) / javaProject.width,
-      window.innerHeight / javaProject.height
-    )
-  );
+
+  // will keep this function here just in case
+  // const initialScale = Math.min(
+  //   1,
+  //   Math.min(
+  //     (window.innerWidth - 300) / javaProject.width,
+  //     window.innerHeight / javaProject.height
+  //   )
+  // );
   const initialZoomValue = {
-    scale: initialScale,
+    scale: 1,
     translation: { x: 0, y: 0 },
   };
   const [zoomValue, setZoomValue] = useState(initialZoomValue);
