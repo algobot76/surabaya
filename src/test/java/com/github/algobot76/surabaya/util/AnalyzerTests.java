@@ -19,6 +19,44 @@ public class AnalyzerTests {
 	}
 
 	@Test
+	void includesSupertypes() {
+		Resource testFile = new FileSystemResource(testProjectDir.concat("simpleZip.zip"));
+		Project resultProject = analyzer.analyze(testFile);
+		Class parsedClass = resultProject.getPackages().get("ast").getFiles().get(0).getClasses().get(0);
+		String expectedSupertype = "STATEMENT";
+		assertEquals(1, parsedClass.getSupertypes().size());
+		assertEquals(expectedSupertype, parsedClass.getSupertypes().get(0));
+	}
+
+	@Test
+	void includesMethodSourceCode() {
+		Resource testFile = new FileSystemResource(testProjectDir.concat("simpleZip.zip"));
+		Project resultProject = analyzer.analyze(testFile);
+		Class parsedClass = resultProject.getPackages().get("ast").getFiles().get(0).getClasses().get(0);
+		Method parsedParseMethod = parsedClass.getMethods().get(0);
+		Method parsedEvaluateMethod = parsedClass.getMethods().get(1);
+		String expectedParseSrc = "@Override\n" + "public void parse() {\n"
+				+ "    tokenizer.getAndCheckNext(\"new\");\n" + "    name = tokenizer.getNext();\n" + "}\n";
+		String[] expectedParseSrcLines = expectedParseSrc.lines().toArray(String[]::new);
+		String expectedEvaluateSrc = "@Override\n" + "public Integer evaluate() {\n"
+				+ "    System.out.println(\"Putting \" + this.name + \" into symbol table\");\n"
+				+ "    // no value yet; use null as a placeholder\n" + "    Main.symbolTable.put(name, null);\n"
+				+ "    return null;\n" + "}\n";
+		String[] expectedEvaluateSrcLines = expectedEvaluateSrc.lines().toArray(String[]::new);
+		String[] actualParseSrcLines = parsedParseMethod.getSrc().lines().toArray(String[]::new);
+		String[] actualEvaluateSrcLines = parsedEvaluateMethod.getSrc().lines().toArray(String[]::new);
+		assertEquals(expectedParseSrcLines.length, actualParseSrcLines.length);
+		assertEquals(expectedEvaluateSrcLines.length, actualEvaluateSrcLines.length);
+
+		for (int i = 0; i < expectedParseSrcLines.length; i++) {
+			assertEquals(expectedParseSrcLines[i], actualParseSrcLines[i]);
+		}
+		for (int i = 0; i < expectedEvaluateSrcLines.length; i++) {
+			assertEquals(expectedEvaluateSrcLines[i], actualEvaluateSrcLines[i]);
+		}
+	}
+
+	@Test
 	void analyzeSimpleZipFileSuccess() {
 		Resource testFile = new FileSystemResource(testProjectDir.concat("simpleZip.zip"));
 		System.out.println(testFile);
@@ -32,8 +70,8 @@ public class AnalyzerTests {
 		Class expectedClass = new Class("DEC", "Class", "public", 15);
 		expectedFile.addClass(expectedClass);
 		expectedClass.addField(new Field("name", "String", "private"));
-		expectedClass.addMethod(new Method("parse", "public", "void"));
-		expectedClass.addMethod(new Method("evaluate", "public", "Integer"));
+		expectedClass.addMethod(new Method("parse", "public", "void", ""));
+		expectedClass.addMethod(new Method("evaluate", "public", "Integer", ""));
 		assertEquals(expectedProject, resultProject);
 
 	}
@@ -49,8 +87,8 @@ public class AnalyzerTests {
 		expectedPackage.addFile(expectedFile);
 		Class expectedClass = new Class("Test", "Interface", "public", 3);
 		expectedFile.addClass(expectedClass);
-		expectedClass.addMethod(new Method("parse", "public", "void"));
-		expectedClass.addMethod(new Method("evaluate", "public", "Integer"));
+		expectedClass.addMethod(new Method("parse", "public", "void", ""));
+		expectedClass.addMethod(new Method("evaluate", "public", "Integer", ""));
 		assertEquals(expectedProject, resultProject);
 	}
 
@@ -67,8 +105,8 @@ public class AnalyzerTests {
 		Class expectedClass = new Class("Node", "Abstract Class", "public", 5);
 		expectedFile.addClass(expectedClass);
 		expectedClass.addField(new Field("tokenizer", "Tokenizer", "protected"));
-		expectedClass.addMethod(new Method("parse", "public", "void"));
-		expectedClass.addMethod(new Method("evaluate", "public", "Integer"));
+		expectedClass.addMethod(new Method("parse", "public", "void", ""));
+		expectedClass.addMethod(new Method("evaluate", "public", "Integer", ""));
 		assertEquals(expectedProject, resultProject);
 	}
 
@@ -85,8 +123,8 @@ public class AnalyzerTests {
 		Class expectedClass = new Class("DEC", "Class", "public", 15);
 		expectedFile.addClass(expectedClass);
 		expectedClass.addField(new Field("name", "String", "private"));
-		expectedClass.addMethod(new Method("parse", "public", "void"));
-		expectedClass.addMethod(new Method("evaluate", "public", "Integer"));
+		expectedClass.addMethod(new Method("parse", "public", "void", ""));
+		expectedClass.addMethod(new Method("evaluate", "public", "Integer", ""));
 
 		Package expectedPackage2 = expectedProject.getOrCreatePackage("libs");
 		File expectedFile2 = new File();
@@ -95,8 +133,8 @@ public class AnalyzerTests {
 		Class expectedClass2 = new Class("Node", "Abstract Class", "public", 5);
 		expectedFile2.addClass(expectedClass2);
 		expectedClass2.addField(new Field("tokenizer", "Tokenizer", "protected"));
-		expectedClass2.addMethod(new Method("parse", "public", "void"));
-		expectedClass2.addMethod(new Method("evaluate", "public", "Integer"));
+		expectedClass2.addMethod(new Method("parse", "public", "void", ""));
+		expectedClass2.addMethod(new Method("evaluate", "public", "Integer", ""));
 		assertEquals(expectedProject, resultProject);
 	}
 
@@ -113,8 +151,8 @@ public class AnalyzerTests {
 		Class expectedClass = new Class("DEC", "Class", "public", 15);
 		expectedFile.addClass(expectedClass);
 		expectedClass.addField(new Field("name", "String", "private"));
-		expectedClass.addMethod(new Method("parse", "public", "void"));
-		expectedClass.addMethod(new Method("evaluate", "public", "Integer"));
+		expectedClass.addMethod(new Method("parse", "public", "void", ""));
+		expectedClass.addMethod(new Method("evaluate", "public", "Integer", ""));
 		assertEquals(expectedProject, resultProject);
 	}
 
