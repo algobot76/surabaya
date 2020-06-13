@@ -45,6 +45,9 @@ public class StaticAnalysisVisitor extends VoidVisitorAdapter<Project> {
 		n.getExtendedTypes().forEach(node -> {
 			newClass.addSupertype(node.getName().getIdentifier());
 		});
+		n.getImplementedTypes().forEach(node -> {
+			newClass.addSupertype(node.getName().getIdentifier());
+		});
 		currentFile.addClass(newClass);
 		currentClass = newClass;
 
