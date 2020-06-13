@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import { JavaArchipelago } from "../../lib/JavaArchipelago";
+import {API_BASE_URL} from "../../util/constants";
 
 // note these dimensions are based on the Legend component
 // TODO: fix the dimensions of this and the Legend so they are more independent
@@ -75,7 +76,7 @@ const ImportPanel: React.FC<ImportPanelProps> = (props) => {
 
   function handleFormSubmit(e) {
     e.preventDefault();
-    const url = "http://localhost:8080/upload";
+    const url = `${API_BASE_URL}/upload`;
     const formData = new FormData();
     formData.append("file", file);
     const config = {
@@ -91,7 +92,7 @@ const ImportPanel: React.FC<ImportPanelProps> = (props) => {
   }
 
   function getAnalysis() {
-    const url = "http://localhost:8080/analysis";
+    const url = `${API_BASE_URL}/analysis`;
     axios
       .get(url)
       .then((res) => {
