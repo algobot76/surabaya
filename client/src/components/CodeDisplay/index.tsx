@@ -1,6 +1,6 @@
 import React from "react";
 import "codemirror/lib/codemirror.css";
-import "codemirror/theme/lucario.css";
+import "codemirror/theme/xq-light.css";
 import "codemirror/mode/clike/clike";
 import { Controlled as CodeMirror } from "react-codemirror2";
 import "./CodeDisplay.css";
@@ -16,7 +16,7 @@ const CodeDisplay = () => {
         value={_code}
         options={{
           mode: "text/x-java",
-          theme: "lucario",
+          theme: "xq-light",
           lineNumbers: true,
         }}
       />

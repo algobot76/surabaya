@@ -139,7 +139,7 @@ const Legend = ({ arrowVisibility, codeVisibility }) => {
         </div>
       </div>
 
-      <div>
+      <div style={{ marginTop: "10px" }}>
         Show:
         <Checkbox arrowVisibility={arrowVisibility} />
       </div>
