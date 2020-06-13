@@ -1,8 +1,6 @@
-import { atomFamily } from "recoil";
+import { atom } from "recoil";
 
-export const islandFamily = atomFamily({
-  key: "islandFamily",
-  default: {
-    hovered: false,
-  },
+export const code = atom({
+  key: "key",
+  default: "",
 });

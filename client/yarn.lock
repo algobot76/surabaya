@@ -3019,6 +3019,11 @@ code-point-at@^1.0.0:
   resolved "https://registry.yarnpkg.com/code-point-at/-/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
   integrity sha1-DQcLTQQ6W+ozovGkDi7bPZpMz3c=
 
+codemirror@^5.54.0:
+  version "5.54.0"
+  resolved "https://registry.yarnpkg.com/codemirror/-/codemirror-5.54.0.tgz#82b6adf662b29eeb7b867fe7839d49e25e4a0b38"
+  integrity sha512-Pgf3surv4zvw+KaW3doUU7pGjF0BPU8/sj7eglWJjzni46U/DDW8pu3nZY0QgQKUcICDXRkq8jZmq0y6KhxM3Q==
+
 collection-visit@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/collection-visit/-/collection-visit-1.0.0.tgz#4bc0373c164bc3291b4d368c829cf1a80a59dca0"
@@ -8776,6 +8781,11 @@ react-app-polyfill@^1.0.6:
     regenerator-runtime "^0.13.3"
     whatwg-fetch "^3.0.0"
 
+react-codemirror2@^7.2.1:
+  version "7.2.1"
+  resolved "https://registry.yarnpkg.com/react-codemirror2/-/react-codemirror2-7.2.1.tgz#38dab492fcbe5fb8ebf5630e5bb7922db8d3a10c"
+  integrity sha512-t7YFmz1AXdlImgHXA9Ja0T6AWuopilub24jRaQdPVbzUJVNKIYuy3uCFZYa7CE5S3UW6SrSa5nAqVQvtzRF9gw==
+
 react-dev-utils@^10.2.1:
   version "10.2.1"
   resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-10.2.1.tgz#f6de325ae25fa4d546d09df4bb1befdc6dd19c19"
@@ -8830,11 +8840,6 @@ react-map-interaction@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/react-map-interaction/-/react-map-interaction-2.0.0.tgz#093b3843741669b1b306e8cc5ce6725eada24bbc"
   integrity sha512-9KeyPHd95INODNUsx77/345vxOfN1WOtcjWXdxT92Sw+Y1GldVfmb4HnzNVtWoJg3T0Q1Yt3Sthq9IPN9OYy5w==
-
-react-pinch-and-zoom@^1.2.5:
-  version "1.2.5"
-  resolved "https://registry.yarnpkg.com/react-pinch-and-zoom/-/react-pinch-and-zoom-1.2.5.tgz#2b3fa151fe874aea650dfaf3142ad84f32255a74"
-  integrity sha512-z469MmfQU69sZMKzOG/le6zH5KkwqjTiEHO6ggxpl8tP50G1zD6TqhYSvjdEP60NgzOf+MAp6o+bicvU6wZllA==
 
 react-scripts@3.4.1:
   version "3.4.1"
@@ -8915,11 +8920,6 @@ react-sizeme@^2.6.12:
     invariant "^2.2.4"
     shallowequal "^1.1.0"
     throttle-debounce "^2.1.0"
-
-react-zoom-pan-pinch@^1.6.1:
-  version "1.6.1"
-  resolved "https://registry.yarnpkg.com/react-zoom-pan-pinch/-/react-zoom-pan-pinch-1.6.1.tgz#da16267c258ab37e8ebcdc7c252794a9633e91ec"
-  integrity sha512-J2eM0gZ04XiUWvmKZrOhSAB2zjyoK7kw2POIeN1X0yTTlmp6HPGV0zYfjnlkhgt8nQwpvXAbsF/oAnkuiwk1kA==
 
 react@^16.13.1:
   version "16.13.1"

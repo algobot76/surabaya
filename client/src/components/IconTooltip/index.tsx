@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import RightBoat from "../../assets/icons/boat right.png";
 import Volcano from "../../assets/icons/volcano.png";
 import Factory from "../../assets/icons/factory.png";
@@ -14,6 +14,9 @@ import styles from "./styles.module.css";
 import styled from "styled-components";
 import ColoredFlag from "../ColoredFlag";
 import { iconWidth } from "../../util/constants";
+
+import { code } from "../../atoms";
+import { useSetRecoilState } from "recoil";
 
 interface IconToolTipProps {
   type: IconType;
@@ -138,11 +141,17 @@ const SizedImage = styled.img`
 `;
 
 const IconToolTip: React.FC<IconToolTipProps> = (props: IconToolTipProps) => {
+  const setCode = useSetRecoilState(code);
   const isFlag = props.type === IconType.Flag;
   const iconImage = !isFlag && getIconImage(props.type);
-  const toolTipText = getToolTipText(props);
+  const toolTipText = useMemo(() => getToolTipText(props), []);
   return (
-    <div className={styles.tooltip}>
+    <div
+      className={styles.tooltip}
+      onClick={() => {
+        setCode(props.data.src);
+      }}
+    >
       <SizedIconContainer>
         {isFlag ? (
           <ColoredFlag flagType={props.data.type} />

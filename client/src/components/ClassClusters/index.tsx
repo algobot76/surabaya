@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import styled from "styled-components";
 import {
   checkStringTypeIsCollection,
@@ -136,7 +136,9 @@ const ClassClusterSquare: React.FC<ClassClusterSquareProps> = (
   props: ClassClusterSquareProps
 ) => {
   const { classData } = props;
-  const toolTipArray = getToolTipsForClass(classData);
+  const toolTipArray = useMemo(() => getToolTipsForClass(classData), [
+    classData,
+  ]);
   const numberOfIcons = toolTipArray.length + 1;
   const columns = getNumColumnsForSquare(numberOfIcons);
   const width = columns * iconWidth;
