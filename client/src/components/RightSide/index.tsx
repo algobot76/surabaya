@@ -1,4 +1,4 @@
-import React, { useEffect, useState, SetStateAction } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../../App.module.css";
 import Island from "../Island";
 import DomesticDependencyArrow from "../DependencyArrow/DomesticDependencyArrow";
@@ -64,7 +64,13 @@ const RightSide: React.FC<RightSideProps> = (props: RightSideProps) => {
       <MapInteractionCSS value={zoomValue} onChange={setZoomValue}>
         <div>
           {islands.map((island, index) => {
-            return <Island fileAnalysis={island} key={index} thisIslandPackage={island.package.name} />;
+            return (
+              <Island
+                fileAnalysis={island}
+                key={index}
+                thisIslandPackage={island.package.name}
+              />
+            );
           })}
           {visibility.showDomesticDependencies &&
             links.domesticDependencies.map((link, index) => {
@@ -73,6 +79,7 @@ const RightSide: React.FC<RightSideProps> = (props: RightSideProps) => {
                   link={link}
                   width={javaProject.width}
                   height={javaProject.height}
+                  key={index}
                 />
               );
             })}
@@ -83,6 +90,7 @@ const RightSide: React.FC<RightSideProps> = (props: RightSideProps) => {
                   link={link}
                   width={javaProject.width}
                   height={javaProject.height}
+                  key={index}
                 />
               );
             })}
@@ -93,6 +101,7 @@ const RightSide: React.FC<RightSideProps> = (props: RightSideProps) => {
                   link={link}
                   width={javaProject.width}
                   height={javaProject.height}
+                  key={index}
                 />
               );
             })}
@@ -103,6 +112,7 @@ const RightSide: React.FC<RightSideProps> = (props: RightSideProps) => {
                   link={link}
                   width={javaProject.width}
                   height={javaProject.height}
+                  key={index}
                 />
               );
             })}
