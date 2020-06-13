@@ -19,6 +19,16 @@ public class AnalyzerTests {
 	}
 
 	@Test
+	void includesInterfaces() {
+		Resource testFile = new FileSystemResource(testProjectDir.concat("simpleImplements.zip"));
+		Project resultProject = analyzer.analyze(testFile);
+		Class parsedClass = resultProject.getPackages().get("ast").getFiles().get(0).getClasses().get(0);
+		String expectedSupertype = "STATEMENT";
+		assertEquals(1, parsedClass.getSupertypes().size());
+		assertEquals(expectedSupertype, parsedClass.getSupertypes().get(0));
+	}
+
+	@Test
 	void includesSupertypes() {
 		Resource testFile = new FileSystemResource(testProjectDir.concat("simpleZip.zip"));
 		Project resultProject = analyzer.analyze(testFile);
