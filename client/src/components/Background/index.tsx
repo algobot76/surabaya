@@ -1,6 +1,5 @@
 import React from "react";
 import "./Background.css";
-import { legendWidth } from "../../util/constants";
 
 type Props = {
   width: string;

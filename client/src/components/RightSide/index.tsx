@@ -1,12 +1,9 @@
 import React, { useState } from "react";
 import styles from "../../App.module.css";
-import { JavaProject } from "../../JavaProjectTypes";
 import Island from "../Island";
 import DomesticDependencyArrow from "../DependencyArrow/DomesticDependencyArrow";
 import ForeignDependencyArrow from "../DependencyArrow/ForeignDependencyArrow";
-// import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { JavaArchipelago } from "../../lib/JavaArchipelago";
-import { legendWidth } from "../../util/constants";
 import { MapInteractionCSS } from "react-map-interaction";
 
 const RightSide = ({ javaProject }: { javaProject?: JavaArchipelago }) => {

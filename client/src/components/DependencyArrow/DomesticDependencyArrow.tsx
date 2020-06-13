@@ -1,10 +1,6 @@
 import React from "react";
 import "./DependencyArrow.css";
 import RightBoat from "../../assets/icons/boat right.png";
-import LeftBoat from "../../assets/icons/boat left.png";
-
-import Island1 from "../../assets/islands/island1.png";
-import Island2 from "../../assets/islands/island2.png";
 
 const DomesticDependencyArrow = ({ link, width, height }) => {
   const { source, target, curveX, curveY } = link;

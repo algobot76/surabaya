@@ -17,6 +17,7 @@ import ColoredFlag, { FlagType } from "../ColoredFlag";
 import Airplane from "../../assets/icons/airplane.png";
 import RedDottedLine from "../../assets/icons/red dotted line.svg";
 import WhiteDottedLine from "../../assets/icons/white dotted line.svg";
+import GreenDottedLine from "../../assets/icons/green dotted line.svg";
 const Legend = () => {
   return (
     <div className={styles.legend}>
@@ -52,6 +53,12 @@ const Legend = () => {
               />
             </div>
             <p className={styles.legendText}>Imports outside package</p>
+          </div>
+          <div className={styles.legendRow}>
+            <div>
+              <img className={styles.legendImg} src={GreenDottedLine} alt="" />
+            </div>
+            <p className={styles.legendText}>Inheritance</p>
           </div>
           <div className={styles.legendRow}>
             <img className={styles.legendImg} src={Volcano} alt="" />
