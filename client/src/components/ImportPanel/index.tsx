@@ -7,10 +7,10 @@ import { JavaArchipelago } from "../../lib/JavaArchipelago";
 // TODO: fix the dimensions of this and the Legend so they are more independent
 const Panel = styled.div`
   width: 300px;
-  height: 35vh;
+  height: calc(25vh - 4px); // 4px is approx height of scrollbar on chrome
   background-color: rgba(255, 255, 255, 0.5);
   position: absolute;
-  top: 65vh;
+  top: 75vh;
   border-top: 2px solid white;
   border-right: 2px solid white;
   display: flex;
@@ -26,7 +26,8 @@ const UploadButton = styled.input`
   padding-right: 15px;
   border: none;
   border-radius: 7px;
-  margin: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
   text-align: center;
   cursor: pointer;
   &:hover {
@@ -42,7 +43,6 @@ const AnalyzeButton = styled.button`
   padding-right: 15px;
   border: none;
   border-radius: 7px;
-  margin: 10px;
   text-align: center;
   cursor: pointer;
   &:hover {
@@ -62,6 +62,7 @@ const StyledLabel = styled.label`
   font-weight: bold;
   margin-bottom: 10px;
   text-align: center;
+  font-size: 12px;
 `;
 
 interface ImportPanelProps {
