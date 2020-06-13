@@ -1,4 +1,4 @@
-import React, { useState, SetStateAction } from "react";
+import React, { useState } from "react";
 import styles from "../../App.module.css";
 import Island from "../Island";
 import DomesticDependencyArrow from "../DependencyArrow/DomesticDependencyArrow";
@@ -7,6 +7,7 @@ import InheritanceArrow from "../DependencyArrow/InheritanceArrow";
 import { JavaArchipelago } from "../../lib/JavaArchipelago";
 import { MapInteractionCSS } from "react-map-interaction";
 import { Visibility } from "../../App";
+import CodeDisplay from "../CodeDisplay";
 
 const RightSide = ({
   javaProject,
@@ -16,6 +17,7 @@ const RightSide = ({
   arrowVisibility: any;
 }) => {
   const [visibility]: [Visibility] = arrowVisibility;
+  const [code, setCode] = useState("");
   const islands = javaProject.islands;
   const links = javaProject.links;
   const width = Math.max(window.innerWidth - 300, javaProject.width);
@@ -44,7 +46,9 @@ const RightSide = ({
       <MapInteractionCSS value={zoomValue} onChange={setZoomValue}>
         <div>
           {islands.map((island, index) => {
-            return <Island fileAnalysis={island} key={index} />;
+            return (
+              <Island fileAnalysis={island} key={index} setCode={setCode} />
+            );
           })}
           {visibility.showDomesticDependencies &&
             links.domesticDependencies.map((link, index) => {
@@ -88,6 +92,7 @@ const RightSide = ({
             })}
         </div>
       </MapInteractionCSS>
+      <CodeDisplay code={code} />
     </div>
   );
 };
