@@ -1,4 +1,4 @@
-import { marginSize, iconWidth } from "./constants";
+import { marginSize, iconWidth, tooltipScale } from "./constants";
 import { JavaFile, JavaClass } from "../JavaProjectTypes";
 
 export function getNumColumnsForSquare(numberItems) {
@@ -42,8 +42,7 @@ export function getTooltipWidth(fileData: JavaFile): number {
   const avgClusterWidth = totalClusterWidth / clusterNum;
   const numberOfClusters = fileData.classes.length;
   const columns = getNumColumnsForSquare(numberOfClusters);
-  const width = avgClusterWidth * columns * 1.2;
-  return width;
+  return avgClusterWidth * columns * tooltipScale;
 }
 
 function getTotalNumberOfLinesInFile(fileAnalysis: any): number {
