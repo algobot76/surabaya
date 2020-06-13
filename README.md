@@ -8,11 +8,30 @@ Follow these steps to set up the project:
 1. `cd surabaya`
 1. `cp scripts/pre-commit .git/hooks/pre-commit`
 1. `chmod +x .git/hooks/pre-commit`
+1. `cd surabaya-site`
 1. `./mvnw clean install`
+1. `cd ..`
+1. `cd surabaya-client`
+1. `yarn install`
 
-To start the program: `./mvnw spring-boot:run`
+To start the backend program:
+
+1. Go to the `surabaya-site` sub-directory
+1. Run `./mvnw spring-boot:run`
+
+To start the frontend program:
+
+1. Go to the `surabaya-client` sub-directory
+1. Run `yarn start`
 
 If you are using IntelliJ IDEA, please install this plugin that provides formatter support: [spring-io/spring-javaformat](https://github.com/spring-io/spring-javaformat#intellij-idea).
+
+## Docker
+
+To run the entire app using Docker:
+
+1. Go to the project root directory.
+1. Run `docker-compose up`
 
 ## Representation of Java Project
 
