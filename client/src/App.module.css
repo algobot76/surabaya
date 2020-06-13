@@ -16,6 +16,13 @@
   position: absolute;
   left: 300px;
   overflow: auto;
+  top: 0px;
+}
+
+.zoomBtn {
+  background-color: darkblue;
+  border: none;
+  color: white;
 }
 
 .zoomBtn {

@@ -8826,6 +8826,16 @@ react-is@^16.12.0, react-is@^16.7.0, react-is@^16.8.1, react-is@^16.8.4:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
+react-map-interaction@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/react-map-interaction/-/react-map-interaction-2.0.0.tgz#093b3843741669b1b306e8cc5ce6725eada24bbc"
+  integrity sha512-9KeyPHd95INODNUsx77/345vxOfN1WOtcjWXdxT92Sw+Y1GldVfmb4HnzNVtWoJg3T0Q1Yt3Sthq9IPN9OYy5w==
+
+react-pinch-and-zoom@^1.2.5:
+  version "1.2.5"
+  resolved "https://registry.yarnpkg.com/react-pinch-and-zoom/-/react-pinch-and-zoom-1.2.5.tgz#2b3fa151fe874aea650dfaf3142ad84f32255a74"
+  integrity sha512-z469MmfQU69sZMKzOG/le6zH5KkwqjTiEHO6ggxpl8tP50G1zD6TqhYSvjdEP60NgzOf+MAp6o+bicvU6wZllA==
+
 react-scripts@3.4.1:
   version "3.4.1"
   resolved "https://registry.yarnpkg.com/react-scripts/-/react-scripts-3.4.1.tgz#f551298b5c71985cc491b9acf3c8e8c0ae3ada0a"
