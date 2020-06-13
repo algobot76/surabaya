@@ -1,0 +1,28 @@
+version: '3.7'
+
+services:
+  site:
+    build:
+      context: surabaya-site
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    restart: always
+    networks:
+      - app
+  client:
+    build:
+      context: surabaya-client
+      dockerfile: Dockerfile
+      args:
+        REACT_APP_API_BASE_URL: http://127.0.0.1:8080/
+    ports:
+      - "9090:80"
+    restart: always
+    depends_on:
+      - site
+    networks:
+      - app
+
+networks:
+  app:
