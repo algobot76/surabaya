@@ -6,3 +6,12 @@ export const islandInterpackageDistance = 200;
 export const manyBodyStrength = -100; // negative is repulsion
 export const simIterations = 50;
 export const fileNameSpace = 15;
+export const randomColorArray = [
+  "blue",
+  "yellow",
+  "green",
+  "darkblue",
+  "lightgreen",
+  "brown",
+  "pink",
+];
