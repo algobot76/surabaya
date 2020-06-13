@@ -12,11 +12,14 @@ import CodeDisplay from "../CodeDisplay";
 const RightSide = ({
   javaProject,
   arrowVisibility,
+  codeVisibility,
 }: {
   javaProject?: JavaArchipelago;
   arrowVisibility: any;
+  codeVisibility: any;
 }) => {
   const [visibility]: [Visibility] = arrowVisibility;
+  const [codeOpened] = codeVisibility;
   const islands = javaProject.islands;
   const links = javaProject.links;
   const width = Math.max(window.innerWidth - 300, javaProject.width);
@@ -89,7 +92,8 @@ const RightSide = ({
             })}
         </div>
       </MapInteractionCSS>
-      <CodeDisplay />
+
+      {codeOpened && <CodeDisplay />}
     </div>
   );
 };

@@ -1,7 +1,7 @@
 .code-display {
-  bottom: 0;
+  top: 0;
   right: 0;
-  width: 20vw !important;
+  width: 30vw !important;
   height: 100vh !important;
   position: absolute !important;
 }

@@ -21,6 +21,7 @@ function App() {
   let height = "100vh";
 
   const arrowVisibility = useState<Visibility>(initialVisibility);
+  const codeVisibility = useState(false);
   if (data) {
     width = `${data.width + legendWidth + 150}px`;
     height = `${data.height + 150}px`;
@@ -31,13 +32,17 @@ function App() {
       <Background width={width} height={height} />
       <div className={styles.App}>
         <div className={styles.leftSide}>
-          <Legend arrowVisibility={arrowVisibility} />
+          <Legend
+            arrowVisibility={arrowVisibility}
+            codeVisibility={codeVisibility}
+          />
           <ImportPanel setData={setData} />
         </div>
         {data && (
           <RightSide
             javaProject={data}
             arrowVisibility={arrowVisibility}
+            codeVisibility={codeVisibility}
           ></RightSide>
         )}
       </div>
