@@ -42,6 +42,9 @@ public class StaticAnalysisVisitor extends VoidVisitorAdapter<Project> {
 		}
 		logger.info(String.format("Parsing %s\n", n.getName()));
 		Class newClass = new Class(n.getName().toString(), type, getAccessModifier(n.getModifiers()), lineCount);
+		n.getExtendedTypes().forEach(node -> {
+			newClass.addSupertype(node.getName().getIdentifier());
+		});
 		currentFile.addClass(newClass);
 		currentClass = newClass;
 
@@ -88,7 +91,7 @@ public class StaticAnalysisVisitor extends VoidVisitorAdapter<Project> {
 	@Override
 	public void visit(MethodDeclaration n, Project project) {
 		Method newMethod = new Method(n.getName().getIdentifier().trim(), getAccessModifier(n.getModifiers()),
-				n.getType().asString());
+				n.getType().asString(), n.toString());
 		for (com.github.javaparser.ast.body.Parameter p : n.getParameters()) {
 			Parameter param = new Parameter(p.getName().asString().trim(), p.getType().asString().trim());
 			newMethod.addParameter(param);
@@ -99,7 +102,7 @@ public class StaticAnalysisVisitor extends VoidVisitorAdapter<Project> {
 	@Override
 	public void visit(ConstructorDeclaration n, Project project) {
 		Constructor constructor = new Constructor(n.getName().getIdentifier().trim(),
-				getAccessModifier(n.getModifiers()));
+				getAccessModifier(n.getModifiers()), n.toString());
 		for (com.github.javaparser.ast.body.Parameter p : n.getParameters()) {
 			Parameter param = new Parameter(p.getName().asString().trim(), p.getType().asString().trim());
 			constructor.addParameter(param);

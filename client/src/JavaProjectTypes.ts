@@ -26,12 +26,14 @@ export type JavaMethod = {
   access_modifier: JavaAccessModifier; // snake case to match JSON
   parameters: JavaParameter[];
   returnType: string;
+  src: string;
 };
 
 export type JavaContructor = {
   name: string;
   access_modifier: JavaAccessModifier; // snake case to match JSON
   parameters: JavaParameter[];
+  src: string;
 };
 
 export type JavaClass = {
@@ -42,6 +44,7 @@ export type JavaClass = {
   fields: JavaField[];
   methods: JavaMethod[];
   constructors: JavaContructor[];
+  supertypes: string[];
 };
 
 export type JavaFile = {

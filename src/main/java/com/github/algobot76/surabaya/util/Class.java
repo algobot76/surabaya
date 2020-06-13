@@ -19,6 +19,8 @@ public class Class {
 	@JsonProperty("line_count")
 	private final int lineCount;
 
+	private final List<String> supertypes = new ArrayList<>();
+
 	private final List<Field> fields = new ArrayList<>();
 
 	private final List<Method> methods = new ArrayList<>();
@@ -30,6 +32,10 @@ public class Class {
 		this.type = type;
 		this.accessModifier = AccessModifier.fromString(accessModifier);
 		this.lineCount = lineCount;
+	}
+
+	public void addSupertype(String type) {
+		supertypes.add(type);
 	}
 
 	public void addField(Field f) {
@@ -59,6 +65,8 @@ public class Class {
 		boolean equalMethods = c.getMethods().containsAll(methods) && c.getMethods().size() == methods.size();
 		boolean equalConstructors = c.getConstructors().containsAll(constructors)
 				&& c.getConstructors().size() == constructors.size();
+		boolean equalSupertypes = c.getSupertypes().containsAll(supertypes)
+				&& c.getSupertypes().size() == supertypes.size();
 		return c.getName().equals(name) && c.getType().equals(type) && c.getLineCount() == lineCount
 				&& c.getAccessModifier() == accessModifier && equalFields && equalMethods && equalConstructors;
 	}
