@@ -3,10 +3,10 @@ import "./DependencyArrow.css";
 
 const InheritanceArrow = ({ link, width, height }) => {
   const { source, target, curveX, curveY } = link;
-  const sX = source.topLeftCorner.x + 20;
-  const sY = source.topLeftCorner.y + 20;
-  const tX = target.topLeftCorner.x + 20;
-  const tY = target.topLeftCorner.y + 20;
+  const sX = source.center.x;
+  const sY = source.center.y;
+  const tX = target.center.x;
+  const tY = target.center.y;
 
   return (
     <svg

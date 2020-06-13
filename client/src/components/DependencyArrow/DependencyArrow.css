@@ -3,26 +3,26 @@
   stroke: white;
   stroke-opacity: 0.6;
   stroke-dasharray: 10;
-  stroke-width: 3;
+  stroke-width: 2;
   stroke-linecap: round;
   fill: none;
 }
 
 .foreignImportLine {
   animation: dash 5s linear infinite;
-  stroke: palevioletred;
+  stroke: #ff6799;
   stroke-opacity: 0.6;
   stroke-dasharray: 10;
-  stroke-width: 5;
+  stroke-width: 3;
   stroke-linecap: round;
   fill: none;
 }
 .inheritanceImportLine {
   animation: dash 5s linear infinite;
-  stroke: #70dba1;
+  stroke: #01ff76;
   stroke-opacity: 0.6;
   stroke-dasharray: 5;
-  stroke-width: 5;
+  stroke-width: 3;
   stroke-linecap: round;
   fill: none;
 }
