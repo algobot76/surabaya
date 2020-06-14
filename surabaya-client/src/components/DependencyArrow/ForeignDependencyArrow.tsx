@@ -19,7 +19,7 @@ const ForeignDependencyArrow = ({ link, width, height }) => {
         className="foreignImportLine"
         d={`M${tX},${tY} Q${curveX || 0},${curveY || 0} ${sX},${sY}`}
       />
-      <image href={Airplane} width="40px" x="-20px" y="-20px">
+      <image href={Airplane} width="70px" x="-20px" y="-20px">
         <animateMotion
           dur="10s"
           repeatCount="indefinite"

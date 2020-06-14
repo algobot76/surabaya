@@ -20,7 +20,7 @@ const DomesticDependencyArrow = ({ link, width, height }) => {
         className="importLine"
         d={`M${tX},${tY} Q${curveX || 0},${curveY || 0} ${sX},${sY}`}
       />
-      <image href={RightBoat} width="30px" x="-15px" y="-15px">
+      <image href={RightBoat} width="50px" x="-15px" y="-15px">
         <animateMotion
           dur="10s"
           repeatCount="indefinite"
