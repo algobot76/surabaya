@@ -17,8 +17,7 @@ import {
 import {
   manyBodyStrength,
   simIterations,
-  islandInterpackageDistance,
-  domesticIslandDistance,
+  collisionRepulsionStrength,
 } from "../util/constants";
 import {
   getFullyQualifiedName,
@@ -114,6 +113,8 @@ export class JavaArchipelago {
 
   private normalizePositions() {
     const padding = 50;
+    const paddingLeft = 3 * padding; // higher because paths can curve leftwards from leftmost island
+    const paddingtop = 2 * padding; // higher because paths can curve upwards from topmost island
     const heightAdjustment = 15;
 
     let minX = Infinity,
@@ -127,8 +128,8 @@ export class JavaArchipelago {
       maxY = Math.max(maxY, island.y + island.width / 2 - heightAdjustment);
     });
 
-    minX = Math.round(minX) - padding;
-    minY = Math.round(minY) - padding;
+    minX = Math.round(minX) - paddingLeft;
+    minY = Math.round(minY) - paddingtop;
     maxX = Math.round(maxX) + padding;
     maxY = Math.round(maxY) + padding;
 
@@ -168,7 +169,9 @@ export class JavaArchipelago {
     // Use radius for collision
     sim.force(
       "collision",
-      forceCollide<JavaIsland>().radius((island) => island.radius)
+      forceCollide<JavaIsland>()
+        .radius((island) => island.radius)
+        .strength(collisionRepulsionStrength)
     );
 
     // General repulsion force between islands
@@ -182,32 +185,21 @@ export class JavaArchipelago {
       "samePackage",
       forceLink<JavaIsland, SimulationLinkDatum<JavaIsland>>(
         this.links.samePackage
-      ).distance(this.linkDistance(domesticIslandDistance))
+      ).distance(1)
     );
 
-    sim.force(
-      "domesticDependency",
-      forceLink<JavaIsland, SimulationLinkDatum<JavaIsland>>(
-        this.links.domesticDependencies
-      ).distance(this.linkDistance(domesticIslandDistance))
-    );
     sim.force(
       "foreignDependency",
       forceLink<JavaIsland, SimulationLinkDatum<JavaIsland>>(
         this.links.foreignDependencies
-      ).distance(this.linkDistance(islandInterpackageDistance))
+      )
     );
-    sim.force(
-      "domesticInheritance",
-      forceLink<JavaIsland, SimulationLinkDatum<JavaIsland>>(
-        this.links.domesticInheritances
-      ).distance(this.linkDistance(domesticIslandDistance))
-    );
+
     sim.force(
       "foreignInheritance",
       forceLink<JavaIsland, SimulationLinkDatum<JavaIsland>>(
         this.links.foreignInheritances
-      ).distance(this.linkDistance(islandInterpackageDistance))
+      )
     );
 
     // Run simulations
