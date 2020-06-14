@@ -2,16 +2,16 @@ import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 
-const StyledPackageNameBanner = styled.div<{ width }>`
+const StyledPackageNameBanner = styled.div`
   position: absolute;
   top: 0px;
   left: 0px;
   height: 40px;
+  width: calc(100% - 300px);
   line-height: 40px;
   background-color: rgba(255, 255, 255, 0.5);
   border-right: 2px solid white;
   border-bottom: 2px solid white;
-  width: ${(props) => props.width}px;
   text-align: center;
   align-items: center;
   font-weight: bold;
@@ -23,7 +23,6 @@ const PackageText = styled.span<{ color: string }>`
 `;
 
 interface PackageNameBannerProps {
-  width: number;
   currentPackage?: string;
   packageColors?: any;
 }
@@ -31,13 +30,13 @@ interface PackageNameBannerProps {
 const PackageNameBanner: React.FC<PackageNameBannerProps> = (
   props: PackageNameBannerProps
 ) => {
-  const { width, currentPackage, packageColors } = props;
+  const { currentPackage, packageColors } = props;
   const textColor = packageColors?.[currentPackage];
 
   return (
     <>
       {currentPackage ? (
-        <StyledPackageNameBanner width={width}>
+        <StyledPackageNameBanner>
           Current package:{" "}
           <PackageText color={textColor}>{currentPackage}</PackageText>
         </StyledPackageNameBanner>
