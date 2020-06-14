@@ -1,4 +1,9 @@
-import { marginSize, iconWidth, tooltipScale } from "./constants";
+import {
+  marginSize,
+  iconWidth,
+  tooltipScale,
+  collisionRadiusFactor,
+} from "./constants";
 import { JavaFile, JavaClass } from "../JavaProjectTypes";
 
 export function getNumColumnsForSquare(numberItems) {
@@ -70,5 +75,5 @@ export function getIslandWidth(javaFile: JavaFile): number {
 
 // For collision boundary
 export function getApproxRadiusFromWidth(width: number) {
-  return width * 1.3;
+  return width * collisionRadiusFactor;
 }

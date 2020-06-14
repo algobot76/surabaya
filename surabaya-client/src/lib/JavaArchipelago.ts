@@ -18,6 +18,7 @@ import {
   manyBodyStrength,
   simIterations,
   collisionRepulsionStrength,
+  clusterFactor,
 } from "../util/constants";
 import {
   getFullyQualifiedName,
@@ -192,14 +193,14 @@ export class JavaArchipelago {
       "foreignDependency",
       forceLink<JavaIsland, SimulationLinkDatum<JavaIsland>>(
         this.links.foreignDependencies
-      )
+      ).distance(clusterFactor)
     );
 
     sim.force(
       "foreignInheritance",
       forceLink<JavaIsland, SimulationLinkDatum<JavaIsland>>(
         this.links.foreignInheritances
-      )
+      ).distance(clusterFactor)
     );
 
     // Run simulations
