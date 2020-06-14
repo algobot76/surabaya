@@ -15,7 +15,7 @@
   display: block;
   position: absolute;
   left: 300px;
-  overflow: auto;
+  overflow: hidden;
   top: 0px;
 }
 
