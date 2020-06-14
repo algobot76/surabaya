@@ -1,15 +1,23 @@
 .code-display {
-  top: 0;
-  right: 0;
+  top: 40px;
+  width: 30vw;
+  left: calc(70vw - 300px);
   height: 100vh !important;
   position: absolute !important;
+  display: flex;
 }
 
 .CodeMirror {
-  top: 40px;
-  height: 700px;
-  width: 600px;
+  position: absolute;
+  flex: 1;
+  right: 0;
+  width: 30vw;
+  height: 60vh;
   background-color: rgba(255, 255, 255, 0.7);
+}
+
+.CodeMirror-scroll {
+  margin: 0;
 }
 
 .CodeMirror-gutters {
