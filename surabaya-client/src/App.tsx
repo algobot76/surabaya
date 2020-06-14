@@ -7,6 +7,7 @@ import RightSide from "./components/RightSide";
 import { JavaArchipelago } from "./lib/JavaArchipelago";
 import { Background } from "./components/Background";
 import { legendWidth } from "./util/constants";
+import WelcomeToSurabaya from "./components/WelcomeToSurabaya";
 
 const initialVisibility = {
   showDomesticDependencies: false,
@@ -38,12 +39,14 @@ function App() {
           />
           <ImportPanel setData={setData} />
         </div>
-        {data && (
+        {data ? (
           <RightSide
             javaProject={data}
             arrowVisibility={arrowVisibility}
             codeVisibility={codeVisibility}
           ></RightSide>
+        ) : (
+          <WelcomeToSurabaya />
         )}
       </div>
     </RecoilRoot>
