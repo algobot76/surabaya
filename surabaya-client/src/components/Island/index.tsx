@@ -25,7 +25,7 @@ const IslandContainer = styled.div<{ minWidth }>`
   align-items: center;
 `;
 
-const IslandImage = styled.img<{ width; isHighlighted }>`
+const IslandImage = styled.img<{ width }>`
   width: ${(props) => `${props.width}px`};
   height: ${(props) => `${props.width}px`};
   position: absolute;
