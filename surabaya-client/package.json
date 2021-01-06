@@ -9,7 +9,7 @@
     "@types/d3-force": "^1.2.1",
     "@types/jest": "^25.2.3",
     "@types/styled-components": "^5.1.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "codemirror": "^5.54.0",
     "d3-force": "^2.0.1",
     "react": "^16.13.1",
